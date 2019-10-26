@@ -39,10 +39,6 @@ class Table:
             else:
                 return None
 
-    def has(self, key: str) -> bool:
-        with self.lock:
-            return key in self.tuples.keys()
-
     def remove(self, key: str) -> bool:
         with self.lock:
             if key in self.tuples:
@@ -50,11 +46,3 @@ class Table:
                 return True
             else:
                 return False
-
-    def save(self):
-        # TODO ... save to json file
-        pass
-
-    def load(self):
-        # TODO ... load from json file
-        pass

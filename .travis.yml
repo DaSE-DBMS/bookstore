@@ -1,0 +1,22 @@
+language: python
+python:
+  - "3.6"      # current default Python on Travis CI
+  - "3.7"
+  - "3.8"
+  - "3.8-dev"  # 3.8 development branch
+  - "nightly"  # nightly build
+
+# Install the codecov pip dependency
+install:
+  - pip install -r requirements.txt
+
+# Run the unit test
+script:
+  - export PATHONPATH=`pwd`
+  - coverage  run --timid -m pytest
+
+# Push the results back to codecov
+after_success:
+  - coverage combine
+  - coverage report
+  - codecov
