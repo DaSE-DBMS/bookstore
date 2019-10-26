@@ -121,7 +121,7 @@ Body:
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
 message | string | 返回错误消息，成功时为"ok" | N
-token | string | 访问token，用户登录后每个请求应在headers中传入这个token | 成功时不为空
+token | string | 访问token，用户登录后每个需要授权的请求应在headers中传入这个token | 成功时不为空
 
 ## Password-更改密码
 

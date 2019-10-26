@@ -6,7 +6,6 @@ import threading
 
 class Table:
     table_name: str
-    path: str
     tuples: Dict[str, tuple.Tuple]
     lock: threading.Lock
 
@@ -14,10 +13,6 @@ class Table:
         self.table_name = table_name
         self.tuples = dict()
         self.lock = threading.Lock()
-
-    def __json_path__(self):
-        json = "{}.json".format(self.table_name)
-        return path.join(self.path, json)
 
     # return value (put success, previous value in dict)
     def put_absent(self, row: tuple.Tuple) -> (bool, tuple.Tuple):
@@ -39,10 +34,6 @@ class Table:
             else:
                 return None
 
-    def has(self, key: str) -> bool:
-        with self.lock:
-            return key in self.tuples.keys()
-
     def remove(self, key: str) -> bool:
         with self.lock:
             if key in self.tuples:
@@ -50,11 +41,3 @@ class Table:
                 return True
             else:
                 return False
-
-    def save(self):
-        # TODO ... save to json file
-        pass
-
-    def load(self):
-        # TODO ... load from json file
-        pass
