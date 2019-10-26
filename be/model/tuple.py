@@ -1,0 +1,2 @@
+class Tuple:
+    key: str
