@@ -11,8 +11,7 @@ def login():
     username = request.json.get("username", "")
     password = request.json.get("password", "")
     terminal = request.json.get("terminal", "")
-    u = user.User(username=username, password=password, terminal=terminal)
-    ok, token = u.login()
+    ok, token = user.login(username=username, password=password, terminal=terminal)
     if ok:
         return jsonify({"message": "ok", "token": token}), 200
     else:
@@ -23,11 +22,7 @@ def login():
 def logout():
     username: str = request.json.get("username", "")
     token: str = request.headers.get("token", "")
-    u = user.User(username=username, token=token)
-    if token == "":
-        return jsonify({"message": "Invalid token"}), 401
-
-    if u.logout():
+    if user.logout(username=username, token=token):
         return jsonify({"message": "ok"}), 200
     else:
         return jsonify({"message": "Invalid token"}), 401
@@ -37,8 +32,7 @@ def logout():
 def register():
     username = request.json.get("username", "")
     password = request.json.get("password", "")
-    u = user.User(username=username, password=password)
-    if u.register():
+    if user.register(username=username, password=password):
         return jsonify({"message": "ok"}), 200
     else:
         return jsonify({"message": "fail, username has exists"}), 401
@@ -48,8 +42,20 @@ def register():
 def unregister():
     username = request.json.get("username", "")
     password = request.json.get("password", "")
-    u = user.User(username=username, password=password)
-    if u.unregister():
+    if user.unregister(username=username, password=password):
+        return jsonify({"message": "ok"}), 200
+    else:
+        return jsonify({"message": "Invalid username or password"}), 401
+
+
+@bp_auth.route("/password", methods=["POST"])
+def change_password():
+    username = request.json.get("username", "")
+    old_password = request.json.get("oldPassword", "")
+    new_password = request.json.get("newPassword", "")
+    if user.change_password(
+        username=username, old_password=old_password, new_password=new_password
+    ):
         return jsonify({"message": "ok"}), 200
     else:
         return jsonify({"message": "Invalid username or password"}), 401

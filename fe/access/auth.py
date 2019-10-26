@@ -29,7 +29,8 @@ class Auth:
             "newPassword": new_password,
         }
         url = urljoin(self.url_prefix, "password")
-        requests.post(url, json=json)
+        r = requests.post(url, json=json)
+        return r.status_code == 200
 
     def logout(self, username: str, token: str) -> bool:
         json = {"username": username}

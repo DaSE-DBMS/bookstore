@@ -40,12 +40,9 @@ class User(tuple.Tuple):
     def __init__(self, username, password="", token="", terminal=""):
         self.key = username
         self.username = username
-        if password != "":
-            self.password = password
-        if token != "":
-            self.token = token
-        if terminal != "":
-            self.terminal = terminal
+        self.password = password
+        self.token = token
+        self.terminal = terminal
 
     def check_token(self, token) -> bool:
         try:
@@ -63,42 +60,70 @@ class User(tuple.Tuple):
             return False
         return False
 
-    def login(self) -> (bool, str):
-        u: User = store.get_row(User.__name__, self.username)
-        if u is None:
-            return False, ""
-
-        if u.password == self.password:
-            u.token = jwt_encode(self.username, self.terminal)
-            u.terminal = self.terminal
-            return True, u.token
+    def login(self, password: str, terminal: str) -> (bool, str):
+        if self.password == password:
+            self.token = jwt_encode(self.username, terminal)
+            self.terminal = terminal
+            return True, self.token
         return False, ""
 
-        return u.login(password)
+        return self.login(password)
 
-    def logout(self) -> bool:
-        u: User = store.get_row(User.__name__, self.username)
-        if u is None:
+    def logout(self, token: str) -> bool:
+        if not self.check_token(token):
             return False
-
-        if not u.check_token(self.token):
-            return False
-
-        u.token = jwt_encode(u.username, terminal="default")
+        self.token = jwt_encode(self.username, terminal="default")
         return True
 
-    def register(self) -> bool:
-        u = User(self.username, self.password)
-        ok, _ = store.put_row_absent(User.__name__, u)
-        return ok
-
-    def unregister(self) -> bool:
-        u: User = store.get_row(User.__name__, self.username)
-        if u is None:
-            return False
-
-        if u.password == self.password:
+    def unregister(self, password: str) -> bool:
+        if password == self.password:
             store.del_row(User.__name__, self.username)
             return True
         else:
             return False
+
+    def change_password(self, old_password: str, new_password: str) -> bool:
+        if self.password != old_password:
+            return False
+
+        self.password = new_password
+        self.token = jwt_encode(self.username, self.terminal)
+        return True
+
+
+def login(username: str, password: str, terminal: str):
+    u: User = store.get_row(User.__name__, username)
+    if u is None:
+        return False, ""
+    else:
+        return u.login(password, terminal)
+
+
+def logout(username: str, token: str):
+    u: User = store.get_row(User.__name__, username)
+    if u is None:
+        return False
+    else:
+        return u.logout(token)
+
+
+def register(username: str, password: str) -> bool:
+    u = User(username, password)
+    ok, _ = store.put_row_absent(User.__name__, u)
+    return ok
+
+
+def unregister(username: str, password: str) -> bool:
+    u: User = store.get_row(User.__name__, username)
+    if u is None:
+        return False
+    else:
+        return u.unregister(password)
+
+
+def change_password(username: str, old_password: str, new_password: str) -> bool:
+    u: User = store.get_row(User.__name__, username)
+    if u is not None:
+        return u.change_password(old_password, new_password)
+    else:
+        return False

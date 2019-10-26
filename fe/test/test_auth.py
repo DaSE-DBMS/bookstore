@@ -1,21 +1,25 @@
 import pytest
+import time
 from fe.access import auth
 from fe import conf
 
 
 @pytest.mark.parametrize(
-    ("username", "password", "terminal"),
+    "username",
     [
-        ("jecl", "qwertyuiohhlxgahx", "macbook"),
-        ("xtybx", "xxaegsxxegsersgas", "iphoneX"),
-        ("hao2145", "xagkma;jfieisae33", "dell-pc"),
+        "test_login1_{}".format(time.time()),
+        "test_login2_{}".format(time.time()),
+        "test_login3_{}".format(time.time()),
     ],
 )
-def test_auth(username: str, password: str, terminal: str):
+def test_login(username: str):
     a = auth.Auth(conf.URL)
     # register a user
-    register_ok = a.register(username, password)
-    assert register_ok
+
+    password = "password_" + username
+    terminal = "terminal_" + username
+
+    assert a.register(username, password)
 
     # login right
     login_ok, token = a.login(username, password, terminal)
@@ -43,26 +47,57 @@ def test_auth(username: str, password: str, terminal: str):
     logout_ok = a.logout(username, my_token)
     assert logout_ok
 
-    # login wrong username
-    unregister_ok = a.unregister(username + "xxx", password)
-    assert not unregister_ok
 
-    # login wrong password
-    unregister_ok = a.unregister(username, password + "xxx")
-    assert not unregister_ok
+@pytest.mark.parametrize(
+    "username",
+    [
+        "test_password1_{}".format(time.time()),
+        "test_password2_{}".format(time.time()),
+        "test_password3_{}".format(time.time()),
+    ],
+)
+def test_password(username: str):
+    a = auth.Auth(conf.URL)
+    # register a user
 
-    # unregister
-    unregister_ok = a.unregister(username, password)
-    assert unregister_ok
+    old_password = "old_password_" + username
+    new_password = "new_password_" + username
+    terminal = "terminal_" + username
 
-    # register a user same username
-    register_ok = a.register(username, password)
-    assert register_ok
+    assert a.register(username, old_password)
 
-    # register a user same username
-    register_ok = a.register(username, password)
-    assert not register_ok
+    assert a.password(username, old_password, new_password)
 
-    # unregister
-    unregister_ok = a.unregister(username, password)
-    assert unregister_ok
+    ok, new_token = a.login(username, old_password, terminal)
+    assert not ok
+
+    ok, new_token = a.login(username, new_password, terminal)
+    assert ok
+
+    assert a.logout(username, new_token)
+
+
+@pytest.mark.parametrize(
+    "username",
+    [
+        "test_register1_{}".format(time.time()),
+        "test_register2_{}".format(time.time()),
+        "test_register3_{}".format(time.time()),
+    ],
+)
+def test_register(username: str):
+    a = auth.Auth(conf.URL)
+
+    password = "password_" + username
+
+    assert a.register(username, password)
+
+    assert not a.unregister(username + "xxx", password)
+
+    assert not a.unregister(username, password + "xxx")
+
+    assert a.unregister(username, password)
+
+    assert a.register(username, password)
+
+    assert a.unregister(username, password)
