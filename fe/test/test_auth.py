@@ -66,6 +66,8 @@ def test_password(username: str):
 
     assert a.register(username, old_password)
 
+    assert not a.password(username + "_x", old_password, new_password)
+    assert not a.password(username, old_password + "_x", new_password)
     assert a.password(username, old_password, new_password)
 
     ok, new_token = a.login(username, old_password, terminal)
@@ -92,9 +94,11 @@ def test_register(username: str):
 
     assert a.register(username, password)
 
-    assert not a.unregister(username + "xxx", password)
+    assert not a.register(username, password + "_x")
 
-    assert not a.unregister(username, password + "xxx")
+    assert not a.unregister(username + "_x", password)
+
+    assert not a.unregister(username, password + "_x")
 
     assert a.unregister(username, password)
 

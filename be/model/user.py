@@ -46,19 +46,16 @@ class User(tuple.Tuple):
 
     def check_token(self, token) -> bool:
         try:
+            if self.token != token:
+                return False
             jwt_text = jwt_decode(encoded_token=token, username=self.username)
-            if (
-                jwt_text["username"] == self.username
-                and jwt_text["terminal"] == self.terminal
-            ):
-                ts = jwt_text["timestamp"]
-                if ts is not None:
-                    now = time.time()
-                    if self.token_lifetime > now - ts >= 0:
-                        return True
+            ts = jwt_text["timestamp"]
+            if ts is not None:
+                now = time.time()
+                if self.token_lifetime > now - ts >= 0:
+                    return True
         except jwt.exceptions.InvalidSignatureError:
             return False
-        return False
 
     def login(self, password: str, terminal: str) -> (bool, str):
         if self.password == password:
@@ -66,8 +63,6 @@ class User(tuple.Tuple):
             self.terminal = terminal
             return True, self.token
         return False, ""
-
-        return self.login(password)
 
     def logout(self, token: str) -> bool:
         if not self.check_token(token):
