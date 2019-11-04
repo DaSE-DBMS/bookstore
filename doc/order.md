@@ -107,6 +107,7 @@ Body:
 ```
 {
     "username":"[user name]",
+    “merchantname":"[merchant name]",
     "goodsname":"[goods name]"
 }
 ```
@@ -114,7 +115,8 @@ Body:
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
 username | string | 用户名 | N
-goodsname | string | 商品名 | N
+merchantname | string | 商家名 | N
+goodsname | string | 商品名 | N 
 
 #### Response
 
@@ -151,13 +153,15 @@ Headers:
 Body:
 ```
 {
-    “goodsset":[goods set]
+	"username":"[user name]",
+    “goodsset":"[goods set]"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-goodsset | set  | 若干商品名 | N
+username | string | 用户名 | N
+goodsset | set | 若干商品名 | N 
 
 #### Response
 
