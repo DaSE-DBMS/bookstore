@@ -5,12 +5,6 @@ POST http://[address]/goods/getmerchantgoods
 
 #### Request
 
-Headers:
-
-| key   | 类型   | 描述      |
-| ----- | ------ | --------- |
-| token | string | 访问token |
-
 Body:
 ```
 {
@@ -30,18 +24,19 @@ Status Code:
 码 | 描述
 --- | ---
 200 | 获取成功 
-401 | 获取失败，商家不存在 
+501 | 获取失败，商家不存在 
+502 | 获取失败，商家无商品 
 
 
 Body:
 ```
 {
-    "message":"[error message]"
+    "message":"[error message/goods info]"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-message | string | 返回错误消息，成功时为"ok" | N
+message | string | 返回错误消息，成功时返回此商家全部商品信息 | N
 
 ## getGoods-搜索商品
 
@@ -49,12 +44,6 @@ message | string | 返回错误消息，成功时为"ok" | N
 POST http://[address]/goods/getgoods
 
 #### Request
-
-Headers:
-
-| key   | 类型   | 描述      |
-| ----- | ------ | --------- |
-| token | string | 访问token |
 
 Body:
 ```
@@ -75,18 +64,18 @@ Status Code:
 码 | 描述
 --- | ---
 200 | 搜索成功 
-401 | 搜索失败，暂无相关商品 
+501 | 搜索失败，暂无相关商品 
 
 
 Body:
 ```
 {
-    "message":"[error message]"
+    "message":"[error message/goods info]"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-message | string | 返回错误消息，成功时为"ok" | N
+message | string | 返回错误消息，成功时返回商品信息 | N
 
 ## getGoodsDetails-商品详情（图+文）
 
@@ -95,17 +84,11 @@ POST http://[address]/goods/getgoodsdetails
 
 #### Request
 
-Headers:
-
-| key   | 类型   | 描述      |
-| ----- | ------ | --------- |
-| token | string | 访问token |
-
 Body:
 ```
 {
     "merchantname":"[merchant name]",
-    "goodsname":"[goods name]",
+    "goodsname":"[goods name]"
 }
 ```
 
@@ -121,17 +104,17 @@ Status Code:
 码 | 描述
 --- | ---
 200 | 查询成功 
-401 | 查询失败，商家不存在或商品不存在 
+501 | 查询失败，商品没有详细信息 
 
 Body:
 ```
 {
-    "message":"[error message]"
+    "message":"[error message/goods details info]"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-message | string | 返回错误消息，成功时为"ok" | N
+message | string | 返回错误消息，成功时返回商品详细信息 | N
 
 ## getCategory-类别查询
 
@@ -139,12 +122,6 @@ message | string | 返回错误消息，成功时为"ok" | N
 POST http://[address]/goods/category
 
 #### Request
-
-Headers:
-
-| key   | 类型   | 描述      |
-| ----- | ------ | --------- |
-| token | string | 访问token |
 
 Body:
 ```
@@ -164,17 +141,17 @@ Status Code:
 码 | 描述
 --- | ---
 200 | 查询成功 
-401 | 查询失败，token错误 
+501 | 查询失败，没有商品属于此类别 
 
 Body:
 ```
 {
-    "message":"[error message]",
+    "message":"[error message/goods info]"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-message | string | 返回错误消息，成功时为"ok" | N
+message | string | 返回错误消息，成功时返回商品信息 | N
 
 ## getMerchantInfo-查询特定商品的商家信息
 
@@ -183,16 +160,11 @@ POST http://[address]/goods/getmerchantinfo
 
 #### Request
 
-Headers:
-
-key | 类型 | 描述
----|---|---
-token | string | 访问token
-
 Body:
 ```
 {
-    "goodsname":"[goods name]"
+   "merchantname":"[merchant name]",
+   "goodsname":"[goods name]"
 }
 ```
 
@@ -207,14 +179,14 @@ Status Code:
 码 | 描述
 --- | ---
 200 | 查询成功 
-401 | 查询失败，商品名或token错误 
+501 | 查询失败，商家不存在 
 
 Body:
 ```
 {
-    "message":"[error message]"
+    "message":"[error message/merchant info]"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-message | string | 返回错误消息，成功时为"ok" | N
+message | string | 返回错误消息，成功时返回商家信息 | N
