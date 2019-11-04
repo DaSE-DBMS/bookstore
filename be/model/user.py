@@ -6,9 +6,9 @@ import time
 
 # encode a json string like:
 #   {
-#       'username': [user name],
-#       'terminal': [terminal code],
-#       'timestamp': [ts]} to a JWT
+#       "username": [user name],
+#       "terminal": [terminal code],
+#       "timestamp": [ts]} to a JWT
 #   }
 def jwt_encode(username: str, terminal: str) -> str:
     encoded = jwt.encode(
@@ -21,9 +21,9 @@ def jwt_encode(username: str, terminal: str) -> str:
 
 # decode a JWT to a json string like:
 #   {
-#       'username': [user name],
-#       'terminal': [terminal code],
-#       'timestamp': [ts]} to a JWT
+#       "username": [user name],
+#       "terminal": [terminal code],
+#       "timestamp": [ts]} to a JWT
 #   }
 def jwt_decode(encoded_token, username: str) -> str:
     decoded = jwt.decode(encoded_token, key=username, algorithms="HS256")
