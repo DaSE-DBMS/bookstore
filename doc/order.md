@@ -221,12 +221,12 @@ Status Code:
 Body:
 ```
 {
-    "message":"[error message/payment]"
+    "message":"[error message/order info]"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-message | string | 返回错误消息，成功时返回支付页面 | N
+message | string | 返回错误消息，成功时返回订单信息 | N
 
 ## cancelOrder-取消订单
 
@@ -273,9 +273,9 @@ Body:
 }
 ```
 
-| 变量名  | 类型   | 描述                             | 是否可为空 |
-| ------- | ------ | -------------------------------- | ---------- |
-| message | string | 返回错误消息，成功时返回支付页面 | N          |
+| 变量名  | 类型   | 描述                       | 是否可为空 |
+| ------- | ------ | -------------------------- | ---------- |
+| message | string | 返回错误消息，成功时为"ok" | N          |
 
 ## paymentOrder-订单支付
 

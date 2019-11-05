@@ -1,7 +1,10 @@
-from be.model import tuple
+from be.model import tuple, table
 from be.model import store
 import jwt
 import time
+
+from be.model.goods import Goods
+from be.model.merchant import Merchant
 
 
 # encode a json string like:
@@ -10,6 +13,8 @@ import time
 #       "terminal": [terminal code],
 #       "timestamp": [ts]} to a JWT
 #   }
+
+
 def jwt_encode(username: str, terminal: str) -> str:
     encoded = jwt.encode(
         {"username": username, "terminal": terminal, "timestamp": time.time()},
@@ -86,6 +91,8 @@ class User(tuple.Tuple):
         return True
 
 
+
+
 def login(username: str, password: str, terminal: str):
     u: User = store.get_row(User.__name__, username)
     if u is None:
@@ -122,3 +129,15 @@ def change_password(username: str, old_password: str, new_password: str) -> bool
         return u.change_password(old_password, new_password)
     else:
         return False
+
+def searchmerchantgoods(merchantname: str) -> (bool,tuple):
+    m: Merchant = store.get_row(Merchant.__name__, merchantname)
+    g: Goods = table.get(merchantname)
+    if m is not None and g is not None:
+        return True, g
+    else:
+        return False, ""
+
+
+
+
