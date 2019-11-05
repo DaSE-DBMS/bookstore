@@ -13,7 +13,7 @@ install:
 # Run the unit test
 script:
   - export PATHONPATH=`pwd`
-  - coverage  run --timid -m pytest
+  - coverage run --timid --branch --source fe,be --concurrency=thread -m pytest -v
 
 # Push the results back to codecov
 after_success:
