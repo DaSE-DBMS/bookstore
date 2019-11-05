@@ -32,14 +32,22 @@ class Order:
         headers = {"token": token}
         url = urljoin(self.url_prefix, "createorder/")
         r = requests.post(url, headers=headers, json=json)
-        return r.status_code == 200
+        if r.status_code == 200:
+            orderinfo = r.json()["orderinfo"]
+            return True, orderinfo
+        else:
+            return False, ""
 
     def submitorder(self, username: str, orderid: int, token: str) -> (bool):
         json = {"username": username, "orderid": orderid}
         headers = {"token": token}
         url = urljoin(self.url_prefix, "submitorder/")
         r = requests.post(url, headers=headers, json=json)
-        return  r.status_code == 200
+        if r.status_code == 200:
+            orderinfo = r.json()["orderinfo"]
+            return True, orderinfo
+        else:
+            return False, ""
 
     def cancelorder(self, username: str, orderid: int, token: str) -> (bool):
         json = {"username": username, "orderid": orderid}
@@ -60,4 +68,8 @@ class Order:
         headers = {"token": token}
         url = urljoin(self.url_prefix, "allorder/")
         r = requests.post(url, headers=headers, json=json)
-        return r.status_code == 200
+        if r.status_code == 200:
+            orderinfo = r.json()["orderinfo"]
+            return True, orderinfo
+        else:
+            return False, ""
