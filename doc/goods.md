@@ -1,43 +1,4 @@
-## getMerchantgoods-查询商家全部商品
-
-#### URL：
-POST http://[address]/goods/getmerchantgoods
-
-#### Request
-
-Body:
-```
-{
-    "merchantname":"[merchant name]"
-}
-```
-
-变量名 | 类型 | 描述 | 是否可为空
----|---|---|---
-merchantname | string | 商家名 | N
-
-#### Response
-
-Status Code:
-
-
-码 | 描述
---- | ---
-200 | 获取成功 
-501 | 获取失败，商家不存在或商家无商品 
-
-
-Body:
-```
-{
-    "message":"[error message/goods info]"
-}
-```
-变量名 | 类型 | 描述 | 是否可为空
----|---|---|---
-message | string | 返回错误消息，成功时返回此商家全部商品信息 | N
-
-## getGoods-搜索商品
+## 1）getGoods-搜索商品
 
 #### URL：
 POST http://[address]/goods/getgoods
@@ -47,13 +8,15 @@ POST http://[address]/goods/getgoods
 Body:
 ```
 {
-    "goodsname":"[goods name]"
+    "keywords":"[goods name/describe]"，
+    "filters":"[goods type]"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-goodsname | string | 商品名 | N
+keywords | string | 商品名或描述 | N
+filters | string | 过滤条件，比如商品类别 | Y 
 
 #### Response
 
@@ -66,17 +29,21 @@ Status Code:
 501 | 搜索失败，暂无相关商品 
 
 
-Body:
-```
-{
-    "message":"[error message/goods info]"
-}
-```
+返回参数：
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-message | string | 返回错误消息，成功时返回商品信息 | N
+result | string | 返回码 | N
+errorMsg | string | 错误信息描述 | Y 
+**goodsList** |  |  |  
+merchantName | string | 商家名 | N 
+goodsName | string | 商品名 | N 
+goodsImage | string | 商品图片 | N 
+OrigPrice | string | 原价格 | N 
+salePrice | string | 活动价 | N 
 
-## getGoodsDetails-商品详情（图+文）
+
+
+## 2）getGoodsDetails-商品详情
 
 #### URL：
 POST http://[address]/goods/getgoodsdetails
@@ -86,15 +53,17 @@ POST http://[address]/goods/getgoodsdetails
 Body:
 ```
 {
-    "merchantname":"[merchant name]",
-    "goodsname":"[goods name]"
+    "merchantId":"[merchant id]",
+    "goodsId":"[goods id]"，
+    "userId""[user id]
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-merchantname | string | 商家名 | N
-goodsname | string | 商品名 | N 
+merchantId | string | 商家编号 | N
+goodsId | string | 商品编号 | N 
+userId | string | 用户编号 | Y 
 
 #### Response
 
@@ -105,33 +74,38 @@ Status Code:
 200 | 查询成功 
 501 | 查询失败，商品没有详细信息 
 
-Body:
-```
-{
-    "message":"[error message/goods details info]"
-}
-```
+返回参数：
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-message | string | 返回错误消息，成功时返回商品详细信息 | N
+ result    | string | 返回码       | N          
+ errorMsg  | string | 错误信息描述 | Y          
+ goodsName | string | 商品名       | N          
+ goodsAuth | string | 作者   | N          
+ goodsPub | string | 出版社  | N          
+ OrigPrice | string | 原价格       | N          
+ salePrice | string | 活动价       | N          
+ goodsDes  | string | 商品描述     | N 
+ isCollect | string | 商品是否收藏 | N 
 
-## getCategory-类别查询
+
+
+## 3）getCategory-类别查询
 
 #### URL：
-POST http://[address]/goods/category
+POST http://[address]/goods/goodsType
 
 #### Request
 
 Body:
 ```
 {
-    "category":"[category name]"
+    "goodsType":"[goods type]"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-category | string | 类别名 | N
+goodsType | string | 商品类别 | N
 
 #### Response
 
@@ -140,19 +114,19 @@ Status Code:
 码 | 描述
 --- | ---
 200 | 查询成功 
-501 | 查询失败，没有商品属于此类别 
+501 | 查询失败，此类别下暂无商品信息 
 
-Body:
-```
-{
-    "message":"[error message/goods info]"
-}
-```
+返回参数：
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-message | string | 返回错误消息，成功时返回商品信息 | N
+ result               | string | 返回码       | N          
+ errorMsg             | string | 错误信息描述 | Y          
+ **goodsList**        |        |              |            
+ （同“getGoods”接口） |        |              |            
 
-## getMerchantInfo-查询特定商品的商家信息
+
+
+## 4）getMerchantInfo-查询特定商品的商家信息
 
 #### URL：
 POST http://[address]/goods/getmerchantinfo
@@ -162,14 +136,15 @@ POST http://[address]/goods/getmerchantinfo
 Body:
 ```
 {
-   "merchantname":"[merchant name]",
-   "goodsname":"[goods name]"
+   "merchantId":"[merchant id]",
+   "goodsId":"[goods id]"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-goodsname | string | 商品名 | N
+merchantName | string | 商家编号 | N
+goodsId | string | 商品编号 | N 
 
 #### Response
 
@@ -180,12 +155,13 @@ Status Code:
 200 | 查询成功 
 501 | 查询失败，商家不存在 
 
-Body:
-```
-{
-    "message":"[error message/merchant info]"
-}
-```
+返回参数：
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-message | string | 返回错误消息，成功时返回商家信息 | N
+ result               | string | 返回码       | N          
+errorMsg | string | 错误信息描述 | Y 
+merchantName | string | 商家名 | N 
+merchantLoc | string | 所在地 | N 
+merchantRank | string | 商家星级 | N 
+**goodsList** |  |  |  
+（同“getGoods”接口） |  |  |  
