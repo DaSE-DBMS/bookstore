@@ -14,13 +14,13 @@ Headers:
 Body:
 ```
 {
-    "userid":"[user id]"
+    "userid":"$user id"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-userId | string | 用户编号 | N
+userid | string | 用户编号 | N
 
 #### Response
 
@@ -36,26 +36,25 @@ body：
 
 ```
 { 
-	"result":"[status code]",
-	"errormsg":"[Access failed, token error]",
-	"goodssum":"[goods sum]",
-	"goodsamount":"[goods amount]",
-	"itemlist":[ "cartitemid":"[cart item id]",
-				"merchantname":"[merchant name]",
-				"goodsname":"[goods name]",
-				"goodsnumber":"[goods number]",
-				"goodsimage":"[goods image]",
-				"saleprice":"[sale price]" ]
+	"errormsg":"$Access failed, token error",
+	"goodssum":"$goods sum",
+	"goodsamount":"$goods amount",
+	"itemlist":[ "cartitemid":"$cart item id",
+				"merchantname":"$merchant name",
+				"goodsname":"$goods name",
+				"goodsnumber":"$goods number",
+				"goodsimage":"$goods image",
+				"saleprice":"$sale price" ]
+				[......]
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
- result   | string | 返回码       | N          
- errormsg | string | 错误信息描述 | Y          
+ errormsg | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，此变量为空，且输出以下变量 | Y          
  goodssum | string | 总商品数 | N 
  goodsamount | string | 总金额 | N 
- **itemlist** |        |              |            
+ **itemlist** |        | 购物车中的所有商品，且每件商品都应包含如下信息 |            
  cartItemid | string | 购物项编号 | N 
  merchantname | string | 商家名 | N 
  goodsname | string | 商品名 | N 
@@ -65,7 +64,7 @@ body：
 
 
 
-## 2）delCart-删除购物车商品
+## 2）delCart-删除购物车中的商品
 
 #### URL
 POST http://[address]/order/delcart
@@ -81,15 +80,15 @@ Headers:
 Body:
 ```
 {
-    "userid":"[user id]",
-    "cartitemid":"[cart item id]"
+    "userid":"$user id",
+    "goodsid":"$good id"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
 userid | string | 用户编号 | N
- cartItemid | string | 购物项编号 | N          
+ goodsid | string | 商品编号 | N          
 
 #### Response
 
@@ -105,13 +104,11 @@ Status Code:
 Body:
 ```
 {
-	"result":"[status code]",
-	"errormsg":"[Delete failed, token error]"
+	"errormsg":"$Delete failed, token error"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
- result   | string | 返回码                     | N          
 errormsg | string | 错误信息描述，成功返回"ok" | Y 
 
 
@@ -132,9 +129,9 @@ Headers:
 Body:
 ```
 {
-    "userid":"[user id]",
-    “merchantid":"[merchant id]",
-    "goodsid":"[goods id]"
+    "userid":"$user id",
+    “merchantid":"$merchant id",
+    "goodsid":"$goods id"
 }
 ```
 
@@ -156,13 +153,11 @@ Status Code:
 Body:
 ```
 {
-	"result":"[status code]",
-	"errormsg":"[addition failed, token error]"
+	"errormsg":"$addition failed, token error"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
- result   | string | 返回码                     | N          
 errormsg | string | 错误信息描述，成功返回"ok" | Y 
 
 
@@ -183,13 +178,14 @@ Headers:
 Body:
 ```
 {
-	"userid":"[user id]",
-	"goodssum":"[goods sum]",
-	"goodsamount":"[goods amount]",
-    "buylist":[ "merchantname":"[merchant name]",
-    		   "goodsname":"[goods name]",
-    		   "goodsnumber":"[goods number]"，
-    		   "saleprice":"[sale price]" ]
+	"userid":"$user id",
+	"goodssum":"$goods sum",
+	"goodsamount":"$goods amount",
+    "buylist":[ "merchantname":"$merchant name",
+    		   "goodsname":"$goods name",
+    		   "goodsnumber":"$goods number"，
+    		   "saleprice":"$sale price" ]
+    		   [......]
 }
 ```
 
@@ -198,7 +194,7 @@ Body:
 userid | string | 用户编号 | N
 goodssum | string | 总商品数 | N 
 goodsamount | string | 总金额 | N 
-**buylist** |  |  |  
+**buylist** |  | 购买的所有商品，且每件商品都应包含如下信息 |  
  merchantname | string | 商家名 | N 
 goodsname | string | 商品名 | N 
 goodsnumber | string | 商品数量 | N 
@@ -217,16 +213,15 @@ Status Code:
 Body:
 ```
 {
-	"result":"[status code]",	
-    "errormsg":"[order generation failed，token error/order generation failed，no goods]"，
-    "orderno":"[order number]"
+	"result":"$status code",	
+    "errormsg":"$order generation failed，token error/order generation failed，no goods"，
+    "orderid":"$order number"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
- result   | string | 返回码       | N          
- errormsg | string | 错误信息描述 | Y          
- orderno | sring  | 订单号       | N          
+ errormsg | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，此变量为空，且输出以下变量 | Y          
+ orderid | sring  | 订单号       | N          
 
 
 
@@ -248,13 +243,13 @@ Body:
 
 ```
 {
-    “orderno":"[order number]
+    “orderid":"$order number"
 }
 ```
 
 | 变量名  | 类型 | 描述   | 是否可为空 |
 | ------- | ---- | ------ | ---------- |
-| orderno | int  | 订单号 | N          |
+| orderid | int  | 订单号 | N          |
 
 #### Response
 
@@ -269,14 +264,12 @@ Body:
 
 ```
 {
-	"result":"[status code]",
-	"errormsg":"[cancel failed, token error]"
+	"errormsg":"$cancel failed, token error"
 }
 ```
 
 | 变量名   | 类型   | 描述                       | 是否可为空 |
 | -------- | ------ | -------------------------- | ---------- |
-| result   | string | 返回码                     | N          |
 | errormsg | string | 错误信息描述，成功时为"ok" | N          |
 
 
@@ -299,15 +292,17 @@ Body:
 
 ```
 {
-    "userId":"[user id]",
-    “orderNo":"[order No]"
+    "balance":"$user balance",
+    "goodsamount":"$goods amount",
+    “orderid":"$order number"
 }
 ```
 
-| 变量名  | 类型   | 描述   | 是否可为空 |
-| ------- | ------ | ------ | ---------- |
-| userid  | string | 用户名 | N          |
-| orderno | string | 订单号 | N          |
+| 变量名      | 类型   | 描述   | 是否可为空 |
+| ----------- | ------ | ------ | ---------- |
+| balance     | string | 用余额 | N          |
+| goodsamount | string | 总金额 | N          |
+| orderid     | string | 订单号 | N          |
 
 #### Response
 
@@ -323,15 +318,12 @@ Body:
 
 ```
 {
-	"result":"[status code]",
-	"errormsg":"[payment failed, token error/payment failed, insufficient account balance]"
+	"errormsg":"$payment failed, token error/payment failed, insufficient account balance"
 }
-
 ```
 
 | 变量名   | 类型   | 描述                       | 是否可为空 |
 | -------- | ------ | -------------------------- | ---------- |
-| result   | string | 返回码                     | N          |
 | errormsg | string | 错误信息描述，成功时为"ok" | N          |
 
 
@@ -354,7 +346,7 @@ Body:
 
 ```
 {
-    "userid":"[user id]"
+    "userid":"$user id"
 }
 ```
 
@@ -376,32 +368,24 @@ Body:
 
 ```
 {
-	"result":"[status code]",
-	"errormsg":"[Inquiry failed, token error/Inquiry failed, no order]",
-	"orderlist":[ "orderno":"[order number]",
-    			 "orderstatus":"[order status]",
-    			 "merchantname":"[merchant name]",
-    			 "goodsimage":"[goods image]",
-    			 "goodsname":"[goods name]",
-    			 "goodsamount":"[goods amount]" ]
+	"errormsg":"$Inquiry failed, token error/Inquiry failed, no order",
+	"orderlist":[ "orderid":"$order number",
+    			 "orderstatus":"$order status",
+    			 "merchantname":"$merchant name",
+    			 "goodsimage":"$goods image",
+    			 "goodsname":"$goods name",
+    			 "goodsamount":"$goods amount" ]
+    			 [......]
 }
 ```
 
-| 变量名        | 类型   | 描述         | 是否可为空 |
-| ------------- | ------ | ------------ | ---------- |
-| result        | string | 返回码       | N          |
-| errormsg      | string | 错误信息描述 | Y          |
-| **orderlist** |        |              |            |
-| orderno       | string | 订单号       | N          |
-| orderstatus   | string | 订单状态     | N          |
-| merchantname  | string | 商家名       | N          |
-| goodsimage    | string | 商品图片     | N          |
-| goodsname     | string | 商品名       | N          |
-| goodsamount   | string | 总金额       | N          |
-
-#### 接口描述
-
-输出参数”orderstatus“订单状态可以是：交易成功、待支付、交易失败
-
-
-
+| 变量名        | 类型   | 描述                                                         | 是否可为空 |
+| ------------- | ------ | ------------------------------------------------------------ | ---------- |
+| errormsg      | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，此变量为空，且输出以下变量 | Y          |
+| **orderlist** |        | 用户的所有订单，且每单应该包含以下信息                   |            |
+| orderid       | string | 订单号                                                       | N          |
+| orderstatus   | string | 订单状态，可以是：交易成功、待支付、交易失败                 | N          |
+| merchantname  | string | 商家名                                                       | N          |
+| goodsimage    | string | 商品图片                                                     | N          |
+| goodsname     | string | 商品名                                                       | N          |
+| goodsamount   | string | 总金额                                                       | N          |
