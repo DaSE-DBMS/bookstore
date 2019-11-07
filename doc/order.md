@@ -14,13 +14,13 @@ Headers:
 Body:
 ```
 {
-    "userid":"$user id"
+    "username":"$user name"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-userid | string | 用户编号 | N
+username | string | 用户名 | N
 
 #### Response
 
@@ -39,12 +39,11 @@ body：
 	"errormsg":"$Access failed, token error",
 	"goodssum":"$goods sum",
 	"goodsamount":"$goods amount",
-	"buylist":[	"merchantname":"$merchant name",
+	"buylist":[{"merchantname":"$merchant name",
 				"goodsname":"$goods name",
 				"goodsnumber":"$goods number",
 				"goodsimage":"$goods image",
-				"saleprice":"$sale price" ]
-				[......]
+				"saleprice":"$sale price" },{......}]
 }
 ```
 
@@ -78,13 +77,15 @@ Headers:
 Body:
 ```
 {
-    "goodsid":"$good id"
+    "goodsid":"$good id",
+    "goodsnumber":"$goods number"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
  goodsid | string | 商品编号 | N          
+ goodsnumber | string | 商品数量 | N 
 
 #### Response
 
@@ -107,6 +108,10 @@ Body:
 ---|---|---|---
 errormsg | string | 错误信息描述，成功返回"ok" | Y 
 
+#### 接口描述
+
+某一商品在购物车中可能数量大于一，因此删除的时候要传入需要删除的数量
+
 
 
 ## 3）addCart-添加商品到购物车
@@ -125,7 +130,7 @@ Headers:
 Body:
 ```
 {
-    "userid":"$user id",
+    "username":"$user name",
     “orderamount":"$order amount",
     "merchantname":"$merchant name",
 	"goodsname":"$goods name",
@@ -137,7 +142,7 @@ Body:
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-userid | string | 用户编号 | N
+username | string | 用户名 | N
 orderamount | string | 总金额 | N
  merchantname | string | 商家名   | N          
  goodsname    | string | 商品名   | N          
@@ -182,19 +187,18 @@ Headers:
 Body:
 ```
 {
-	"userid":"$user id",
+	"username":"$user name",
 	"orderamount":"$goods amount",
-    "buylist":[ "merchantname":"$merchant name",
+    "buylist":[{"merchantname":"$merchant name",
     		   "goodsname":"$goods name",
     		   "goodsnumber":"$goods number"，
-    		   "saleprice":"$sale price" ]
-    		   [......]
+    		   "saleprice":"$sale price"},{......} ]
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-userid | string | 用户编号 | N
+username | string | 用户名 | N
 orderamount | string | 总金额 | N 
 buylist |  | 购买的所有商品<br />(同接口"getCart"的buylist) |  
 
@@ -367,17 +371,15 @@ Body:
 ```
 {
 	"errormsg":"$Inquiry failed, token error/Inquiry failed, no order",
-	"orderlist":[ "orderid":"$order number",
+	"orderlist":[{"orderid":"$order number",
     			 "orderstatus":"$order status",
     			 "orderamount":"$order amount",
-    			 "buylist":[ "merchantname":"$merchant name",
+    			 "buylist":[{ "merchantname":"$merchant name",
 				             "goodsname":"$goods name",
 						    "goodsnumber":"$goods number",
 						    "goodsimage":"$goods image",
-				  			"saleprice":"$sale price" ]
-				  			[......]
-				 ]
-    			 [......]
+				  			"saleprice":"$sale price" },{......}]},
+				  {......}]	  	
 }
 ```
 

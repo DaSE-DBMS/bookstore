@@ -34,12 +34,11 @@ Body：
 ```
 { 
 	"errormsg":"$Search failed, no relevant products",
-    "goodslist": [ "merchantname":"$merchant name",
+    "goodslist": [{"merchantname":"$merchant name",
     			  "goodsname":"$goods name",
     			  "goodsimage":"$goods image",
   				  "origprice":"$original price",
- 				  "saleprice":"$sale price" ]
- 				  [......]
+ 				  "saleprice":"$sale price"},{......}]
 }
 ```
 
@@ -159,12 +158,11 @@ body：
 	"merchantname":"$merchant name",
 	"merchantloc":"$merchant location",
 	"merchantrank":"$merchant rank",
-    "goodslist": [ "merchantname":"$merchant name",
+    "goodslist": [{"merchantname":"$merchant name",
     			  "goodsname":"$goods name",
     			  "goodsimage":"$goods image",
   				  "origprice":"$original price",
- 				  "saleprice":"$sale price" ]
- 				  [.......]
+ 				  "saleprice":"$sale price"},{......}]
 }
 ```
 
