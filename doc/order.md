@@ -39,8 +39,7 @@ body：
 	"errormsg":"$Access failed, token error",
 	"goodssum":"$goods sum",
 	"goodsamount":"$goods amount",
-	"itemlist":[ "cartitemid":"$cart item id",
-				"merchantname":"$merchant name",
+	"buylist":[	"merchantname":"$merchant name",
 				"goodsname":"$goods name",
 				"goodsnumber":"$goods number",
 				"goodsimage":"$goods image",
@@ -54,8 +53,7 @@ body：
  errormsg | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，此变量为空，且输出以下变量 | Y          
  goodssum | string | 总商品数 | N 
  goodsamount | string | 总金额 | N 
- **itemlist** |        | 购物车中的所有商品，且每件商品都应包含如下信息 |            
- cartItemid | string | 购物项编号 | N 
+ **buylist** |        | 购物车中的所有商品，且每件商品都应包含如下信息 |            
  merchantname | string | 商家名 | N 
  goodsname | string | 商品名 | N 
  goodsnumber | string | 商品数量 | N 
@@ -80,14 +78,12 @@ Headers:
 Body:
 ```
 {
-    "userid":"$user id",
     "goodsid":"$good id"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-userid | string | 用户编号 | N
  goodsid | string | 商品编号 | N          
 
 #### Response
@@ -130,16 +126,24 @@ Body:
 ```
 {
     "userid":"$user id",
-    “merchantid":"$merchant id",
-    "goodsid":"$goods id"
+    “orderamount":"$order amount",
+    "merchantname":"$merchant name",
+	"goodsname":"$goods name",
+	"goodsnumber":"$goods number",
+	"goodsimage":"$goods image",
+	"saleprice":"$sale price" 
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
 userid | string | 用户编号 | N
-merchantid | string | 商家编号 | N
-goodsid | string | 商品编号 | N 
+orderamount | string | 总金额 | N
+ merchantname | string | 商家名   | N          
+ goodsname    | string | 商品名   | N          
+ goodsnumber  | string | 商品数量 | N          
+ goodsimage   | string | 商品图片 | N          
+ saleprice    | string | 活动价   | N          
 
 #### Response
 
@@ -179,8 +183,7 @@ Body:
 ```
 {
 	"userid":"$user id",
-	"goodssum":"$goods sum",
-	"goodsamount":"$goods amount",
+	"orderamount":"$goods amount",
     "buylist":[ "merchantname":"$merchant name",
     		   "goodsname":"$goods name",
     		   "goodsnumber":"$goods number"，
@@ -192,13 +195,8 @@ Body:
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
 userid | string | 用户编号 | N
-goodssum | string | 总商品数 | N 
-goodsamount | string | 总金额 | N 
-**buylist** |  | 购买的所有商品，且每件商品都应包含如下信息 |  
- merchantname | string | 商家名 | N 
-goodsname | string | 商品名 | N 
-goodsnumber | string | 商品数量 | N 
-saleprice | string | 活动价 | N 
+orderamount | string | 总金额 | N 
+buylist |  | 购买的所有商品<br />(同接口"getCart"的buylist) |  
 
 #### Response
 
@@ -293,7 +291,7 @@ Body:
 ```
 {
     "balance":"$user balance",
-    "goodsamount":"$goods amount",
+    "orderamount":"$goods amount",
     “orderid":"$order number"
 }
 ```
@@ -301,7 +299,7 @@ Body:
 | 变量名      | 类型   | 描述   | 是否可为空 |
 | ----------- | ------ | ------ | ---------- |
 | balance     | string | 用余额 | N          |
-| goodsamount | string | 总金额 | N          |
+| orderamount | string | 总金额 | N          |
 | orderid     | string | 订单号 | N          |
 
 #### Response
@@ -371,10 +369,14 @@ Body:
 	"errormsg":"$Inquiry failed, token error/Inquiry failed, no order",
 	"orderlist":[ "orderid":"$order number",
     			 "orderstatus":"$order status",
-    			 "merchantname":"$merchant name",
-    			 "goodsimage":"$goods image",
-    			 "goodsname":"$goods name",
-    			 "goodsamount":"$goods amount" ]
+    			 "orderamount":"$order amount",
+    			 "buylist":[ "merchantname":"$merchant name",
+				             "goodsname":"$goods name",
+						    "goodsnumber":"$goods number",
+						    "goodsimage":"$goods image",
+				  			"saleprice":"$sale price" ]
+				  			[......]
+				 ]
     			 [......]
 }
 ```
@@ -382,10 +384,14 @@ Body:
 | 变量名        | 类型   | 描述                                                         | 是否可为空 |
 | ------------- | ------ | ------------------------------------------------------------ | ---------- |
 | errormsg      | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，此变量为空，且输出以下变量 | Y          |
-| **orderlist** |        | 用户的所有订单，且每单应该包含以下信息                   |            |
+| **orderlist** |        | 用户的所有订单，且每单应该包含以下信息                       |            |
 | orderid       | string | 订单号                                                       | N          |
 | orderstatus   | string | 订单状态，可以是：交易成功、待支付、交易失败                 | N          |
-| merchantname  | string | 商家名                                                       | N          |
-| goodsimage    | string | 商品图片                                                     | N          |
-| goodsname     | string | 商品名                                                       | N          |
-| goodsamount   | string | 总金额                                                       | N          |
+| orderamount   | string | 总金额                                                       | N          |
+| buylist       |        | (同接口"getCart"的buylist)                                   | N          |
+
+#### 接口描述
+
+a."orderlist"表示一个用户可能拥有多个订单；
+
+b.单个订单可能包含多个商品，即"buylist"展示在同一个订单中的商品信息。
