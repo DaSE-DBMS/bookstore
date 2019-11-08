@@ -53,9 +53,11 @@ POST http://[address]/seller/getItem
 
 #### Request
 Headers:
+
 key | 类型 | 描述 | 是否可为空
 ---|---|---|---
 token | string | 登录产生的会话标识 | N
+
 Body:
 ```
 {
@@ -76,6 +78,7 @@ goodsnumber | string | 商品数量 | N
 
 #### Response
 Status Code:
+
 码 | 描述
 --- | ---
 200 | 修改成功
@@ -98,9 +101,11 @@ GET http://[address]/seller/getMemberOrder
 
 #### Request
 Headers:
+
 key | 类型 | 描述 | 是否可为空
 ---|---|---|---
 token | string | 登录产生的会话标识 | N
+
 Body:
 ```
 {
@@ -146,9 +151,11 @@ GET http://[address]/seller/getRefundOrder
 
 #### Request
 Headers:
+
 key | 类型 | 描述 | 是否可为空
 ---|---|---|---
 token | string | 登录产生的会话标识 | N
+
 Body:
 ```
 {
@@ -161,10 +168,12 @@ username | string | 用户名 | N
 
 #### Response
 Status Code:
+
 码 | 描述
 --- | ---
 200 | 查询成功
 503 | 查询失败
+
 Body:
 ```
 {
@@ -189,9 +198,11 @@ orderstatus | string | 订单状态 | N
 GET http://[address]/seller/sellerRefundGoods  
 #### Request
 Headers:
+
 key | 类型 | 描述 | 是否可为空
 ---|---|---|---
 token | string | 登录产生的会话标识 | N
+
 Body:
 ```
 {
@@ -204,10 +215,12 @@ username | String | 用户名 | N
 
 #### Response
 Status Code:
+
 码 | 描述
 --- | ---
 200 | 查询成功
 503 | 查询失败
+
 Body:
 ```
 {
