@@ -8,6 +8,7 @@ GET http://[address]/seller/getMemberInfo
 
 #### Request
 Headers:
+
 key | 类型 | 描述 | 是否可为空
 ---|---|---|---
 token | string | 登录产生的会话标识 | N
