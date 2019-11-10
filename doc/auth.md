@@ -1,15 +1,15 @@
 ## Register-注册
 
 #### URL：
-POST http://[address]/auth/register
+POST http://$address$/auth/register
 
 #### Request
 
 Body:
 ```
 {
-    "username":"[user name]",
-    "password":"[user password]"
+    "username":"$user name$",
+    "password":"$user password$"
 }
 ```
 
@@ -32,7 +32,7 @@ Status Code:
 Body:
 ```
 {
-    "message":"[error message]"
+    "message":"$error message$"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
@@ -42,15 +42,15 @@ message | string | 返回错误消息，成功时为"ok" | N
 ## UnRegister-注销用户
 
 #### URL：
-POST http://[address]/auth/unregister
+POST http://$address$/auth/unregister
 
 #### Request
 
 Body:
 ```
 {
-    "username":"[user name]",
-    "password":"[user password]"
+    "username":"$user name$",
+    "password":"$user password$"
 }
 ```
 
@@ -73,7 +73,7 @@ Status Code:
 Body:
 ```
 {
-    "message":"[error message]"
+    "message":"$error message$"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
@@ -83,16 +83,16 @@ message | string | 返回错误消息，成功时为"ok" | N
 ## Login-登录
 
 #### URL：
-POST http://[address]/auth/login
+POST http://$address$/auth/login
 
 #### Request
 
 Body:
 ```
 {
-    "username":"[user name]",
-    "password":"[user password]",
-    "terminal":"[terminal code]"
+    "username":"$user name$",
+    "password":"$user password$",
+    "terminal":"$terminal code$"
 }
 ```
 
@@ -114,8 +114,8 @@ Status Code:
 Body:
 ```
 {
-    "message":"[error message]",
-    "token":"[access token]"
+    "message":"$error message$",
+    "token":"$access token$"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
@@ -126,16 +126,16 @@ token | string | 访问token，用户登录后每个需要授权的请求应在h
 ## Password-更改密码
 
 #### URL：
-POST http://[address]/auth/password
+POST http://$address$/auth/password
 
 #### Request
 
 Body:
 ```
 {
-    "username":"[user name]",
-    "oldPassword":"[old password]",
-    "newPassword":"[new password]"
+    "username":"$user name$",
+    "oldPassword":"$old password$",
+    "newPassword":"$new password$"
 }
 ```
 
@@ -157,7 +157,7 @@ Status Code:
 Body:
 ```
 {
-    "message":"[error message]",
+    "message":"$error message$",
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
@@ -167,7 +167,7 @@ message | string | 返回错误消息，成功时为"ok" | N
 ## Logout-登出
 
 #### URL：
-POST http://[address]/auth/logout
+POST http://$address$/auth/logout
 
 #### Request
 
@@ -180,7 +180,7 @@ token | string | 访问token
 Body:
 ```
 {
-    "username":"[user name]"
+    "username":"$user name$"
 }
 ```
 
@@ -200,7 +200,7 @@ Status Code:
 Body:
 ```
 {
-    "message":"[error message]"
+    "message":"$error message$"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
