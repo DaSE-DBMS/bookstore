@@ -6,6 +6,15 @@ class Order:
     def __init__(self, url_prefix):
         self.url_prefix = urljoin(url_prefix, "order/")
 
+    def getOrder(self, username: str) -> (bool, list):
+        json = {"username": username}
+        url = urljoin(self.url_prefix, "getOrder")
+        r = requests.get(url, json=json)
+        if r.status_code == 200:
+            return True,r.json()["orderlist"]
+        else:
+            return False, ""
+
     def getcart(self, userid: str, token: str) -> (bool, list):
         json = {"userid": userid}
         headers = {"token": token}
@@ -69,3 +78,5 @@ class Order:
             return True, orderlist
         else:
             return False, ""
+
+
