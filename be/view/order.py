@@ -8,7 +8,7 @@ from be.model import order
 bp_order = Blueprint("order", __name__, url_prefix="/order")
 
 
-@bp_order.route("/getOrder", methods=["POST"])
+@bp_order.route("/getOrder", methods=["GET"])
 def getOrder():
     username = request.json.get("username", "")
     ok, orderlist = order.getOrder(username=username)

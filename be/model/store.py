@@ -13,6 +13,8 @@ class Store:
     def __init__(self):
         self.database = "be.db"
         self.tables = dict()
+        self.create("User")
+        self.create("Order")
         self.init_tables()
 
     def init_tables(self):
