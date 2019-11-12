@@ -2,6 +2,7 @@ from flask import Flask
 from be.view import auth
 from flask import Blueprint
 from flask import request
+import logging
 
 bp_shutdown = Blueprint("shutdown", __name__)
 
@@ -20,7 +21,9 @@ def be_shutdown():
 
 
 def be_run():
+    logging.basicConfig(filename="app.log", level=logging.ERROR)
     app = Flask(__name__)
     app.register_blueprint(bp_shutdown)
     app.register_blueprint(auth.bp_auth)
+    app.register_blueprint(order.bp_order)
     app.run()

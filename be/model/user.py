@@ -2,7 +2,8 @@ from be.model import tuple, table
 from be.model import store
 import jwt
 import time
-
+import logging
+import sqlite3 as sqlite
 from be.model.goods import Goods
 from be.model.merchant import Merchant
 
@@ -35,19 +36,33 @@ def jwt_decode(encoded_token, username: str) -> str:
     return decoded
 
 
-class User(tuple.Tuple):
+def insert_user(username, password) -> bool:
+    conn = store.get_db_conn()
+    try:
+        conn.execute(
+            "INSERT into user(username, password, token, terminal) VALUES (?, ?, '', '');",
+            (username, password),
+        )
+        conn.commit()
+    except sqlite.Error as e:
+        print(e)
+        conn.rollback()
+        return False
+    return True
+
+
+class User:
     username: str
     password: str
     token: str
     terminal: str
     token_lifetime: int = 3600  # 3600 second
 
-    def __init__(self, username, password="", token="", terminal=""):
-        self.key = username
-        self.username = username
-        self.password = password
-        self.token = token
-        self.terminal = terminal
+    def __init__(self):
+        self.username = ""
+        self.password = ""
+        self.token = ""
+        self.terminal = ""
 
     def check_token(self, token) -> bool:
         try:
@@ -59,85 +74,118 @@ class User(tuple.Tuple):
                 now = time.time()
                 if self.token_lifetime > now - ts >= 0:
                     return True
-        except jwt.exceptions.InvalidSignatureError:
+        except jwt.exceptions.InvalidSignatureError as e:
+            logging.error(str(e))
             return False
 
-    def login(self, password: str, terminal: str) -> (bool, str):
-        if self.password == password:
-            self.token = jwt_encode(self.username, terminal)
-            self.terminal = terminal
-            return True, self.token
-        return False, ""
+    def fetch_user(self, username) -> bool:
+        try:
+            conn = store.get_db_conn()
+            cursor = conn.execute(
+                "SELECT username, password, token, terminal from user where username=?",
+                (username,),
+            )
+            row = cursor.fetchone()
+            if row is None:
+                return False
+            self.username = username
+            self.password = row[1]
+            self.token = row[2]
+            self.terminal = row[3]
+        except sqlite.Error as e:
+            logging.error(str(e))
+            return False
+        return True
 
-    def logout(self, token: str) -> bool:
+    def update_token(self):
+        conn = store.get_db_conn()
+        try:
+            conn.execute(
+                "UPDATE user set token = ?, terminal = ? where username=?",
+                (self.token, self.terminal, self.username),
+            )
+            conn.commit()
+        except sqlite.Error as e:
+            logging.error(str(e))
+            conn.rollback()
+
+    def update_password(self):
+        conn = store.get_db_conn()
+        try:
+            conn.execute(
+                "UPDATE user set password = ?, token= ? , terminal = ? where username = ?",
+                (self.password, self.token, self.terminal, self.username),
+            )
+            conn.commit()
+        except sqlite.Error as e:
+            logging.error(str(e))
+            conn.rollback()
+
+    def delete_user(self):
+        conn = store.get_db_conn()
+        try:
+            cursor = conn.execute("DELETE from user where username=?", (self.username,))
+            if cursor.rowcount == 1:
+                conn.commit()
+            else:
+                conn.rollback()
+        except sqlite.Error as e:
+            logging.error(str(e))
+            conn.rollback()
+
+    def login(self, username: str, password: str, terminal: str) -> (bool, str):
+        if not self.fetch_user(username):
+            return False, ""
+
+        if self.password == password:
+            self.token = jwt_encode(username, terminal)
+            self.terminal = terminal
+
+            self.update_token()
+            return True, self.token
+
+    def logout(self, username: str, token: str) -> bool:
+        if not self.fetch_user(username):
+            return False
         if not self.check_token(token):
             return False
         self.token = jwt_encode(self.username, terminal="default")
+        self.update_token()
         return True
 
-    def unregister(self, password: str) -> bool:
-        if password == self.password:
-            store.del_row(User.__name__, self.username)
+    def register(self, username: str, password: str) -> bool:
+        self.username = username
+        self.password = password
+        return insert_user(username, password)
+
+    def unregister(self, username: str, password: str) -> bool:
+        if not self.fetch_user(username):
+            return False
+        if self.password == password:
+            self.delete_user()
             return True
         else:
             return False
 
-    def change_password(self, old_password: str, new_password: str) -> bool:
+    def change_password(
+        self, username: str, old_password: str, new_password: str
+    ) -> bool:
+        if not self.fetch_user(username):
+            return False
         if self.password != old_password:
             return False
 
         self.password = new_password
-        self.token = jwt_encode(self.username, self.terminal)
+        self.token = ""
+        self.terminal = ""
+        self.update_password()
         return True
 
 
-
-
-def login(username: str, password: str, terminal: str):
-    u: User = store.get_row(User.__name__, username)
-    if u is None:
-        return False, ""
-    else:
-        return u.login(password, terminal)
-
-
-def logout(username: str, token: str):
-    u: User = store.get_row(User.__name__, username)
-    if u is None:
-        return False
-    else:
-        return u.logout(token)
-
-
-def register(username: str, password: str) -> bool:
-    u = User(username, password)
-    ok, _ = store.put_row_absent(User.__name__, u)
-    return ok
-
-
-def unregister(username: str, password: str) -> bool:
-    u: User = store.get_row(User.__name__, username)
-    if u is None:
-        return False
-    else:
-        return u.unregister(password)
-
-
-def change_password(username: str, old_password: str, new_password: str) -> bool:
-    u: User = store.get_row(User.__name__, username)
-    if u is not None:
-        return u.change_password(old_password, new_password)
-    else:
-        return False
-
-def searchmerchantgoods(merchantname: str) -> (bool,tuple):
+def searchmerchantgoods(merchantname: str) -> (bool, tuple):
     m: Merchant = store.get_row(Merchant.__name__, merchantname)
     g: Goods = table.get(merchantname)
     if m is not None and g is not None:
         return True, g
     else:
         return False, ""
-
-
-
-
