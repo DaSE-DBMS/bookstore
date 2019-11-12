@@ -1,5 +1,5 @@
 from flask import Flask
-from be.view import auth
+from be.view import auth,order,goods
 from flask import Blueprint
 from flask import request
 
@@ -23,4 +23,6 @@ def be_run():
     app = Flask(__name__)
     app.register_blueprint(bp_shutdown)
     app.register_blueprint(auth.bp_auth)
+    app.register_blueprint(order.bp_order)
+    app.register_blueprint(goods.bp_goods)
     app.run()

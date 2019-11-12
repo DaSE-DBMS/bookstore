@@ -11,6 +11,7 @@ class Store:
     def __init__(self):
         self.tables = dict()
         self.create("User")
+        self.create("Order")
 
     def create(self, table_name: str):
         self.tables[table_name] = table.Table(table_name)
