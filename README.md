@@ -7,7 +7,7 @@ Buy Books Online
 
 ## Project Structure
 ```
-MMORPG
+bookstore
   |-- be                            backend
         |-- model
         |-- view
@@ -16,7 +16,19 @@ MMORPG
   |-- fe                            frontend
         |-- access
         |-- bench                   performance test
+        |-- data                    sqlite database(book.db)
         |-- test                    functionality test
         |-- ....
   |-- ....
 ```
+## 下载book数据
+
+同bookstore/fe/data/book.db的schema相同，但是有更多的数据(约3.5GB, 40000+行)
+
+链接：
+
+    https://pan.baidu.com/s/1bjCOW8Z5N_ClcqU54Pdt8g
+
+提取码：
+
+    hj6q
