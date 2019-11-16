@@ -1,67 +1,71 @@
+# coding=utf-8
+
 from lxml import etree
 import sqlite3
 import re
 import requests
 import random
 import time
+import logging
+
+user_agent = [
+    "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 "
+    "Safari/534.50",
+    "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 "
+    "Safari/534.50",
+    "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0",
+    "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR "
+    "3.0.30729; .NET CLR 3.5.30729; InfoPath.3; rv:11.0) like Gecko",
+    "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
+    "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)",
+    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",
+    "Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",
+    "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11",
+    "Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 "
+    "Safari/535.11",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Maxthon 2.0)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; TencentTraveler 4.0)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; The World)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; SE 2.X MetaSr 1.0; SE 2.X MetaSr 1.0; .NET "
+    "CLR 2.0.50727; SE 2.X MetaSr 1.0)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; 360SE)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Avant Browser)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)",
+    "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) "
+    "Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
+    "Mozilla/5.0 (iPod; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) "
+    "Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
+    "Mozilla/5.0 (iPad; U; CPU OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) "
+    "Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
+    "Mozilla/5.0 (Linux; U; Android 2.3.7; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) "
+    "Version/4.0 Mobile Safari/533.1",
+    "MQQBrowser/26 Mozilla/5.0 (Linux; U; Android 2.3.7; zh-cn; MB200 Build/GRJ22; CyanogenMod-7) "
+    "AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+    "Opera/9.80 (Android 2.3.4; Linux; Opera Mobi/build-1107180945; U; en-GB) Presto/2.8.149 Version/11.10",
+    "Mozilla/5.0 (Linux; U; Android 3.0; en-us; Xoom Build/HRI39) AppleWebKit/534.13 (KHTML, like Gecko) "
+    "Version/4.0 Safari/534.13",
+    "Mozilla/5.0 (BlackBerry; U; BlackBerry 9800; en) AppleWebKit/534.1+ (KHTML, like Gecko) Version/6.0.0.337 "
+    "Mobile Safari/534.1+",
+    "Mozilla/5.0 (hp-tablet; Linux; hpwOS/3.0.0; U; en-US) AppleWebKit/534.6 (KHTML, like Gecko) "
+    "wOSBrowser/233.70 Safari/534.6 TouchPad/1.0",
+    "Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 NokiaN97-1/20.0.019; Profile/MIDP-2.1 Configuration/CLDC-1.1) "
+    "AppleWebKit/525 (KHTML, like Gecko) BrowserNG/7.1.18124",
+    "Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; HTC; Titan)",
+    "UCWEB7.0.2.37/28/999",
+    "NOKIA5700/ UCWEB7.0.2.37/28/999",
+    "Openwave/ UCWEB7.0.2.37/28/999",
+    "Mozilla/4.0 (compatible; MSIE 6.0; ) Opera/UCWEB7.0.2.37/28/999",
+    # iPhone 6：
+    "Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/8.0 "
+    "Mobile/10A5376e Safari/8536.25",
+]
 
 
 def get_user_agent():
-    user_agent = [
-        "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 "
-        "Safari/534.50",
-        "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 "
-        "Safari/534.50",
-        "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0",
-        "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR "
-        "3.0.30729; .NET CLR 3.5.30729; InfoPath.3; rv:11.0) like Gecko",
-        "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
-        "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)",
-        "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)",
-        "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",
-        "Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",
-        "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11",
-        "Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 "
-        "Safari/535.11",
-        "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Maxthon 2.0)",
-        "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; TencentTraveler 4.0)",
-        "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)",
-        "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; The World)",
-        "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; SE 2.X MetaSr 1.0; SE 2.X MetaSr 1.0; .NET "
-        "CLR 2.0.50727; SE 2.X MetaSr 1.0)",
-        "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; 360SE)",
-        "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Avant Browser)",
-        "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)",
-        "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) "
-        "Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
-        "Mozilla/5.0 (iPod; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) "
-        "Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
-        "Mozilla/5.0 (iPad; U; CPU OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) "
-        "Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
-        "Mozilla/5.0 (Linux; U; Android 2.3.7; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) "
-        "Version/4.0 Mobile Safari/533.1",
-        "MQQBrowser/26 Mozilla/5.0 (Linux; U; Android 2.3.7; zh-cn; MB200 Build/GRJ22; CyanogenMod-7) "
-        "AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
-        "Opera/9.80 (Android 2.3.4; Linux; Opera Mobi/build-1107180945; U; en-GB) Presto/2.8.149 Version/11.10",
-        "Mozilla/5.0 (Linux; U; Android 3.0; en-us; Xoom Build/HRI39) AppleWebKit/534.13 (KHTML, like Gecko) "
-        "Version/4.0 Safari/534.13",
-        "Mozilla/5.0 (BlackBerry; U; BlackBerry 9800; en) AppleWebKit/534.1+ (KHTML, like Gecko) Version/6.0.0.337 "
-        "Mobile Safari/534.1+",
-        "Mozilla/5.0 (hp-tablet; Linux; hpwOS/3.0.0; U; en-US) AppleWebKit/534.6 (KHTML, like Gecko) "
-        "wOSBrowser/233.70 Safari/534.6 TouchPad/1.0",
-        "Mozilla/5.0 (SymbianOS/9.4; Series60/5.0 NokiaN97-1/20.0.019; Profile/MIDP-2.1 Configuration/CLDC-1.1) "
-        "AppleWebKit/525 (KHTML, like Gecko) BrowserNG/7.1.18124",
-        "Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; HTC; Titan)",
-        "UCWEB7.0.2.37/28/999",
-        "NOKIA5700/ UCWEB7.0.2.37/28/999",
-        "Openwave/ UCWEB7.0.2.37/28/999",
-        "Mozilla/4.0 (compatible; MSIE 6.0; ) Opera/UCWEB7.0.2.37/28/999",
-        # iPhone 6：
-        "Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/8.0 "
-        "Mobile/10A5376e Safari/8536.25",
-    ]
     headers = {"User-Agent": random.choice(user_agent)}
     return headers
 
@@ -76,6 +80,7 @@ class Scraper:
         self.tag = ""
         self.page = 0
         self.pattern_number = re.compile(r"\d+\.?\d*")
+        logging.basicConfig(filename="scraper.log", level=logging.ERROR)
 
     def get_current_progress(self) -> ():
         conn = sqlite3.connect(self.database)
@@ -113,7 +118,7 @@ class Scraper:
             conn.execute("CREATE TABLE tags (tag TEXT PRIMARY KEY)")
             conn.commit()
         except sqlite3.Error as e:
-            # print(e)
+            logging.error(str(e))
             conn.rollback()
 
         try:
@@ -128,7 +133,7 @@ class Scraper:
             )
             conn.commit()
         except sqlite3.Error as e:
-            print(e)
+            logging.error(str(e))
             conn.rollback()
 
         try:
@@ -138,7 +143,7 @@ class Scraper:
             conn.execute("INSERT INTO progress values('0', '', 0)")
             conn.commit()
         except sqlite3.Error as e:
-            print(e)
+            logging.error(str(e))
             conn.rollback()
 
     def grab_tag(self):
@@ -162,12 +167,13 @@ class Scraper:
             conn.commit()
             conn.close()
         except sqlite3.Error as e:
+            logging.error(str(e))
             conn.rollback()
             return False
         return True
 
     def grab_book_list(self, tag="小说", pageno=1) -> bool:
-        print("start to grab tag {} page {}...".format(tag, pageno))
+        logging.info("start to grab tag {} page {}...".format(tag, pageno))
         self.save_current_progress(tag, pageno)
         url = "https://book.douban.com/tag/{}?start={}&type=T".format(tag, pageno)
         r = requests.get(url, headers=get_user_agent())
@@ -194,14 +200,15 @@ class Scraper:
 
         for li in li_list:
             li.strip("")
-            # print(li.xpath("div"))
             book_id = li.strip("/").split("/")[-1]
             try:
-                delay = random.randint(0, 3)
+                delay = float(random.randint(0, 200)) / 100.0
                 time.sleep(delay)
                 self.crow_book_info(book_id)
-            except BaseException as ex:
-                print(str(ex))
+            except BaseException as e:
+                logging.error(
+                    logging.error("error when scrape {}, {}".format(book_id, str(e)))
+                )
         return has_next
 
     def get_tag_list(self) -> [str]:
@@ -212,7 +219,6 @@ class Scraper:
         )
         for row in results:
             ret.append(row[0])
-            # print(row[0])
         return ret
 
     def crow_book_info(self, book_id) -> bool:
@@ -293,7 +299,6 @@ class Scraper:
         picture = None
         if len(pic_href) > 0:
             res = requests.get(pic_href[0], headers=get_user_agent())
-            # print(res.content)
             picture = res.content
 
         info_children = e_subject[0].xpath('div[@id="info"]/child::node()')
@@ -303,11 +308,9 @@ class Scraper:
 
         for e in info_children:
             if isinstance(e, etree._ElementUnicodeResult):
-                # print(e.strip())
                 e_dict["text"] = e
             elif isinstance(e, etree._Element):
                 if e.tag == "br":
-                    # print(e.xpath('text()'))
                     e_array.append(e_dict)
                     e_dict = dict()
                 else:
@@ -339,7 +342,6 @@ class Scraper:
                         text = re.sub(r"\s+", " ", text)
             if text != "":
                 book_info[label] = text
-                # print(label, text)
 
         sql = (
             "INSERT INTO book("
@@ -364,15 +366,25 @@ class Scraper:
         conn = sqlite3.connect(self.database)
         try:
             s_price = book_info.get("定价")
-            e = re.findall(self.pattern_number, s_price)
-            if len(e) != 0:
-                number = e[0]
-                unit = s_price.replace(number, "").strip()
-                price = int(float(number) * 100)
+            if s_price is None:
+                # price cannot be NULL
+                logging.error(
+                    "error when scrape book_id {}, cannot retrieve price...", book_id
+                )
+                return None
+            else:
+                e = re.findall(self.pattern_number, s_price)
+                if len(e) != 0:
+                    number = e[0]
+                    unit = s_price.replace(number, "").strip()
+                    price = int(float(number) * 100)
 
-            e = re.findall(self.pattern_number, book_info.get("页数"))
-            if len(e) != 0:
-                pages = int(e[0])
+            s_pages = book_info.get("页数")
+            if s_pages is not None:
+                # pages can be NULL
+                e = re.findall(self.pattern_number, s_pages)
+                if len(e) != 0:
+                    pages = int(e[0])
 
             conn.execute(
                 sql,
@@ -398,10 +410,10 @@ class Scraper:
             )
             conn.commit()
         except sqlite3.Error as e:
-            print(str(e))
+            logging(str(e))
             conn.rollback()
         except TypeError as e:
-            print(str(e))
+            logging.error("error when scrape {}, {}".format(book_id, str(e)))
             conn.rollback()
             return False
         conn.close()
