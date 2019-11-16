@@ -1,5 +1,4 @@
 from sqlalchemy.dialects import sqlite
-
 from be.model import store
 
 
