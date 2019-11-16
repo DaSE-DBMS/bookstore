@@ -22,9 +22,5 @@ def test_addGoods(goodsId : str):
 
     assert g.addGoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
 
-    assert not g.addGoods(goodsId + "xxx", goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
-
-    assert not g.addGoods(goodsId, goodsName + "xxx",goodsauth, goodsPrice, goodsNum,goodsDsr)
-
 
 

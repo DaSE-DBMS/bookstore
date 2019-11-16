@@ -3264,3 +3264,465 @@ Traceback (most recent call last):
 AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
 INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:47:54] "POST /goods/addGoods HTTP/1.1" 500 -
 INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:47:54] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 401 -
+ERROR:be.serve:Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\auth.py", line 15, in login
+    ok, token = u.login(username=username, password=password, terminal=terminal)
+TypeError: cannot unpack non-iterable NoneType object
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/logout HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/logout HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/logout HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 401 -
+ERROR:be.serve:Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\auth.py", line 15, in login
+    ok, token = u.login(username=username, password=password, terminal=terminal)
+TypeError: cannot unpack non-iterable NoneType object
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/logout HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/logout HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/logout HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 401 -
+ERROR:be.serve:Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\auth.py", line 15, in login
+    ok, token = u.login(username=username, password=password, terminal=terminal)
+TypeError: cannot unpack non-iterable NoneType object
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/logout HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/logout HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/logout HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/password HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/password HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/password HTTP/1.1" 200 -
+ERROR:be.serve:Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\auth.py", line 15, in login
+    ok, token = u.login(username=username, password=password, terminal=terminal)
+TypeError: cannot unpack non-iterable NoneType object
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/logout HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/password HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/password HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:26] "POST /auth/password HTTP/1.1" 200 -
+ERROR:be.serve:Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\auth.py", line 15, in login
+    ok, token = u.login(username=username, password=password, terminal=terminal)
+TypeError: cannot unpack non-iterable NoneType object
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/login HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/logout HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/password HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/password HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/password HTTP/1.1" 200 -
+ERROR:be.serve:Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\auth.py", line 15, in login
+    ok, token = u.login(username=username, password=password, terminal=terminal)
+TypeError: cannot unpack non-iterable NoneType object
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/login HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/logout HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/register HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/register HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/register HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 16:51:27] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:be.serve:Exception on /goods/addGoods [POST]
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 27, in addgoods
+    (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+sqlite3.OperationalError: no such table: goods
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\goods.py", line 17, in addGoods
+    ok = g.addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 30, in addgoods
+    except sqlite.Error as e:
+AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:09:42] "POST /goods/addGoods HTTP/1.1" 500 -
+ERROR:be.serve:Exception on /goods/addGoods [POST]
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 27, in addgoods
+    (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+sqlite3.OperationalError: no such table: goods
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\goods.py", line 17, in addGoods
+    ok = g.addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 30, in addgoods
+    except sqlite.Error as e:
+AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:09:42] "POST /goods/addGoods HTTP/1.1" 500 -
+ERROR:be.serve:Exception on /goods/addGoods [POST]
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 27, in addgoods
+    (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+sqlite3.OperationalError: no such table: goods
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\goods.py", line 17, in addGoods
+    ok = g.addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 30, in addgoods
+    except sqlite.Error as e:
+AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:09:42] "POST /goods/addGoods HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:09:42] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:be.serve:Exception on /goods/addGoods [POST]
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 27, in addgoods
+    (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+sqlite3.OperationalError: no such table: goods
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\goods.py", line 17, in addGoods
+    ok = g.addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 30, in addgoods
+    except sqlite.Error as e:
+AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:15:14] "POST /goods/addGoods HTTP/1.1" 500 -
+ERROR:be.serve:Exception on /goods/addGoods [POST]
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 27, in addgoods
+    (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+sqlite3.OperationalError: no such table: goods
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\goods.py", line 17, in addGoods
+    ok = g.addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 30, in addgoods
+    except sqlite.Error as e:
+AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:15:22] "POST /goods/addGoods HTTP/1.1" 500 -
+ERROR:be.serve:Exception on /goods/addGoods [POST]
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 27, in addgoods
+    (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+sqlite3.OperationalError: no such table: goods
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\goods.py", line 17, in addGoods
+    ok = g.addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 30, in addgoods
+    except sqlite.Error as e:
+AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:15:30] "POST /goods/addGoods HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:15:30] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:be.serve:Exception on /goods/addGoods [POST]
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 27, in addgoods
+    (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+sqlite3.OperationalError: no such table: goods
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\goods.py", line 17, in addGoods
+    ok = g.addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 30, in addgoods
+    except sqlite.Error as e:
+AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:be.serve:Exception on /goods/addGoods [POST]
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 27, in addgoods
+    (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+sqlite3.OperationalError: no such table: goods
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\goods.py", line 17, in addGoods
+    ok = g.addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 30, in addgoods
+    except sqlite.Error as e:
+AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:22:33] "POST /goods/addGoods HTTP/1.1" 500 -
+ERROR:be.serve:Exception on /goods/addGoods [POST]
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 27, in addgoods
+    (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+sqlite3.OperationalError: no such table: goods
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\goods.py", line 17, in addGoods
+    ok = g.addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 30, in addgoods
+    except sqlite.Error as e:
+AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:22:46] "POST /goods/addGoods HTTP/1.1" 500 -
+ERROR:be.serve:Exception on /goods/addGoods [POST]
+Traceback (most recent call last):
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 27, in addgoods
+    (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+sqlite3.OperationalError: no such table: goods
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\Anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\Anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\view\goods.py", line 17, in addGoods
+    ok = g.addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
+  File "C:\Users\lenovo\Desktop\pro\bookstore\be\model\goods.py", line 30, in addgoods
+    except sqlite.Error as e:
+AttributeError: module 'sqlalchemy.dialects.sqlite' has no attribute 'Error'
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:22:47] "POST /goods/addGoods HTTP/1.1" 500 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:22:47] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:30:29] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:30:29] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:30:29] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:30:29] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:30:29] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:30:29] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:30:29] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:31:19] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:31:19] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:31:19] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2019 17:31:19] "GET /shutdown HTTP/1.1" 200 -

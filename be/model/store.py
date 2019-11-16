@@ -26,6 +26,11 @@ class Store:
                 "username TEXT PRIMARY KEY, password TEXT,"
                 " token TEXT, terminal TEXT);"
             )
+            conn.execute(
+                "CREATE TABLE IF NOT EXISTS Goods ("
+                "goodsId TEXT PRIMARY KEY, goodsName TEXT,"
+                " goodsauth TEXT, goodsPrice TEXT,goodsNum TEXT, goodsDsr TEXT);"
+            )
             conn.commit()
         except sqlite.Error as e:
             print(e)

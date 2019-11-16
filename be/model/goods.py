@@ -27,7 +27,7 @@ class Goods:
                 (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
             )
             conn.commit()
-        except sqlite.Error as e:
+        except BaseException as e:
             print(e)
             conn.rollback()
             return False
