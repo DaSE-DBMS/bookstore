@@ -6,6 +6,13 @@ class Goods:
     def __init__(self, url_prefix):
         self.url_prefix = urljoin(url_prefix, "goods/")
 
+    def addGoods(self, goodsId, goodsName, goodsauth, goodsPrice, goodsNum, goodsDsr) -> bool:
+        json = {"goodsId": goodsId,"goodsName" : goodsName,"goodsauth": goodsauth,"goodsPrice" : goodsPrice,"goodsNum" : goodsNum,"goodsDsr": goodsDsr}
+        #headers = {"token": token}
+        url = urljoin(self.url_prefix, "addGoods")
+        r = requests.post(url, json=json)
+        return r.status_code == 200
+
     def searchgoods(self, keywords: str, goodstypeid: str) -> (bool, list):
         json = {"keyeords": keywords, "goodsTypeId": goodstypeid}
         url = urljoin(self.url_prefix, "searchgoods/")

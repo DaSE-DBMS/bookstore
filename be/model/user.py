@@ -4,8 +4,6 @@ import jwt
 import time
 import logging
 import sqlite3 as sqlite
-from be.model.goods import Goods
-from be.model.merchant import Merchant
 
 
 # encode a json string like:
@@ -56,6 +54,7 @@ class User:
     password: str
     token: str
     terminal: str
+    balance: str
     token_lifetime: int = 3600  # 3600 second
 
     def __init__(self):
@@ -182,10 +181,4 @@ class User:
         return True
 
 
-def searchmerchantgoods(merchantname: str) -> (bool, tuple):
-    m: Merchant = store.get_row(Merchant.__name__, merchantname)
-    g: Goods = table.get(merchantname)
-    if m is not None and g is not None:
-        return True, g
-    else:
-        return False, ""
+

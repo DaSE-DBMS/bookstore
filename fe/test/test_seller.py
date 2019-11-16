@@ -1,34 +1,30 @@
-import pytest
 import time
-from fe.access import seller
+import pytest
 from fe import conf
-from fe.access import order
-
+from fe.access import goods
 
 @pytest.mark.parametrize(
-    "username",
+    "goodsId",
     [
-        "test_getorder1_{}".format(time.time()),
-        "test_getorder2_{}".format(time.time()),
-        "test_getoreder3_{}".format(time.time()),
+        "test_addGoods1_{}".format(time.time()),
+        "test_addGoods2_{}".format(time.time()),
+        "test_addGoods3_{}".format(time.time()),
     ],
 )
 
+def test_addGoods(goodsId : str):
+    g = goods.Goods(conf.URL)
+    goodsName = "goodsName" + goodsId
+    goodsauth = "goodsauth" + goodsId
+    goodsPrice = "goodsPrice" + goodsId
+    goodsNum = "goodsNum" + goodsId
+    goodsDsr = "goodsDsr" + goodsId
 
-def test_getorder(username: str):
-    o = order.Order(conf.URL)
-    # register a user
+    assert g.addGoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
 
-    orderId = "orderId" + username
-    orderStatus = "terminal_" + username
+    assert not g.addGoods(goodsId + "xxx", goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr)
 
-    assert o.getOrder(username)
-
-    # getorder right
-    getorder_ok, orderlist = o.getOrder(username)
-    assert not getorder_ok
+    assert not g.addGoods(goodsId, goodsName + "xxx",goodsauth, goodsPrice, goodsNum,goodsDsr)
 
 
-    # getorder wrong username
-    getorder_ok, orderlist = o.getOrder(username+"username")
-    assert not getorder_ok
+

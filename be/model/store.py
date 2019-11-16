@@ -15,6 +15,7 @@ class Store:
         self.tables = dict()
         self.create("User")
         self.create("Order")
+        self.create("Goods")
         self.init_tables()
 
     def init_tables(self):

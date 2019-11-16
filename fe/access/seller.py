@@ -1,9 +1,16 @@
 import requests
 from urllib.parse import urljoin
 
-class Buyer:
+class seller:
     def __init__(self, url_prefix):
-        self.url_prefix = urljoin(url_prefix, "seller/")
+        self.url_prefix = urljoin(url_prefix, "goods/")
+
+    def addGoods(self, goodsId, goodsName, goodsauth, goodsPrice, goodsNum, goodsDsr) -> bool:
+        json = {"goodsId": goodsId,"goodsName" : goodsName,"goodsauth": goodsauth,"goodsPrice" : goodsPrice,"goodsNum" : goodsNum,"goodsDsr": goodsDsr}
+        #headers = {"token": token}
+        url = urljoin(self.url_prefix, "addGoods")
+        r = requests.post(url, json=json)
+        return r.status_code == 200
 
     def getMemberInfo(self, username: str, token: str) -> (str, str, str):
         json = {"username": username}

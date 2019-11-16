@@ -6,12 +6,13 @@ class Order:
     def __init__(self, url_prefix):
         self.url_prefix = urljoin(url_prefix, "order/")
 
-    def getOrder(self, username: str) -> (bool, list):
+    def getOrder(self, username: str, token: str) -> (bool, list):
         json = {"username": username}
+        headers = {"token": token}
         url = urljoin(self.url_prefix, "getOrder")
-        r = requests.get(url, json=json)
+        r = requests.get(url, headers=headers, json=json)
         if r.status_code == 200:
-            return True,r.json()["orderlist"]
+            return True, r.json()["orderlist"]
         else:
             return False, ""
 

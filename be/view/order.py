@@ -10,10 +10,11 @@ bp_order = Blueprint("order", __name__, url_prefix="/order")
 
 @bp_order.route("/getOrder", methods=["GET"])
 def getOrder():
-    username = request.json.get("username", "")
-    ok, orderlist = order.getOrder(username=username)
-
+    username: str = request.json.get("username", "")
+    token: str = request.headers.get("token", "")
+    o = order.Order
+    ok, orderlist = o.getOrder(username=username, token=token)
     if ok:
         return jsonify({"message": "ok", "orderlist": orderlist}), 200
     else:
-        return jsonify({"message": "Orderid Is NULL"}), 503
+        return jsonify({"message": "Inquiry failed, no order"}), 501

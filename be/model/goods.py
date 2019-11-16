@@ -1,26 +1,35 @@
-from be.model import tuple
+from sqlalchemy.dialects import sqlite
+
 from be.model import store
-import jwt
-import time
-
-def jwt_encode(goodsname: str) -> str:
-    encoded = jwt.encode(
-        {"goodsname": goodsname},
-        key=goodsname,
-        algorithm="HS256",
-    )
-    return encoded.decode("utf-8")
 
 
-def jwt_decode(goodsname: str) -> str:
-    decoded = jwt.decode(key=goodsname, algorithms="HS256")
-    return decoded
+class Goods:
+    goodsId: str
+    goodsName: str
+    goodsauth: str
+    goodsPrice: str
+    goodsNum: str
+    goodsDsr: str
 
+    def __init__(self):
+        self.goodsId = ""
+        self.goodsName = ""
+        self.goodsauth = ""
+        self.goodsPrice = ""
+        self.goodsNum = ""
+        self.goodsDsr = ""
 
-class Goods(tuple.Tuple):
-    goodsname: str
+    def addgoods(goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr) -> bool:
+        conn = store.get_db_conn()
+        try:
+            conn.execute(
+                "INSERT into goods( goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr) VALUES (?, ?, ?, ?, ?,?);",
+                (goodsId, goodsName,goodsauth, goodsPrice, goodsNum,goodsDsr),
+            )
+            conn.commit()
+        except sqlite.Error as e:
+            print(e)
+            conn.rollback()
+            return False
+        return True
 
-
-    def __init__(self, goodsname):
-        self.key = goodsname
-        self.goodsame = goodsname
