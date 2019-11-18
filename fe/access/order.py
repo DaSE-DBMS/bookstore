@@ -6,6 +6,16 @@ class Order:
     def __init__(self, url_prefix):
         self.url_prefix = urljoin(url_prefix, "order/")
 
+    def createOrder(self,orderId : str, sellerName : str, buyerName : str ,orderStatus : str, cartlist : list, addr : str) -> bool:
+        json = { "orderId" : orderId,"sellerName" : sellerName, "buyerName" : buyerName , "orderStatus" : orderStatus ,"cartlist" : cartlist, "addr" : addr}
+        url = urljoin(self.url_prefix, "createOrder")
+        r = requests.post(url, json=json)
+        if r.status_code == 200:
+            return True
+        else:
+            return False
+
+
     def getOrder(self, username: str, token: str) -> (bool, list):
         json = {"username": username}
         headers = {"token": token}

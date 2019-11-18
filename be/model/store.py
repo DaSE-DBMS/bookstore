@@ -27,9 +27,15 @@ class Store:
                 " token TEXT, terminal TEXT);"
             )
             conn.execute(
-                "CREATE TABLE IF NOT EXISTS Goods ("
-                "goodsId TEXT PRIMARY KEY, goodsName TEXT,"
-                " goodsauth TEXT, goodsPrice TEXT,goodsNum TEXT, goodsDsr TEXT);"
+                "CREATE TABLE IF NOT EXISTS goods ("
+                "goodsId TEXT PRIMARY KEY, goodsName TEXT NOT NULL,"
+                "goodsAuth TEXT, goodsPrice TEXT NOT NULL, goodsNum TEXT, goodsType TEXT, goodsDsr TEXT, sellerName TEXT);"
+            )
+            conn.execute(
+                "CREATE TABLE IF NOT EXISTS orders ("
+                "orderId TEXT, buyername TEXT ,"
+                "sellerName TEXT, orderStatus TEXT , goodsName TEXT, goodsPrice TEXT, totalValue TEXT, addr TEXT,"
+                "PRIMARY KEY(orderId, goodsName));"
             )
             conn.commit()
         except sqlite.Error as e:

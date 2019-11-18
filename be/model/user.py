@@ -55,6 +55,7 @@ class User:
     token: str
     terminal: str
     balance: str
+    identify: str  #0 买家  1卖家
     token_lifetime: int = 3600  # 3600 second
 
     def __init__(self):

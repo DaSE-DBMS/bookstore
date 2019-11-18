@@ -5,8 +5,8 @@ class seller:
     def __init__(self, url_prefix):
         self.url_prefix = urljoin(url_prefix, "goods/")
 
-    def addGoods(self, goodsId, goodsName, goodsauth, goodsPrice, goodsNum, goodsDsr) -> bool:
-        json = {"goodsId": goodsId,"goodsName" : goodsName,"goodsauth": goodsauth,"goodsPrice" : goodsPrice,"goodsNum" : goodsNum,"goodsDsr": goodsDsr}
+    def addGoods(self, goodsId, goodsName, goodsauth, goodsPrice, goodsNum, goodsType, goodsDsr,sellerName) -> bool:
+        json = {"goodsId": goodsId,"goodsName" : goodsName,"goodsauth": goodsauth,"goodsPrice" : goodsPrice,"goodsNum" : goodsNum,"goodsType":goodsType,"goodsDsr": goodsDsr,"sellerName":sellerName}
         #headers = {"token": token}
         url = urljoin(self.url_prefix, "addGoods")
         r = requests.post(url, json=json)

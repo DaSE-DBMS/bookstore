@@ -5,6 +5,7 @@ class Buyer:
     def __init__(self, url_prefix):
         self.url_prefix = urljoin(url_prefix, "buyer/")
 
+
     def getMemberInfo(self,username : str,token: str)->(str,str,str):
         json = {"username": username}
         headers = {"token": token}
