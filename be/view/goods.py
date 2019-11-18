@@ -3,6 +3,7 @@ from flask import request
 from flask import jsonify
 from be.model import goods
 
+
 bp_goods = Blueprint("goods", __name__, url_prefix="/goods")
 
 @bp_goods.route("/addGoods", methods=["POST"])
