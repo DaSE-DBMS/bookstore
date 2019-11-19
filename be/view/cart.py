@@ -1,7 +1,6 @@
 from flask import Blueprint
 from flask import request
 from flask import jsonify
-
 from be.model import cart
 
 bp_cart = Blueprint("cart", __name__, url_prefix="/cart")

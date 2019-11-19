@@ -1,8 +1,5 @@
 import os
 from typing import Dict
-from be.model import table
-from be.model import tuple
-from be.model import user
 import sqlite3 as sqlite
 
 

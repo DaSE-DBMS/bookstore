@@ -1,5 +1,4 @@
 import requests
-import asyncio
 import threading
 from urllib.parse import urljoin
 from be import serve
