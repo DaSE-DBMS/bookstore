@@ -32,3 +32,6 @@ def searchGoods():
         return jsonify({"message": "ok", "goodslist": goodslist}), 200
     else:
         return jsonify({"message": "Search failed, no relevant products"}), 501
+
+
+

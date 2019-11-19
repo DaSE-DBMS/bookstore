@@ -1,4 +1,4 @@
-from sqlalchemy.dialects import sqlite
+import sqlite3 as sqlite
 import logging
 from be.model import store
 

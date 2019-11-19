@@ -16,6 +16,7 @@ class Store:
         self.create("User")
         self.create("Order")
         self.create("Goods")
+        self.create("Carts")
         self.init_tables()
 
     def init_tables(self):
@@ -36,6 +37,11 @@ class Store:
                 "orderId TEXT, buyername TEXT ,"
                 "sellerName TEXT, orderStatus TEXT , goodsName TEXT, goodsPrice TEXT, totalValue TEXT, addr TEXT,"
                 "PRIMARY KEY(orderId, goodsName));"
+            )
+            conn.execute(
+                "CREATE TABLE IF NOT EXISTS carts ("
+                "sellerName TEXT , goodsId TEXT, goodsName TEXT, goodsPrice TEXT, goodsNum TEXT, totalValue TEXT,"
+                "PRIMARY KEY(sellerName, goodsId));"
             )
             conn.commit()
         except sqlite.Error as e:

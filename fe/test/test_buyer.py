@@ -1,7 +1,7 @@
 import time
 import pytest
 from fe import conf
-from fe.access import order
+from fe.access import order, cart
 
 
 @pytest.mark.parametrize(
@@ -15,8 +15,6 @@ from fe.access import order
 
 def test_createOrder(orderId : str):
     o = order.Order(conf.URL)
-    # orderId, sellerName, buyerName, orderStatus, cartlist, addr
-    # goodsName，goodsPrice，totalValue
     sellerName = "selelrName" + orderId
     buyerName = "buyerName" + orderId
     orderStatus = "orderStatus" + orderId
@@ -28,3 +26,6 @@ def test_createOrder(orderId : str):
     addr = "addr" + orderId
 
     assert o.createOrder(orderId, sellerName, buyerName, orderStatus, cartlist, addr)
+
+
+

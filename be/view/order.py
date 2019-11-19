@@ -22,12 +22,22 @@ def createOrder():
     else:
         return jsonify({"message": "Inquiry failed, no order"}), 501
 
-@bp_order.route("/getOrder", methods=["POST"])
-def getOrder():
-    username: str = request.json.get("username", "")
+@bp_order.route("/buyergetOrder", methods=["POST"])
+def buyergetOrder():
+    buyerName: str = request.json.get("buyerName", "")
     token: str = request.headers.get("token", "")
     o = order.Order
-    ok, orderlist = o.getOrder(username=username, token=token)
+    ok, orderlist = o.getOrder(buyerName=buyerName, token=token)
+    if ok:
+        return jsonify({"message": "ok", "orderlist": orderlist}), 200
+    else:
+        return jsonify({"message": "Inquiry failed, no order"}), 501
+
+@bp_order.route("/sellergetOrder", methods=["POST"])
+def sellergetOrder():
+    sellerName: str = request.json.get("sellerName", "")
+    o = order.Order
+    ok, orderlist = o.getOrder(sellerName=sellerName)
     if ok:
         return jsonify({"message": "ok", "orderlist": orderlist}), 200
     else:
@@ -42,3 +52,14 @@ def cancelOrder():
         return jsonify({"message": "ok"}), 200
     else:
         return jsonify({"message": "cancel failed, token error"}), 401
+
+@bp_order.route("/paymentOrder", methods=["POST"])
+def paymentOrder():
+    orderId: str = request.json.get("orderId", "")
+    buyerName: str = request.json.get("buyerName", "")
+    o = order.Order
+    ok = o.paymentOrder(orderId=orderId, buyerName=buyerName)
+    if ok:
+        return jsonify({"message": "ok"}), 200
+    else:
+        return jsonify({"message": "payment failed, insufficient account balance"}), 501

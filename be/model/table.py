@@ -41,3 +41,4 @@ class Table:
                 return True
             else:
                 return False
+
