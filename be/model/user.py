@@ -142,6 +142,8 @@ class User:
 
             self.update_token()
             return True, self.token
+        else:
+            return False, ""
 
     def logout(self, username: str, token: str) -> bool:
         if not self.fetch_user(username):
