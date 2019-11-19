@@ -1,4 +1,5 @@
 import sqlite3 as sqlite
+import logging
 
 
 class Store:
@@ -30,7 +31,7 @@ class Store:
             )
             conn.commit()
         except sqlite.Error as e:
-            print(e)
+            logging.error(e)
             conn.rollback()
 
     def get_db_conn(self) -> sqlite.Connection:
