@@ -21,7 +21,14 @@ def be_shutdown():
 
 
 def be_run():
-    logging.basicConfig(filename="app.log", level=logging.ERROR)
+    logging.basicConfig(filename="app.log", level=logging.INFO)
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter(
+        "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s"
+    )
+    handler.setFormatter(formatter)
+    logging.getLogger().addHandler(handler)
+
     app = Flask(__name__)
     app.register_blueprint(bp_shutdown)
     app.register_blueprint(auth.bp_auth)
