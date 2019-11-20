@@ -23,30 +23,12 @@ class Goods:
         self.goodsDsr = ""
         self.sellerName = ""
 
-    def addGoods(
-        goodsId,
-        goodsName,
-        goodsAuth,
-        goodsPrice,
-        goodsNum,
-        goodsType,
-        goodsDsr,
-        sellerName,
-    ) -> bool:
+    def addGoods(goodsId: str,goodsName: str,goodsAuth: str,goodsPrice: int ,goodsNum: int,goodsType: str,goodsDsr: str,sellerName: str) -> bool:
         conn = store.get_db_conn()
         try:
             conn.execute(
                 "INSERT into goods(goodsId, goodsName, goodsAuth, goodsPrice, goodsNum, goodsType, goodsDsr, sellerName) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
-                (
-                    goodsId,
-                    goodsName,
-                    goodsAuth,
-                    goodsPrice,
-                    goodsNum,
-                    goodsType,
-                    goodsDsr,
-                    sellerName,
-                ),
+                (goodsId,goodsName,goodsAuth,goodsPrice,goodsNum,goodsType,goodsDsr,sellerName),
             )
             conn.commit()
         except BaseException as e:
@@ -54,6 +36,19 @@ class Goods:
             conn.rollback()
             return False
         return True
+
+    def delGoods(goodsId: str, sellerName: str) -> bool:
+        conn = store.get_db_conn()
+        try:
+            cursor = conn.execute("DELETE from goods where goodsId=? and sellerName=?", (goodsId, sellerName))
+            if cursor.rowcount == 1:
+                conn.commit()
+            else:
+                conn.rollback()
+        except sqlite.Error as e:
+            logging.error(str(e))
+            conn.rollback()
+
 
     def searchGoods(keywords, goodsType) -> (bool, list):
         conn = store.get_db_conn()

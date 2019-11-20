@@ -14,6 +14,14 @@ class Goods:
         print(r.json()["message"])
         return r.status_code == 200
 
+    def delGoods(self, goodsId: str, sellerName: str) -> bool:
+        json = {"goodsId": goodsId, "sellerName": sellerName}
+       # headers = {"token": token}
+        url = urljoin(self.url_prefix, "delGoods")
+        r = requests.post(url, json=json)
+        print(r.json()["message"])
+        return r.status_code == 200
+
     def searchGoods(self, keywords: str, goodstype: str) -> (bool, list):
         json = {"keywords": keywords, "goodsType": goodstype}
         url = urljoin(self.url_prefix, "searchGoods")

@@ -21,7 +21,18 @@ def addGoods():
     if ok:
         return jsonify({"message": "ok"}), 200
     else:
-        return jsonify({"message": "Insert failed"}), 501
+        return jsonify({"message": "Insert failed, token error"}), 401
+
+@bp_goods.route("/delGoods", methods=["POST"])
+def delGoods():
+    goodsId : str = request.json.get("goodsId","")
+    sellerName: str = request.json.get("sellerName","")
+    g = goods.Goods
+    ok = g.delGoods(goodsId, sellerName)
+    if ok:
+        return jsonify({"message": "ok"}), 200
+    else:
+        return jsonify({"message": "delete failed, token error"}), 501
 
 @bp_goods.route("/searchGoods", methods=["GET"])
 def searchGoods():

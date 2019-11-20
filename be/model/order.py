@@ -5,17 +5,17 @@ import logging
 
 class Order:
     orderId: str
-    buyername: str
+    buyerName: str
     sellerName: str
-    orderStatus: str #0失败 1成功 2待支付 3支付成功
+    orderStatus: int  #0失败 1成功 2待支付 3支付成功
     goodsName: str
-    goodsPrice: str
-    totalValue: str
+    goodsPrice: int
+    totalValue: int
     addr: str
 
-    def __init__(self, orderId, buyername, sellerName, orderStatus, goodsName, goodsPrice, totalValue, addr):
+    def __init__(self, orderId, buyerName, sellerName, orderStatus, goodsName, goodsPrice, totalValue, addr):
         self.orderId = orderId
-        self.buyername = buyername
+        self.buyerName = buyerName
         self.sellerName = sellerName
         self.orderStatus = orderStatus
         self.goodsName = goodsName
@@ -48,7 +48,7 @@ class Order:
             for good in cartlist:
                 conn.execute(
                     "INSERT into orders(orderId, buyerName, sellerName , orderStatus, goodsName, goodsPrice, totalValue, addr) VALUES (?, ?, ?, ?, ?, ?, ? ,?);",
-                    (orderId, buyerName ,sellerName , orderStatus, good[0], good[1], good[2], addr),
+                    (orderId, buyerName, sellerName, orderStatus, good[0], good[1], good[2], addr),
                 )
                 conn.commit()
         except sqlite.Error as e:
@@ -60,17 +60,17 @@ class Order:
     def buyergetOrder(self, buyerName: str, token: str) -> (bool, list):
         # if not self.check_token(token):
         #    return False,[]
-        Sql = "SELECT orderId, sellerName, orderStatus, goodsName, goodsPrice, totalValue, addr from order where buyerName=?"
+        Sql = "SELECT orderId, sellerName, orderStatus, goodsName, goodsPrice, totalValue, addr from orders where buyerName=?"
         return self.fetch_order(buyerName, Sql)
 
     def sellergetOrder(self, sellerName: str) -> (bool, list):
-        Sql = "SELECT orderId, buyerName, orderStatus, goodsName, goodsPrice, totalValue, addr from order where sellerName=?"
+        Sql = "SELECT orderId, buyerName, orderStatus, goodsName, goodsPrice, totalValue, addr from orders where sellerName=?"
         return self.fetch_order(sellerName, Sql)
 
     def cancelOrder(orderId: str, buyerName: str) -> bool:
         conn = store.get_db_conn()
         try:
-            cursor = conn.execute("DELETE from order where buyerName=? and orderId=?", (buyerName, orderId))
+            cursor = conn.execute("DELETE from orders where buyerName=? and orderId=?", (buyerName, orderId))
             if cursor.rowcount == 1:
                 conn.commit()
             else:
@@ -87,22 +87,22 @@ class Order:
                 (buyerName,),
             )
             row = cursor.fetchone()
-            balance = float(row[0])
+            balance = row[0]
             cursor = conn.execute(
                 "SELECT totalValue from order where orderId=?",
                 (orderId,),
             )
             row = cursor.fetchone()
-            money = balance-float(row[0])
+            money = balance-row[0]
             if money < 0:
                 return False
             conn.execute(
                 "UPDATE order set orderStatus = ? where orderId = ?",
-                ("3",),
+                (3,),
             )
             conn.execute(
                 "UPDATE user set balance = ? where buyerName = ?",
-                (str(money),),
+                (money,),
             )
             conn.commit()
         except sqlite.Error as e:

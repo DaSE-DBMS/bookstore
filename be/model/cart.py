@@ -11,7 +11,7 @@ def check_num(goodsId, goodsNum):
             (goodsId),
         )
         row = cursor.fetchone()
-        if row is None or float(row[0])-float(goodsNum) < 0:
+        if row is None or row[0]-goodsNum < 0:
             return False
     except sqlite.Error as e:
         logging.error(str(e))
@@ -19,14 +19,16 @@ def check_num(goodsId, goodsNum):
     return True
 
 class Cart:
+    buyerName: str
     sellerName: str
     goodsId: str
     goodsName: str
-    goodsPrice: str
-    goodsNum: str
-    totalValue: str
+    goodsPrice: int
+    goodsNum: int
+    totalValue: int
 
-    def __init__(self, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue):
+    def __init__(self, buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue):
+        self.buyerName = buyerName
         self.sellerName = sellerName
         self.goodsId = goodsId
         self.goodsName = goodsName
@@ -34,7 +36,7 @@ class Cart:
         self.goodsNum = goodsNum
         self.totalValue = totalValue
 
-    def addCart(sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue) -> bool:
+    def addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue) -> bool:
         conn = store.get_db_conn()
         try:
             #添加一个判断，商品是否还有库存
@@ -42,26 +44,26 @@ class Cart:
                 return False
             #判断买家购物车是否已有该商品，没有就加入这个商品，有就改变数量
             cursor = conn.execute(
-                "SELECT goodsNum from cart where sellerName=? and goodsId=?",
-                (sellerName, goodsId),
+                "SELECT goodsNum from cart where buyerName=? and goodsId=?",
+                (buyerName, goodsId),
             )
             row = cursor.fetchone()
             if row is None:
                 conn.execute(
-                    "INSERT into cart(sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue) VALUES (?, ?, ?, ?, ?, ?);",
+                    "INSERT into cart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue) VALUES (?, ?, ?, ?, ?, ?, ?);",
                     (sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue),
                 )
             else:
-                newgoodsNum = float(row[0]) + float(goodsNum)
+                newgoodsNum = row[0] + goodsNum
                 cursor = conn.execute(
-                    "SELECT totalValue from cart where sellerName=? and goodsId=?",
-                    (sellerName, goodsId),
+                    "SELECT totalValue from cart where buyerName=? and goodsId=?",
+                    (buyerName, goodsId),
                 )
                 row = cursor.fetchone()
-                newtotalValue = float(row[0]) + float(goodsPrice)*float(goodsName)
+                newtotalValue = row[0] + goodsPrice*goodsName
                 conn.execute(
-                    "UPDATE cart set goodsNum=?, totalValue = ? where sellerName=? and goodsId=?",
-                    (str(newgoodsNum), str(newtotalValue), sellerName, goodsId),
+                    "UPDATE cart set goodsNum=?, totalValue = ? where buyerName=? and goodsId=?",
+                    (newgoodsNum, newtotalValue, buyerName, goodsId),
                 )
             conn.commit()
         except BaseException as e:
@@ -70,12 +72,12 @@ class Cart:
             return False
         return True
 
-    def delCart(sellerName, goodsId, goodsNum) -> bool:
+    def delCart(buyerName, goodsId, goodsNum) -> bool:
         conn = store.get_db_conn()
         try:
             cursor = conn.execute(
-                "SELECT goodsNum, goodsPrice from cart where sellerName=? and goodsId=?",
-                (sellerName, goodsId),
+                "SELECT goodsNum, goodsPrice from cart where buyerName=? and goodsId=?",
+                (buyerName, goodsId),
             )
             row = cursor.fetchone()
             if row is None:
@@ -83,11 +85,11 @@ class Cart:
             newgoodsNum = float(row[0]) - float(goodsNum)
             newtotalValue = float(row[1])*float(newgoodsNum)
             if newgoodsNum == 0:
-                cursor = conn.execute("DELETE from cart where sellerName=? and goodsId=?", (sellerName, goodsId))
+                cursor = conn.execute("DELETE from cart where buyerName=? and goodsId=?", (buyerName, goodsId))
             else:
                 conn.execute(
-                    "UPDATE cart set goodsNum = ?, totalValue = ? where sellerName=? and goodsId=?",
-                    (str(newgoodsNum), str(newtotalValue), sellerName, goodsId),
+                    "UPDATE cart set goodsNum = ?, totalValue = ? where buyerName=? and goodsId=?",
+                    (str(newgoodsNum), str(newtotalValue), buyerName, goodsId),
                 )
             conn.commit()
         except BaseException as e:
@@ -96,21 +98,21 @@ class Cart:
             return False
         return True
 
-    def getCart(sellerName) -> (bool, list, float):
+    def getCart(buyerName) -> (bool, list, int):
         conn = store.get_db_conn()
         try:
             cursor = conn.execute(
-                "SELECT goodsName, goodsPrice, goodsNum, totalValue from carts where sellerName=?",
-                (sellerName),
+                "SELECT sellerName, goodsName, goodsPrice, goodsNum, totalValue from carts where buyerName=?",
+                (buyerName),
             )
             contents = cursor.fetchall()
             if contents:
                 return False, [], 0
             cartlist = []
-            sum = 0.0
+            sum = 0
             for row in contents:
                 a = [row[0], row[1], row[2]]
-                sum += float(row[3])
+                sum += row[3]
                 cartlist.append(a)
         except sqlite.Error as e:
             logging.error(str(e))

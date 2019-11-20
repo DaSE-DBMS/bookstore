@@ -1,7 +1,7 @@
 ## 1）getCart-查看购物车
 
 #### URL
-POST http://[address]/order/getcart
+POST http://$address$/order/getCart
 
 #### Request
 
@@ -14,13 +14,13 @@ Headers:
 Body:
 ```
 {
-    "username":"$user name"
+    "buyerName":"$buyer name"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+buyerName | string | 买家名 | N
 
 #### Response
 
@@ -36,35 +36,31 @@ body：
 
 ```
 { 
-	"errormsg":"$Access failed, token error",
-	"goodssum":"$goods sum",
-	"goodsamount":"$goods amount",
-	"buylist":[{"merchantname":"$merchant name",
-				"goodsname":"$goods name",
-				"goodsnumber":"$goods number",
-				"goodsimage":"$goods image",
-				"saleprice":"$sale price" },{......}]
+	"message":"$Access failed, token error/$ok",
+	"sum":"$total value",
+	"cartlist":[{"sellerName":"$seller name",
+				"goodsName":"$goods name",
+				"goodsPrice":"$sale price",
+				"goodsNum":"$goods number"},{......}]
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
- errormsg | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，此变量为空，且输出以下变量 | Y          
- goodssum | string | 总商品数 | N 
- goodsamount | string | 总金额 | N 
- **buylist** |        | 购物车中的所有商品，且每件商品都应包含如下信息 |            
- merchantname | string | 商家名 | N 
- goodsname | string | 商品名 | N 
- goodsnumber | string | 商品数量 | N 
- goodsimage | string | 商品图片 | N 
- saleprice | string | 活动价 | N 
+ message | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，为"ok"，且输出以下变量 | N         
+ sum | string | 总金额 | N 
+ **cartlist** |        | 购物车中的所有商品，且每件商品都应包含如下信息 |            
+ sellerName | string | 卖家名 | 
+ goodsName | string | 商品名 | N 
+ goodsNum | string | 商品数量 | N 
+ goodsPrice | string | 商品价格 | N 
 
 
 
 ## 2）delCart-删除购物车中的商品
 
 #### URL
-POST http://[address]/order/delcart
+POST http://$address$/order/delCart
 
 #### Request
 
@@ -77,15 +73,17 @@ Headers:
 Body:
 ```
 {
-    "goodsid":"$good id",
-    "goodsnumber":"$goods number"
+	"buyerName":"$buyer name",
+    "goodsId":"$good id",
+    "goodsNum":"$goods number"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
- goodsid | string | 商品编号 | N          
- goodsnumber | string | 商品数量 | N 
+buyerName | string | 买家名 | N 
+ goodsId | string | 商品编号 | N          
+ goodsNum | string | 商品数量 | N 
 
 #### Response
 
@@ -101,12 +99,12 @@ Status Code:
 Body:
 ```
 {
-	"errormsg":"$Delete failed, token error"
+	"message":"$Delete failed, token error/$ok"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-errormsg | string | 错误信息描述，成功返回"ok" | Y 
+message | string | 失败时，为错误信息描述；成功时，为"ok" | N 
 
 #### 接口描述
 
@@ -117,7 +115,7 @@ errormsg | string | 错误信息描述，成功返回"ok" | Y
 ## 3）addCart-添加商品到购物车
 
 #### URL
-POST http://[address]/order/addcart
+POST http://$address$/order/addCart
 
 #### Request
 
@@ -130,51 +128,58 @@ Headers:
 Body:
 ```
 {
-    "username":"$user name",
-    “orderamount":"$order amount",
-    "merchantname":"$merchant name",
-	"goodsname":"$goods name",
-	"goodsnumber":"$goods number",
-	"goodsimage":"$goods image",
-	"saleprice":"$sale price" 
+    "buyerName":"$buyer name",
+    "sellerName":"$sellerr name",
+    “goodsId":"$goods id",
+	"goodsName":"$goods name",
+	"goodsPrice":"$sale price",
+	"goodsNum":"$goods number",
+	"totalValue":"$total value" 
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
-orderamount | string | 总金额 | N
- merchantname | string | 商家名   | N          
- goodsname    | string | 商品名   | N          
- goodsnumber  | string | 商品数量 | N          
- goodsimage   | string | 商品图片 | N          
- saleprice    | string | 活动价   | N          
+buyerName | string | 买家名 | N 
+sellerName | string | 卖家名 | N
+goodsId | string | 商品编号 | N
+ goodsName   | string | 商品名   | N          
+ goodsPrice | string | 商品价格 | N          
+ goodsNum | string | 商品数量 | N          
+ totalValue | string | 总价 | N          
 
 #### Response
 
 Status Code:
 
-码 | 描述
---- | ---
-200 | 添加成功 
-401 | 添加失败，token错误 
+码 | 描述| 
+--- | ---|--- 
+200 | 添加成功 | 
+401 | 添加失败，token错误 | 
+501 | 添加失败，商品库存不足 | 
 
 Body:
 ```
 {
-	"errormsg":"$addition failed, token error"
+	"message":"$addition failed, insufficient stock of goods/$ok"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-errormsg | string | 错误信息描述，成功返回"ok" | Y 
+message | string | 失败时，为错误信息描述；成功时，为"ok" | Y 
+
+#### 接口描述
+
+a.首先判断商品是否还有库存；
+
+b.其次判断商品是否已在购物车中，存在则修改商品数量；如果不存在，则添加商品全部信息到购物车中。
 
 
 
 ## 4）createOrder-创建订单
 
 #### URL
-POST http://[address]/order/createorder
+POST http://$address$/order/createOrder
 
 #### Request
 
@@ -187,20 +192,28 @@ Headers:
 Body:
 ```
 {
-	"username":"$user name",
-	"orderamount":"$goods amount",
-    "buylist":[{"merchantname":"$merchant name",
-    		   "goodsname":"$goods name",
-    		   "goodsnumber":"$goods number"，
-    		   "saleprice":"$sale price"},{......} ]
+	"orderId":"$order id",
+	"buyerName":"$buyer name",
+	"sellerName":"$seller name",
+	"orderStatue":"$order status",
+	"addr":"$addr",
+    "cartlist":[{"goodsName":"$goods name",
+    		    "goodsPrice":"$sale price",
+    		    "totalValue":"$totalValue"},{......} ]
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
-orderamount | string | 总金额 | N 
-buylist |  | 购买的所有商品<br />(同接口"getCart"的buylist) |  
+orderId | stirng | 订单号 | N 
+buyerName | string | 买家名 | N
+sellerName | string | 卖家名 | N 
+orderStatus | int | 订单状态   eg:0失败 1成功 2待支付 3支付成功 | N 
+addr | string | 收货地址 |  
+**cartlist** |  | 购买的所有商品，且每件商品都应包含如下信息 |  
+goodsName | string | 商品名 | 
+goodsPrice | int | 商品价格 | 
+totalValue | int | 总价 | 
 
 #### Response
 
@@ -215,15 +228,12 @@ Status Code:
 Body:
 ```
 {
-	"result":"$status code",	
-    "errormsg":"$order generation failed，token error/order generation failed，no goods"，
-    "orderid":"$order number"
+    "message":"$order generation failed，token error/$order generation failed，no goods/$ok"
 }
 ```
-变量名 | 类型 | 描述 | 是否可为空
----|---|---|---
- errormsg | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，此变量为空，且输出以下变量 | Y          
- orderid | sring  | 订单号       | N          
+变量名 | 类型 | 描述 | 是否可为空| 
+---|---|---|---|---
+ message | string | 失败时，为错误信息描述；成功时，为“ok | N         | 
 
 
 
@@ -231,7 +241,7 @@ Body:
 
 #### URL：
 
-POST http://[address]/order/cancelorder
+POST http://$address$/order/cancelOrder
 
 #### Request
 
@@ -245,13 +255,15 @@ Body:
 
 ```
 {
-    “orderid":"$order number"
+    “orderId":"$order number",
+    "buyerName":"$buyer name"
 }
 ```
 
-| 变量名  | 类型 | 描述   | 是否可为空 |
-| ------- | ---- | ------ | ---------- |
-| orderid | int  | 订单号 | N          |
+| 变量名    | 类型   | 描述   | 是否可为空 |
+| --------- | ------ | ------ | ---------- |
+| orderId   | string | 订单号 | N          |
+| buyerName | string | 买家名 | N          |
 
 #### Response
 
@@ -266,13 +278,13 @@ Body:
 
 ```
 {
-	"errormsg":"$cancel failed, token error"
+	"message":"$cancel failed, token error/$ok"
 }
 ```
 
-| 变量名   | 类型   | 描述                       | 是否可为空 |
-| -------- | ------ | -------------------------- | ---------- |
-| errormsg | string | 错误信息描述，成功时为"ok" | N          |
+| 变量名  | 类型   | 描述                                  | 是否可为空 |
+| ------- | ------ | ------------------------------------- | ---------- |
+| message | string | 失败时，为错误信息描述；成功时，为“ok | N          |
 
 
 
@@ -280,7 +292,7 @@ Body:
 
 #### URL：
 
-POST http://[address]/order/paymentorder
+POST http://$address$/order/paymentOrder
 
 #### Request
 
@@ -294,17 +306,15 @@ Body:
 
 ```
 {
-    "balance":"$user balance",
-    "orderamount":"$goods amount",
-    “orderid":"$order number"
+    “orderId":"$order number"，
+    "buyerName":"$buyer name"
 }
 ```
 
-| 变量名      | 类型   | 描述   | 是否可为空 |
-| ----------- | ------ | ------ | ---------- |
-| balance     | string | 用余额 | N          |
-| orderamount | string | 总金额 | N          |
-| orderid     | string | 订单号 | N          |
+| 变量名    | 类型   | 描述   | 是否可为空 |
+| --------- | ------ | ------ | ---------- |
+| orderId   | string | 订单号 | N          |
+| buyerName | string | 买家名 | N          |
 
 #### Response
 
@@ -320,21 +330,21 @@ Body:
 
 ```
 {
-	"errormsg":"$payment failed, token error/payment failed, insufficient account balance"
+	"message":"$payment failed, token error/payment failed, insufficient account balance"
 }
 ```
 
-| 变量名   | 类型   | 描述                       | 是否可为空 |
-| -------- | ------ | -------------------------- | ---------- |
-| errormsg | string | 错误信息描述，成功时为"ok" | N          |
+| 变量名  | 类型   | 描述                                  | 是否可为空 |
+| ------- | ------ | ------------------------------------- | ---------- |
+| message | string | 失败时，为错误信息描述；成功时，为“ok | N          |
 
 
 
-## 7）allOrder-查看全部订单
+## 7）buyergetOrder-买家查看全部订单
 
 #### URL：
 
-POST http://[address]/order/allorder
+POST http://$address$/order/buyergetOrder
 
 #### Request
 
@@ -348,13 +358,13 @@ Body:
 
 ```
 {
-    "userid":"$user id"
+    "buyerName":"$buyer name"
 }
 ```
 
-| 变量名 | 类型   | 描述     | 是否可为空 |
-| ------ | ------ | -------- | ---------- |
-| userid | string | 用户编号 | N          |
+| 变量名    | 类型   | 描述   | 是否可为空 |
+| --------- | ------ | ------ | ---------- |
+| buyerName | string | 买家名 | N          |
 
 #### Response
 
@@ -370,30 +380,101 @@ Body:
 
 ```
 {
-	"errormsg":"$Inquiry failed, token error/Inquiry failed, no order",
-	"orderlist":[{"orderid":"$order number",
-    			 "orderstatus":"$order status",
-    			 "orderamount":"$order amount",
-    			 "buylist":[{ "merchantname":"$merchant name",
-				             "goodsname":"$goods name",
-						    "goodsnumber":"$goods number",
-						    "goodsimage":"$goods image",
-				  			"saleprice":"$sale price" },{......}]},
+	"message":"$Inquiry failed, token error/$Inquiry failed, no order/$ok",
+	"orderlist":[{"orderId":"$order number",
+    			 "orderStatus":"$order status",
+    			 "addr":"address"，
+    			 "buylist":[{"sellerName":"$seller name",
+				             "goodsName":"$goods name",
+						    "goodsPrice":"$goods price",
+						    "totalValue":"$totalValue"},{......}]},
 				  {......}]	  	
 }
 ```
 
 | 变量名        | 类型   | 描述                                                         | 是否可为空 |
 | ------------- | ------ | ------------------------------------------------------------ | ---------- |
-| errormsg      | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，此变量为空，且输出以下变量 | Y          |
+| errormsg      | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，为"ok"，且输出以下变量 | Y          |
 | **orderlist** |        | 用户的所有订单，且每单应该包含以下信息                       |            |
-| orderid       | string | 订单号                                                       | N          |
-| orderstatus   | string | 订单状态，可以是：交易成功、待支付、交易失败                 | N          |
-| orderamount   | string | 总金额                                                       | N          |
-| buylist       |        | (同接口"getCart"的buylist)                                   | N          |
+| orderId       | string | 订单号                                                       | N          |
+| orderStatus   | string | 订单状态，可以是：交易成功、待支付、交易失败                 | N          |
+| addr          | string | 收货地址                                                     |            |
+| **buylist**   |        | 订单中的每个商品都应包含以下信息                             |            |
+| sellerName    | string | 卖家名                                                       | N          |
+| goodsName     | string | 商品名                                                       | N          |
+| goodsPrice    | string | 商品价格                                                     | N          |
+| totalValue    | string | 总价                                                         | N          |
 
 #### 接口描述
 
 a."orderlist"表示一个用户可能拥有多个订单；
 
 b.单个订单可能包含多个商品，即"buylist"展示在同一个订单中的商品信息。
+
+
+
+## 8）sellergetOrder-卖家查看全部订单
+
+#### URL：
+
+POST http://$address$/order/sellergetOrder
+
+#### Request
+
+Headers:
+
+| key   | 类型   | 描述               | 是否为空 |
+| ----- | ------ | ------------------ | -------- |
+| token | string | 登录产生的会话标识 | N        |
+
+Body:
+
+```
+{
+    "sellerName":"$seller name"
+}
+```
+
+| 变量名     | 类型   | 描述   | 是否可为空 |
+| ---------- | ------ | ------ | ---------- |
+| sellerName | string | 卖家名 | N          |
+
+#### Response
+
+Status Code:
+
+| 码   | 描述                |
+| ---- | ------------------- |
+| 200  | 查询成功            |
+| 401  | 查询失败，token错误 |
+| 501  | 查询失败，暂无订单  |
+
+Body:
+
+```
+{
+	"message":"$Inquiry failed, token error/$Inquiry failed, no order/$ok",
+	"orderlist":[{"orderId":"$order number",
+    			 "buyerName":"$buyer name",
+    			 "orderStatus":"$order status",
+    			 "addr":"$address",
+    			 "buylist":[{"goodsName":"$goods name",
+				             "goodsPrice":"$goods price",
+						    "totalValue":"$totalValue"},{......}]},
+				  {......}]	  	
+}
+```
+
+| 变量名        | 类型   | 描述                                                         | 是否可为空 |
+| ------------- | ------ | ------------------------------------------------------------ | ---------- |
+| errormsg      | string | 失败时，为错误信息描述，且以下变量不输出；<br />成功时，为"ok"，且输出以下变量 | Y          |
+| **orderlist** |        | 用户的所有订单，且每单应该包含以下信息                       |            |
+| orderId       | string | 订单号                                                       | N          |
+| buyerName     | string | 买家名                                                       |            |
+| orderStatus   | string | 订单状态，可以是：交易成功、待支付、交易失败                 | N          |
+| addr          | string | 收货地址                                                     |            |
+| **buylist**   |        | 每个用户订单中的每个商品都应包含以下信息                     |            |
+| goodsName     | string | 商品名                                                       | N          |
+| goodsPrice    | string | 商品价格                                                     | N          |
+| totalValue    | string | 总价                                                         | N          |
+

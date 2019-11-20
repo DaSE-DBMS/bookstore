@@ -7,6 +7,7 @@ bp_cart = Blueprint("cart", __name__, url_prefix="/cart")
 
 @bp_cart.route("/addCart", methods=["POST"])
 def addCart():
+    buyerName: str = request.json.get("buyerName", "")
     sellerName : str = request.json.get("sellerName","")
     goodsId : str = request.json.get("goodsId","")
     goodsName: str = request.json.get("goodsName","")
@@ -14,7 +15,7 @@ def addCart():
     goodsNum : str = request.json.get("goodsNum","")
     totalValue : str = request.json.get("totalValue","")
     c = cart.Cart
-    ok = c.addCart(sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue)
+    ok = c.addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue)
     if ok:
         return jsonify({"message": "ok"}), 200
     else:

@@ -22,18 +22,18 @@ class Store:
             conn.execute(
                 "CREATE TABLE IF NOT EXISTS goods ("
                 "goodsId TEXT PRIMARY KEY, goodsName TEXT NOT NULL,"
-                "goodsAuth TEXT, goodsPrice TEXT NOT NULL, goodsNum TEXT, goodsType TEXT, goodsDsr TEXT, sellerName TEXT);"
+                "goodsAuth TEXT, goodsPrice INTEGER NOT NULL, goodsNum INTEGER, goodsType TEXT, goodsDsr TEXT, sellerName TEXT);"
             )
             conn.execute(
                 "CREATE TABLE IF NOT EXISTS orders ("
-                "orderId TEXT, buyername TEXT ,"
-                "sellerName TEXT, orderStatus TEXT , goodsName TEXT, goodsPrice TEXT, totalValue TEXT, addr TEXT,"
+                "orderId TEXT, buyerName TEXT ,"
+                "sellerName TEXT, orderStatus INTEGER , goodsName TEXT, goodsPrice INTEGER, totalValue INTEGER, addr TEXT,"
                 "PRIMARY KEY(orderId, goodsName));"
             )
             conn.execute(
-                "CREATE TABLE IF NOT EXISTS carts ("
-                "sellerName TEXT , goodsId TEXT, goodsName TEXT, goodsPrice TEXT, goodsNum TEXT, totalValue TEXT,"
-                "PRIMARY KEY(sellerName, goodsId));"
+                "CREATE TABLE IF NOT EXISTS cart ("
+                "buyerName TEXT,sellerName TEXT , goodsId TEXT, goodsName TEXT, goodsPrice INTEGER, goodsNum INTEGER, totalValue INTEGER,"
+                "PRIMARY KEY (buyerName, goodsId));"
             )
             conn.commit()
         except sqlite.Error as e:
