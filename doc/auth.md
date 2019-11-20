@@ -10,6 +10,8 @@ Body:
 {
     "username":"$user name$",
     "password":"$user password$"
+    "isBuyer":True/False
+    "isSeller":True/False
 }
 ```
 
@@ -17,7 +19,9 @@ Body:
 ---|---|---|---
 username | string | 用户名 | N
 password | string | 登陆密码 | N
-
+isBuyer | boolean | 注册为买家| N
+iseller | boolean | 注册为卖家 | N
+S
 #### Response
 
 Status Code:
@@ -26,8 +30,8 @@ Status Code:
 码 | 描述
 --- | ---
 200 | 注册成功
-401 | 注册失败，用户名重复
-
+511 | 注册失败，用户名重复
+512 | 注册失败，必须注册为买家或卖家
 
 Body:
 ```

@@ -34,11 +34,17 @@ def logout():
 def register():
     username = request.json.get("username", "")
     password = request.json.get("password", "")
+    is_buyer = request.json.get("isBuyer", False)
+    is_seller = request.json.get("isSeller", False)
     u = user.User()
-    if u.register(username=username, password=password):
+    if not is_buyer and not is_seller:
+        return jsonify({"message": "fail, register as a seller/buyer"}), 512
+    if u.register(
+        username=username, password=password, is_buyer=is_buyer, is_seller=is_seller
+    ):
         return jsonify({"message": "ok"}), 200
     else:
-        return jsonify({"message": "fail, username has exists"}), 401
+        return jsonify({"message": "fail, username has exists"}), 511
 
 
 @bp_auth.route("/unregister", methods=["POST"])

@@ -20,7 +20,7 @@ def test_login(username: str):
     password = "password_" + username
     terminal = "terminal_" + username
     logging.info("test register a user properly")
-    assert a.register(username, password)
+    assert a.register(username, password, True, True) == 200
 
     # login right
     logging.info("test user login properly")
@@ -72,7 +72,7 @@ def test_password(username: str):
     terminal = "terminal_" + username
 
     logging.info("test register a user properly")
-    assert a.register(username, old_password)
+    assert a.register(username, old_password) == 200
 
     logging.info("test change password with wrong username")
     assert not a.password(username + "_x", old_password, new_password)
@@ -106,11 +106,14 @@ def test_register(username: str):
 
     password = "password_" + username
 
+    logging.info("test register as neither seller or buyer")
+    assert a.register(username, password, False, False) == 512
+
     logging.info("test register properly")
-    assert a.register(username, password)
+    assert a.register(username, password) == 200
 
     logging.info("test register with a exists username")
-    assert not a.register(username, password)
+    assert a.register(username, password) == 511
 
     logging.info("test unregister with a non-exists username")
     assert not a.unregister(username + "_x", password)
@@ -122,7 +125,7 @@ def test_register(username: str):
     assert a.unregister(username, password)
 
     logging.info("test register with previous username")
-    assert a.register(username, password)
+    assert a.register(username, password) == 200
 
     logging.info("test unregister")
     assert a.unregister(username, password)

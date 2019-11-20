@@ -16,11 +16,22 @@ class Auth:
         else:
             return False, ""
 
-    def register(self, username: str, password: str) -> bool:
-        json = {"username": username, "password": password}
+    def register(
+        self,
+        username: str,
+        password: str,
+        is_buyer: bool = True,
+        is_seller: bool = False,
+    ) -> int:
+        json = {
+            "username": username,
+            "password": password,
+            "isBuyer": is_buyer,
+            "isSeller": is_seller,
+        }
         url = urljoin(self.url_prefix, "register")
         r = requests.post(url, json=json)
-        return r.status_code == 200
+        return r.status_code
 
     def password(self, username: str, old_password: str, new_password: str) -> bool:
         json = {

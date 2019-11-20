@@ -1,12 +1,13 @@
-import sqlite3 as sqlite
 import logging
+import os
+import sqlite3 as sqlite
 
 
 class Store:
     database: str
 
-    def __init__(self):
-        self.database = "be.db"
+    def __init__(self, db_path):
+        self.database = os.path.join(db_path, "be.db")
         self.init_tables()
 
     def init_tables(self):
@@ -14,8 +15,9 @@ class Store:
             conn = self.get_db_conn()
             conn.execute(
                 "CREATE TABLE IF NOT EXISTS user ("
-                "username TEXT PRIMARY KEY, password TEXT,"
-                " token TEXT, terminal TEXT);"
+                "username TEXT PRIMARY KEY, password TEXT NOT NULL, "
+                "is_buyer BOOLEAN NOT NULL, is_seller BOOLEAN NOT NULL, "
+                "balance INTEGER NOT NULL, token TEXT, terminal TEXT);"
             )
             conn.execute(
                 "CREATE TABLE IF NOT EXISTS goods ("
@@ -42,8 +44,14 @@ class Store:
         return sqlite.connect(self.database)
 
 
-database_instance = Store()
+database_instance: Store = None
+
+
+def init_database(db_path):
+    global database_instance
+    database_instance = Store(db_path)
 
 
 def get_db_conn():
+    global database_instance
     return database_instance.get_db_conn()

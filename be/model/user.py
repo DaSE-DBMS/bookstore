@@ -33,21 +33,6 @@ def jwt_decode(encoded_token, username: str) -> str:
     return decoded
 
 
-def insert_user(username, password) -> bool:
-    conn = store.get_db_conn()
-    try:
-        conn.execute(
-            "INSERT into user(username, password, token, terminal) VALUES (?, ?, '', '');",
-            (username, password),
-        )
-        conn.commit()
-    except sqlite.Error as e:
-        print(e)
-        conn.rollback()
-        return False
-    return True
-
-
 class User:
     username: str
     password: str
@@ -56,6 +41,8 @@ class User:
     balance: str
     identify: str  # 0 买家  1卖家
     token_lifetime: int = 3600  # 3600 second
+    is_buyer: bool = False
+    is_seller: bool = False
 
     def __init__(self):
         self.username = ""
@@ -154,10 +141,29 @@ class User:
         self.update_token()
         return True
 
-    def register(self, username: str, password: str) -> bool:
+    def register(
+        self, username: str, password: str, is_buyer: bool, is_seller: bool
+    ) -> bool:
         self.username = username
         self.password = password
-        return insert_user(username, password)
+        self.is_buyer = is_buyer
+        self.is_seller = is_seller
+        return self.insert_user()
+
+    def insert_user(self) -> bool:
+        conn = store.get_db_conn()
+        try:
+            conn.execute(
+                "INSERT into user(username, password, is_buyer, is_seller, balance, token, terminal) "
+                "VALUES (?, ?, ?, ?, ?, '', '');",
+                (self.username, self.password, self.is_buyer, self.is_seller, 0),
+            )
+            conn.commit()
+        except sqlite.Error as e:
+            print(e)
+            conn.rollback()
+            return False
+        return True
 
     def unregister(self, username: str, password: str) -> bool:
         if not self.fetch_user(username):
