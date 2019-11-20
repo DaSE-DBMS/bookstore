@@ -163,3 +163,71 @@ INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 13:30:48] "GET /goods/searchGoods HTTP/
 INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 13:30:48] "GET /goods/searchGoods HTTP/1.1" 501 -
 INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 13:30:48] "GET /goods/searchGoods HTTP/1.1" 501 -
 INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 13:30:48] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /goods/searchGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:23:28] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:24:56] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:24:56] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:24:56] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:24:56] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:24:56] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:24:56] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:24:56] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:25:47] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:26:02] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:26:03] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:27:31] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:27:31] "POST /goods/delGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:27:31] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:27:31] "POST /goods/delGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:27:31] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:27:31] "POST /goods/delGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:27:31] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/delGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/delGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/delGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:29:00] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:45:54] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:45:55] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:45:55] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:45:55] "GET /shutdown HTTP/1.1" 200 -

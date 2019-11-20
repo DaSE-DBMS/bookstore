@@ -27,5 +27,7 @@ def test_createOrder(orderId : str):
 
     assert o.createOrder(orderId, sellerName, buyerName, orderStatus, cartlist, addr)
 
+    assert o.cancelOrder(orderId, buyerName)
+
 
 

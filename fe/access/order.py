@@ -35,10 +35,10 @@ class Order:
         else:
             return False, ""
 
-    def cancelOrder(self, orderno: str, token: str) -> (bool):
-        json = {"orderno": orderno}
+    def cancelOrder(self, orderId: str, buyerName: str, token: str) -> (bool):
+        json = {"orderId": orderId, "buyerName":buyerName}
         headers = {"token": token}
-        url = urljoin(self.url_prefix, "cancelorder/")
+        url = urljoin(self.url_prefix, "cancelOrder/")
         r = requests.post(url, headers=headers, json=json)
         return  r.status_code == 200
 

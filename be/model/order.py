@@ -75,9 +75,11 @@ class Order:
                 conn.commit()
             else:
                 conn.rollback()
+                return False
         except sqlite.Error as e:
             logging.error(str(e))
             conn.rollback()
+        return True
 
     def paymentOrder(orderId: str, buyerName: str) -> bool:
         conn = store.get_db_conn()
