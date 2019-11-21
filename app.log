@@ -231,3 +231,243 @@ INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:45:54] "POST /order/createOrder HTTP
 INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:45:55] "POST /order/createOrder HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:45:55] "POST /order/createOrder HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [20/Nov/2019 21:45:55] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:root:test register a user properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test user login properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 200 -
+INFO:root:test user login with a wrong user name
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 401 -
+INFO:root:test user login with a wrong user password
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 401 -
+INFO:root:test user logout with a wrong token
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 401 -
+INFO:root:test user logout with a wrong username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 401 -
+INFO:root:test user logout properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 200 -
+INFO:root:test register a user properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test user login properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 200 -
+INFO:root:test user login with a wrong user name
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 401 -
+INFO:root:test user login with a wrong user password
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 401 -
+INFO:root:test user logout with a wrong token
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 401 -
+INFO:root:test user logout with a wrong username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 401 -
+INFO:root:test user logout properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 200 -
+INFO:root:test register a user properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test user login properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 200 -
+INFO:root:test user login with a wrong user name
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 401 -
+INFO:root:test user login with a wrong user password
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 401 -
+INFO:root:test user logout with a wrong token
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 401 -
+INFO:root:test user logout with a wrong username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 401 -
+INFO:root:test user logout properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 200 -
+INFO:root:test register a user properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test change password with wrong username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/password HTTP/1.1" 401 -
+INFO:root:test change password with wrong password
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/password HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/password HTTP/1.1" 200 -
+INFO:root:test login with old password, return error
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 401 -
+INFO:root:test login with new password properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 200 -
+INFO:root:test login out with previous token
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 200 -
+INFO:root:test register a user properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test change password with wrong username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/password HTTP/1.1" 401 -
+INFO:root:test change password with wrong password
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/password HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/password HTTP/1.1" 200 -
+INFO:root:test login with old password, return error
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 401 -
+INFO:root:test login with new password properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 200 -
+INFO:root:test login out with previous token
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 200 -
+INFO:root:test register a user properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test change password with wrong username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/password HTTP/1.1" 401 -
+INFO:root:test change password with wrong password
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/password HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/password HTTP/1.1" 200 -
+INFO:root:test login with old password, return error
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 401 -
+INFO:root:test login with new password properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/login HTTP/1.1" 200 -
+INFO:root:test login out with previous token
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/logout HTTP/1.1" 200 -
+INFO:root:test register as neither seller or buyer
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 512 -
+INFO:root:test register properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test register with a exists username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 511 -
+INFO:root:test unregister with a non-exists username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:root:test unregister with wrong password
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:root:test unregister properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:root:test register with previous username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test unregister
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:root:test register as neither seller or buyer
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 512 -
+INFO:root:test register properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test register with a exists username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 511 -
+INFO:root:test unregister with a non-exists username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:root:test unregister with wrong password
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:root:test unregister properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:root:test register with previous username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test unregister
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:root:test register as neither seller or buyer
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 512 -
+INFO:root:test register properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test register with a exists username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 511 -
+INFO:root:test unregister with a non-exists username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:root:test unregister with wrong password
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 401 -
+INFO:root:test unregister properly
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:root:test register with previous username
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/register HTTP/1.1" 200 -
+INFO:root:test unregister
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "POST /auth/unregister HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:56:42] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:58:38] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:58:38] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:58:38] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 17:58:38] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:06:24] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:06:24] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:06:24] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:06:24] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:07:39] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:07:39] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:07:39] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:07:39] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:08:00] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:08:00] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:08:00] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:08:00] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:13:46] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:13:46] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:13:46] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:13:46] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:16] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:16] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:16] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:16] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:31] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:31] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:31] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:31] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:50] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:51] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:51] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:14:51] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:15:12] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:16:39] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:16:39] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:16:39] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:16:39] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:17:21] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:17:21] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:17:21] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:17:21] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:17:22] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:17:22] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:17:22] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:18:17] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:18:17] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:18:17] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:18:17] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:18:17] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:18:17] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:18:17] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:18:39] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:18:43] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:19:43] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:19:56] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:20:09] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:20:09] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:20:09] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:20:09] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:20:09] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:20:09] "POST /order/cancelOrder/ HTTP/1.1" 404 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:20:09] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:21:23] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:21:23] "POST /order/cancelOrder HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:21:23] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:21:23] "POST /order/cancelOrder HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:21:23] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:21:23] "POST /order/cancelOrder HTTP/1.1" 401 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:21:23] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:21:46] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:09] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:09] "POST /order/cancelOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:09] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:09] "POST /order/cancelOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:09] "POST /order/createOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:09] "POST /order/cancelOrder HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:09] "GET /shutdown HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:17] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:17] "POST /goods/delGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:17] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:17] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:18] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:18] "POST /goods/delGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:18] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:18] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:18] "POST /goods/addGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:18] "POST /goods/delGoods HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:18] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:18] "POST /goods/delGoods HTTP/1.1" 501 -
+INFO:werkzeug:127.0.0.1 - - [21/Nov/2019 18:25:18] "GET /shutdown HTTP/1.1" 200 -

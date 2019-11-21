@@ -15,7 +15,6 @@ class Order:
         else:
             return False
 
-
     def buyergetOrder(self, buyerName: str, token: str) -> (bool, list):
         json = {"buyerName": buyerName}
         headers = {"token": token}
@@ -35,16 +34,16 @@ class Order:
         else:
             return False, ""
 
-    def cancelOrder(self, orderId: str, buyerName: str, token: str) -> (bool):
-        json = {"orderId": orderId, "buyerName":buyerName}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix, "cancelOrder/")
-        r = requests.post(url, headers=headers, json=json)
+    def cancelOrder(self, orderId: str, buyerName: str) -> (bool):
+        json = {"orderId": orderId, "buyerName": buyerName}
+        # headers = {"token": token}
+        url = urljoin(self.url_prefix, "cancelOrder")
+        r = requests.post(url, json=json)
         return  r.status_code == 200
 
     def paymentOrder(self, orderId :str, buyerName: str) -> (bool):
         json = {"orderId": orderId, "buyerName": buyerName}
-        url = urljoin(self.url_prefix, "paymentOrder/")
+        url = urljoin(self.url_prefix, "paymentOrder")
         r = requests.post(url, json=json)
         return  r.status_code == 200
 

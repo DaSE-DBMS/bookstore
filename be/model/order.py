@@ -80,7 +80,7 @@ class Order:
         conn = store.get_db_conn()
         try:
             cursor = conn.execute("DELETE from orders where buyerName=? and orderId=?", (buyerName, orderId))
-            if cursor.rowcount == 1:
+            if cursor.fetchall:
                 conn.commit()
             else:
                 conn.rollback()
