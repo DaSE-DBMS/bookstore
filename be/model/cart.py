@@ -27,7 +27,7 @@ class Cart:
     goodsNum: int
     totalValue: int
 
-    def __init__(self,):
+    def __init__(self):
         self.buyerName = ""
         self.sellerName = ""
         self.goodsId = ""
