@@ -38,7 +38,7 @@ class User:
     password: str
     token: str
     terminal: str
-    balance: str
+    balance: int
     token_lifetime: int = 3600  # 3600 second
     is_buyer: bool = False
     is_seller: bool = False

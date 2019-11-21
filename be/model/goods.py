@@ -17,8 +17,8 @@ class Goods:
         self.goodsId = ""
         self.goodsName = ""
         self.goodsAuth = ""
-        self.goodsPrice = ""
-        self.goodsNum = ""
+        self.goodsPrice = 0
+        self.goodsNum = 0
         self.goodsType = ""
         self.goodsDsr = ""
         self.sellerName = ""

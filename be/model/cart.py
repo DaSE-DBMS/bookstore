@@ -27,14 +27,14 @@ class Cart:
     goodsNum: int
     totalValue: int
 
-    def __init__(self, buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue):
-        self.buyerName = buyerName
-        self.sellerName = sellerName
-        self.goodsId = goodsId
-        self.goodsName = goodsName
-        self.goodsPrice = goodsPrice
-        self.goodsNum = goodsNum
-        self.totalValue = totalValue
+    def __init__(self,):
+        self.buyerName = ""
+        self.sellerName = ""
+        self.goodsId = ""
+        self.goodsName = ""
+        self.goodsPrice = 0
+        self.goodsNum = 0
+        self.totalValue = 0
 
     def addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue) -> bool:
         conn = store.get_db_conn()

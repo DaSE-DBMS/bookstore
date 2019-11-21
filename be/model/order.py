@@ -7,39 +7,21 @@ class Order:
     orderId: str
     buyerName: str
     sellerName: str
-    orderStatus: int  #0失败 1成功 2待支付 3支付成功
+    orderStatus: int  #0交易失败 1交易成功 2待支付 3支付成功
     goodsName: str
     goodsPrice: int
     totalValue: int
     addr: str
 
-    def __init__(self, orderId, buyerName, sellerName, orderStatus, goodsName, goodsPrice, totalValue, addr):
-        self.orderId = orderId
-        self.buyerName = buyerName
-        self.sellerName = sellerName
-        self.orderStatus = orderStatus
-        self.goodsName = goodsName
-        self.goodsPrice = goodsPrice
-        self.totalValue = totalValue
-        self.addr = addr
-
-    def fetch_order(name: str, Sql: str) -> (bool, list):
-        conn = store.get_db_conn()
-        try:
-            cursor = conn.execute(
-                Sql,(name),
-            )
-            contents = cursor.fetchall()
-            if contents is None:
-                return False, []
-            orderlist = []
-            for row in contents:
-                a = [row[0], row[1], row[2], row[3], row[4], row[5]]
-                orderlist.append(a)
-        except sqlite.Error as e:
-            logging.error(str(e))
-            return False
-        return True, orderlist
+    def __init__(self):
+        self.orderId = ""
+        self.buyerName = ""
+        self.sellerName = ""
+        self.orderStatus = 2
+        self.goodsName = ""
+        self.goodsPrice = 0
+        self.totalValue = 0
+        self.addr = ""
 
     #注意这里传进来carlist是很多商品信息，包括goodsName，goodsPrice，totalValue
     def createOrder(orderId, sellerName, buyerName, orderStatus, cartlist, addr):
@@ -57,15 +39,42 @@ class Order:
             return False
         return True
 
-    def buyergetOrder(self, buyerName: str, token: str) -> (bool, list):
-        # if not self.check_token(token):
-        #    return False,[]
-        Sql = "SELECT orderId, sellerName, orderStatus, goodsName, goodsPrice, totalValue, addr from orders where buyerName=?"
-        return self.fetch_order(buyerName, Sql)
+    def fetch_order(userName: str, Sql: str) -> (bool, list):
+        conn = store.get_db_conn()
+        try:
+            cursor = conn.execute(Sql, (userName,))
+            contents = cursor.fetchall()
+            if contents is None:
+                return False, []
+            orderlist = []
+            goodslist = []
+            sameorderId = contents[0][0]
+            for row in contents:
+                if (sameorderId == row[0]):
+                    samesellerName = row[1]
+                    sameorderStatus = row[2]
+                    sameaddr = row[6]
+                    a = [row[3], row[4], row[5]]
+                    goodslist.append(a)
+                else:
+                    b = [sameorderId, samesellerName, sameorderStatus, goodslist,sameaddr]
+                    orderlist.append(b)
+                    goodslist.clear()
+                    sameorderId == row[0]
+                    a = [row[3], row[4], row[5]]
+                    goodslist.append(a)
+        except sqlite.Error as e:
+            logging.error(str(e))
+            return False
+        return True, orderlist
 
     def sellergetOrder(self, sellerName: str) -> (bool, list):
         Sql = "SELECT orderId, buyerName, orderStatus, goodsName, goodsPrice, totalValue, addr from orders where sellerName=?"
         return self.fetch_order(sellerName, Sql)
+
+    def buyergetOrder(self, buyerName: str) -> (bool, list):
+        Sql =  "SELECT orderId, sellerName, orderStatus, goodsName, goodsPrice, totalValue, addr from orders where buyerName=?"
+        return self.fetch_order(buyerName, Sql)
 
     def cancelOrder(orderId: str, buyerName: str) -> bool:
         conn = store.get_db_conn()
