@@ -1,8 +1,6 @@
 from flask import Blueprint
 from flask import request
 from flask import jsonify
-from be.model import user
-from be.model import store
 from be.model import order
 
 bp_order = Blueprint("order", __name__, url_prefix="/order")
@@ -46,8 +44,9 @@ def sellergetOrder():
 @bp_order.route("/cancelOrder", methods=["POST"])
 def cancelOrder():
     orderId: str = request.json.get("orderId", "")
+    buyerName: str = request.json.get("buyerName", "")
     o = order.Order
-    ok = o.cancelOrder(orderId=orderId)
+    ok = o.cancelOrder(orderId=orderId, buyerName=buyerName)
     if ok:
         return jsonify({"message": "ok"}), 200
     else:

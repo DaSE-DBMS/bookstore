@@ -38,8 +38,7 @@ class User:
     password: str
     token: str
     terminal: str
-    balance: str
-    identify: str  # 0 买家  1卖家
+    balance: int
     token_lifetime: int = 3600  # 3600 second
     is_buyer: bool = False
     is_seller: bool = False

@@ -7,8 +7,8 @@ class Goods:
     goodsId: str
     goodsName: str
     goodsAuth: str
-    goodsPrice: str
-    goodsNum: str
+    goodsPrice: int
+    goodsNum: int
     goodsType: str
     goodsDsr: str
     sellerName: str
@@ -17,8 +17,8 @@ class Goods:
         self.goodsId = ""
         self.goodsName = ""
         self.goodsAuth = ""
-        self.goodsPrice = ""
-        self.goodsNum = ""
+        self.goodsPrice = 0
+        self.goodsNum = 0
         self.goodsType = ""
         self.goodsDsr = ""
         self.sellerName = ""
@@ -45,9 +45,11 @@ class Goods:
                 conn.commit()
             else:
                 conn.rollback()
+                return False
         except sqlite.Error as e:
             logging.error(str(e))
             conn.rollback()
+        return  True
 
 
     def searchGoods(keywords, goodsType) -> (bool, list):

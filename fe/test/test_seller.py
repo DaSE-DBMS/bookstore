@@ -26,30 +26,35 @@ def test_addGoods(goodsId : str):
 
 
     #test searchgoods()
-    ok, goodslist = g.searchGoods(goodsName, goodsType)
-    assert ok
+    # ok, goodslist = g.searchGoods(goodsName, goodsType)
+    # assert ok
+    #
+    # ok, goodslist = g.searchGoods("", goodsType)
+    # assert ok
+    #
+    # ok, goodslist = g.searchGoods(goodsName, "")
+    # assert ok
+    #
+    # #这里根据goodsDsr来匹配，所欲传入goodsDsr的一部分
+    # ok, goodslist = g.searchGoods("goodsDsr", "")
+    # assert ok
+    #
+    # ok, goodslist = g.searchGoods("", "")
+    # assert not ok
+    #
+    # ok, goodslist = g.searchGoods(goodsName + "xxx", "")
+    # assert not ok
+    #
+    # ok, goodslist = g.searchGoods(goodsName, goodsType + "xxx")
+    # assert not ok
+    #
+    # ok, goodslist = g.searchGoods(goodsName + "xxx", goodsType + "xxx")
+    # assert not ok
 
-    ok, goodslist = g.searchGoods("", goodsType)
-    assert ok
+    assert g.delGoods(goodsId, sellerName)
+    assert not g.delGoods(goodsId, "")
+    assert not g.delGoods(goodsId+"xxx",sellerName)
 
-    ok, goodslist = g.searchGoods(goodsName, "")
-    assert ok
-
-    #这里根据goodsDsr来匹配，所欲传入goodsDsr的一部分
-    ok, goodslist = g.searchGoods("goodsDsr", "")
-    assert ok
-
-    ok, goodslist = g.searchGoods("", "")
-    assert not ok
-
-    ok, goodslist = g.searchGoods(goodsName + "xxx", "")
-    assert not ok
-
-    ok, goodslist = g.searchGoods(goodsName, goodsType + "xxx")
-    assert not ok
-
-    ok, goodslist = g.searchGoods(goodsName + "xxx", goodsType + "xxx")
-    assert not ok
 
 
 
