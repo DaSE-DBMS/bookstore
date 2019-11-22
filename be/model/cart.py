@@ -7,8 +7,8 @@ def check_num(goodsId, goodsNum):
     try:
         conn = store.get_db_conn()
         cursor = conn.execute(
-            "SELECT goodsNum from goods where goodsId=?",
-            (goodsId),
+            "SELECT goodsNum from Goods where goodsId=?",
+            (goodsId,),
         )
         row = cursor.fetchone()
         if row is None or row[0]-goodsNum < 0:
@@ -45,19 +45,19 @@ class Cart:
             #判断买家购物车是否已有该商品，没有就加入这个商品，有就改变数量
             cursor = conn.execute(
                 "SELECT goodsNum from cart where buyerName=? and goodsId=?",
-                (buyerName, goodsId),
+                (buyerName, goodsId,),
             )
             row = cursor.fetchone()
             if row is None:
                 conn.execute(
                     "INSERT into cart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue) VALUES (?, ?, ?, ?, ?, ?, ?);",
-                    (sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue),
+                    (buyerName,sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue),
                 )
             else:
                 newgoodsNum = row[0] + goodsNum
                 cursor = conn.execute(
                     "SELECT totalValue from cart where buyerName=? and goodsId=?",
-                    (buyerName, goodsId),
+                    (buyerName, goodsId,),
                 )
                 row = cursor.fetchone()
                 newtotalValue = row[0] + goodsPrice*goodsName
@@ -102,7 +102,7 @@ class Cart:
         conn = store.get_db_conn()
         try:
             cursor = conn.execute(
-                "SELECT sellerName, goodsName, goodsPrice, goodsNum, totalValue from carts where buyerName=?",
+                "SELECT sellerName, goodsName, goodsPrice, goodsNum, totalValue from cart where buyerName=?",
                 (buyerName),
             )
             contents = cursor.fetchall()

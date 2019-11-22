@@ -35,9 +35,9 @@ def delCart():
 
 @bp_cart.route("/getCart", methods=["POST"])
 def getCart():
-    sellerName: str = request.json.get("sellerName", "")
+    buyerName: str = request.json.get("buyerName", "")
     c = cart.Cart
-    ok, cartlist, sum = c.getCart(sellerName)
+    ok, cartlist, sum = c.getCart(buyerName)
     if ok:
         return jsonify({"message": "ok", "cartlist": cartlist, "sum": sum}), 200
     else:
