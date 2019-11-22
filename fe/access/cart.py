@@ -6,8 +6,8 @@ class Cart:
     def __init__(self, url_prefix):
         self.url_prefix = urljoin(url_prefix, "cart/")
 
-    def addCart(self, sellerName: str, goodsId: str, goodsName: str, goodsPrice: str, goodsNum: str, totalValue: str) -> bool:
-        json = {"sellerName": sellerName,"goodsId": goodsId,"goodsName": goodsName,"goodsPrice": goodsPrice,"goodsNum": goodsNum,"totalValue": totalValue}
+    def addCart(self, buyerName: str,sellerName: str, goodsId: str, goodsName: str, goodsPrice: str, goodsNum: str, totalValue: str) -> bool:
+        json = {"buyerName": buyerName,"sellerName": sellerName,"goodsId": goodsId,"goodsName": goodsName,"goodsPrice": goodsPrice,"goodsNum": goodsNum,"totalValue": totalValue}
         url = urljoin(self.url_prefix, "addCart")
         r = requests.post(url, json=json)
         print(r.json()["message"])
