@@ -10,6 +10,7 @@ class Order:
     orderStatus: int  #0交易失败 1交易成功 2待支付 3支付成功
     goodsName: str
     goodsPrice: int
+    goodsNum: int
     totalValue: int
     addr: str
 
@@ -20,17 +21,18 @@ class Order:
         self.orderStatus = 2
         self.goodsName = ""
         self.goodsPrice = 0
+        self.goodsNum = 0
         self.totalValue = 0
         self.addr = ""
 
-    #注意这里传进来carlist是很多商品信息，包括goodsName，goodsPrice，totalValue
-    def createOrder(orderId, sellerName, buyerName, orderStatus, cartlist, addr):
+    #注意这里传进来carlist是很多商品信息，包括goodsName，goodsPrice，goodsNum
+    def createOrder(orderId, buyerName, sellerName, orderStatus, cartlist, totalVaule, addr):
         conn = store.get_db_conn()
         try:
             for good in cartlist:
                 conn.execute(
-                    "INSERT into orders(orderId, buyerName, sellerName , orderStatus, goodsName, goodsPrice, totalValue, addr) VALUES (?, ?, ?, ?, ?, ?, ? ,?);",
-                    (orderId, buyerName, sellerName, orderStatus, good[0], good[1], good[2], addr),
+                    "INSERT into orders(orderId, buyerName, sellerName, orderStatus, goodsName, goodsPrice, goodsNum, totalValue, addr) VALUES (?, ?, ?, ?, ?, ?, ? ,?);",
+                    (orderId, buyerName, sellerName, orderStatus, good[0], good[1], good[2], totalVaule, addr),
                 )
                 conn.commit()
         except sqlite.Error as e:
@@ -44,7 +46,7 @@ class Order:
         try:
             cursor = conn.execute(Sql, (userName,))
             contents = cursor.fetchall()
-            if contents is None:
+            if not len(contents):
                 return False, []
             orderlist = []
             goodslist = []
@@ -66,6 +68,8 @@ class Order:
         except sqlite.Error as e:
             logging.error(str(e))
             return False
+        b = [sameorderId, samesellerName, sameorderStatus, goodslist, sameaddr]
+        orderlist.append(b)
         return True, orderlist
 
     def sellergetOrder(self, sellerName: str) -> (bool, list):
@@ -73,14 +77,14 @@ class Order:
         return self.fetch_order(sellerName, Sql)
 
     def buyergetOrder(self, buyerName: str) -> (bool, list):
-        Sql =  "SELECT orderId, sellerName, orderStatus, goodsName, goodsPrice, totalValue, addr from orders where buyerName=?"
+        Sql = "SELECT orderId, sellerName, orderStatus, goodsName, goodsPrice, totalValue, addr from orders where buyerName=?"
         return self.fetch_order(buyerName, Sql)
 
     def cancelOrder(orderId: str, buyerName: str) -> bool:
         conn = store.get_db_conn()
         try:
             cursor = conn.execute("DELETE from orders where buyerName=? and orderId=?", (buyerName, orderId))
-            if cursor.fetchall:
+            if cursor.rowcount:
                 conn.commit()
             else:
                 conn.rollback()
@@ -94,13 +98,13 @@ class Order:
         conn = store.get_db_conn()
         try:
             cursor = conn.execute(
-                "SELECT balance from user where buyerName=?",
+                "SELECT balance from user where username=?",
                 (buyerName,),
             )
             row = cursor.fetchone()
             balance = row[0]
             cursor = conn.execute(
-                "SELECT totalValue from order where orderId=?",
+                "SELECT totalValue from orders where orderId=?",
                 (orderId,),
             )
             row = cursor.fetchone()
@@ -112,7 +116,7 @@ class Order:
                 (3,),
             )
             conn.execute(
-                "UPDATE user set balance = ? where buyerName = ?",
+                "UPDATE user set balance = ? where username = ?",
                 (money,),
             )
             conn.commit()

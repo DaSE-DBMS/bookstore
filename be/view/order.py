@@ -14,7 +14,7 @@ def createOrder():
     cartlist : list = request.json.get("cartlist",[])
     addr : str = request.json.get("addr","")
     o = order.Order
-    ok= o.createOrder(orderId = orderId, sellerName = sellerName, buyerName = buyerName, orderStatus = orderStatus, cartlist = cartlist, addr = addr)
+    ok= o.createOrder(orderId = orderId, buyerName = buyerName, sellerName = sellerName, orderStatus = orderStatus, cartlist = cartlist, addr = addr)
     if ok:
         return jsonify({"message": "ok"}), 200
     else:
@@ -23,23 +23,22 @@ def createOrder():
 @bp_order.route("/buyergetOrder", methods=["POST"])
 def buyergetOrder():
     buyerName: str = request.json.get("buyerName", "")
-    token: str = request.headers.get("token", "")
     o = order.Order
-    ok, orderlist = o.getOrder(buyerName=buyerName, token=token)
+    ok, orderlist = o.buyergetOrder(o, buyerName=buyerName)
     if ok:
         return jsonify({"message": "ok", "orderlist": orderlist}), 200
     else:
-        return jsonify({"message": "Inquiry failed, no order"}), 501
+        return jsonify({"message": "Inquiry failed, no order", "orderlist": orderlist}), 501
 
 @bp_order.route("/sellergetOrder", methods=["POST"])
 def sellergetOrder():
     sellerName: str = request.json.get("sellerName", "")
     o = order.Order
-    ok, orderlist = o.getOrder(sellerName=sellerName)
+    ok, orderlist = o.sellergetOrder(o, sellerName=sellerName)
     if ok:
         return jsonify({"message": "ok", "orderlist": orderlist}), 200
     else:
-        return jsonify({"message": "Inquiry failed, no order"}), 501
+        return jsonify({"message": "Inquiry failed, no order", "orderlist": orderlist}), 501
 
 @bp_order.route("/cancelOrder", methods=["POST"])
 def cancelOrder():
@@ -50,7 +49,7 @@ def cancelOrder():
     if ok:
         return jsonify({"message": "ok"}), 200
     else:
-        return jsonify({"message": "cancel failed, token error"}), 401
+        return jsonify({"message": "cancel failed, no order or no buyer"}), 501
 
 @bp_order.route("/paymentOrder", methods=["POST"])
 def paymentOrder():
