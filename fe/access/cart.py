@@ -13,22 +13,23 @@ class Cart:
         print(r.json()["message"])
         return r.status_code == 200
 
-    def delCart(self, sellerName: str, goodsId: str, goodsNum: str) -> bool:
-        json = {"sellerName": sellerName,"goodsId" : goodsId,"goodsNum": goodsNum}
+    def delCart(self, buyerName: str, goodsId: str, goodsNum: str) -> bool:
+        json = {"buyerName": buyerName,"goodsId" : goodsId,"goodsNum": goodsNum}
         url = urljoin(self.url_prefix, "delCart")
         r = requests.post(url, json=json)
         print(r.json()["message"])
         return r.status_code == 200
 
-    def getCart(self, buyerName: str) -> (bool, list, float):
+    def getCart(self, buyerName: str) -> (bool, list, int):
         json = {"buyerName": buyerName}
         url = urljoin(self.url_prefix, "getCart")
-        r = requests.get(url, json=json)
+        r = requests.post(url, json=json)
         print(r.json()["message"])
         if r.status_code == 200:
             cartlist = r.json()["cartlist"]
-            sum = r.json(["sum"])
+            sum = r.json()["sum"]
             print(cartlist)
+            print(sum)
             return True, cartlist, sum
         else:
             return False, [], 0

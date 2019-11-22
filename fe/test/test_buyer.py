@@ -57,7 +57,9 @@ def test_addGoods(goodsId : str):
 
     #test_getCart
     #c = cart.Cart(conf.URL)
-    assert c.getCart(buyerName)
+    # ok, cartList,sum=c.getCart(buyerName)
+    # assert ok
 
-
+    #test_delCart
+    assert c.delCart(buyerName, goodsId, goodsNum)
 

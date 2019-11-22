@@ -82,8 +82,8 @@ class Cart:
             row = cursor.fetchone()
             if row is None:
                 return False
-            newgoodsNum = float(row[0]) - float(goodsNum)
-            newtotalValue = float(row[1])*float(newgoodsNum)
+            newgoodsNum = row[0] - goodsNum
+            newtotalValue = row[1] * newgoodsNum
             if newgoodsNum == 0:
                 cursor = conn.execute("DELETE from cart where buyerName=? and goodsId=?", (buyerName, goodsId))
             else:
@@ -111,8 +111,8 @@ class Cart:
             cartlist = []
             sum = 0
             for row in contents:
-                a = [row[0], row[1], row[2]]
-                sum += row[3]
+                a = [row[0], row[1], row[2], row[3]]
+                sum += row[4]
                 cartlist.append(a)
         except sqlite.Error as e:
             logging.error(str(e))
