@@ -10,40 +10,45 @@ class Order:
         json = { "orderId" : orderId,"sellerName" : sellerName, "buyerName" : buyerName , "orderStatus" : orderStatus ,"cartlist" : cartlist, "addr" : addr}
         url = urljoin(self.url_prefix, "createOrder")
         r = requests.post(url, json=json)
+        print(r.json()["message"])
         if r.status_code == 200:
             return True
         else:
             return False
 
-    def buyergetOrder(self, buyerName: str, token: str) -> (bool, list):
+    def buyergetOrder(self, buyerName: str) -> (bool, list):
         json = {"buyerName": buyerName}
-        headers = {"token": token}
         url = urljoin(self.url_prefix, "buyergetOrder")
-        r = requests.get(url, headers=headers, json=json)
+        r = requests.post(url, json=json)
+        print(r.json()["message"])
+        print(r.json()["orderlist"])
         if r.status_code == 200:
             return True, r.json()["orderlist"]
         else:
-            return False, ""
+            return False, r.json()["orderlist"]
 
     def sellergetOrder(self, sellerName: str) -> (bool, list):
         json = {"sellerName": sellerName}
         url = urljoin(self.url_prefix, "sellergetOrder")
-        r = requests.get(url, json=json)
+        r = requests.post(url, json=json)
+        print(r.json()["message"])
+        print(r.json()["orderlist"])
         if r.status_code == 200:
             return True, r.json()["orderlist"]
         else:
-            return False, ""
+            return False, r.json()["orderlist"]
 
     def cancelOrder(self, orderId: str, buyerName: str) -> (bool):
         json = {"orderId": orderId, "buyerName": buyerName}
         # headers = {"token": token}
         url = urljoin(self.url_prefix, "cancelOrder")
         r = requests.post(url, json=json)
-        return  r.status_code == 200
+        print(r.json()["message"])
+        return r.status_code == 200
 
     def paymentOrder(self, orderId :str, buyerName: str) -> (bool):
         json = {"orderId": orderId, "buyerName": buyerName}
         url = urljoin(self.url_prefix, "paymentOrder")
         r = requests.post(url, json=json)
-        return  r.status_code == 200
+        return r.status_code == 200
 
