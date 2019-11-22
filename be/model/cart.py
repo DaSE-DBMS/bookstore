@@ -77,7 +77,7 @@ class Cart:
         try:
             cursor = conn.execute(
                 "SELECT goodsNum, goodsPrice from cart where buyerName=? and goodsId=?",
-                (buyerName, goodsId),
+                (buyerName, goodsId,),
             )
             row = cursor.fetchone()
             if row is None:
@@ -102,11 +102,11 @@ class Cart:
         conn = store.get_db_conn()
         try:
             cursor = conn.execute(
-                "SELECT sellerName, goodsName, goodsPrice, goodsNum, totalValue from carts where buyerName=?",
-                (buyerName),
+                "SELECT sellerName, goodsName, goodsPrice, goodsNum, totalValue from cart where buyerName = ?",
+                (buyerName,),
             )
             contents = cursor.fetchall()
-            if contents:
+            if not contents:
                 return False, [], 0
             cartlist = []
             sum = 0
