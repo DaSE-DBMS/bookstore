@@ -13,9 +13,8 @@ def addCart():
     goodsName: str = request.json.get("goodsName","")
     goodsPrice : str = request.json.get("goodsPrice","")
     goodsNum : str = request.json.get("goodsNum","")
-    totalValue : str = request.json.get("totalValue","")
     c = cart.Cart
-    ok = c.addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue)
+    ok = c.addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum)
     if ok:
         return jsonify({"message": "ok"}), 200
     else:
