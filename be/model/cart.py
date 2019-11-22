@@ -102,7 +102,7 @@ class Cart:
         conn = store.get_db_conn()
         try:
             cursor = conn.execute(
-                "SELECT sellerName, goodsName, goodsPrice, goodsNum, totalValue from carts where buyerName=?",
+                "SELECT sellerName, goodsName, goodsPrice, goodsNum, totalValue from cart where buyerName=?",
                 (buyerName),
             )
             contents = cursor.fetchall()

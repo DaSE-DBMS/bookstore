@@ -1,3 +1,4 @@
+import random
 import time
 import pytest
 from fe import conf
@@ -42,7 +43,8 @@ def test_addGoods(goodsId : str):
     g = goods.Goods(conf.URL)
     goodsName = "goodsName" + goodsId
     goodsAuth = "goodsAuth" + goodsId
-    goodsPrice = "goodsPrice" + goodsId
+    # goodsPrice = "goodsPrice" + goodsId
+    goodsPrice = random.randint(100,200)
     goodsNum = 12
     goodsType = "goodsType" + goodsId
     goodsDsr = "goodsDsr" + goodsId
@@ -53,7 +55,14 @@ def test_addGoods(goodsId : str):
     assert g.addGoods(goodsId, goodsName, goodsAuth, goodsPrice, goodsNum,  goodsType, goodsDsr, sellerName)
     # test_addCart
     c = cart.Cart(conf.URL)
-    assert c.addCart(buyerName,sellerName,goodsId,goodsName,goodsPrice,goodsNum,totalValue)
+    assert c.addCart(buyerName,sellerName,goodsId,goodsName,goodsPrice,3,totalValue)
 
+    # test_delCart
+    # buyerName, goodsId, goodsNum
+    # assert c.delCart(buyerName,goodsId,1)
+
+    # test_getCart
+    # buyerName
+    # assert c.getCart(buyerName)
 
 

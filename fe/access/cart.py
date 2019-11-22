@@ -20,8 +20,8 @@ class Cart:
         print(r.json()["message"])
         return r.status_code == 200
 
-    def getCart(self, sellerName: str) -> (bool, list,float):
-        json = {"sellerName": sellerName}
+    def getCart(self, buyerName: str) -> (bool, list,float):
+        json = {"buyerName": buyerName}
         url = urljoin(self.url_prefix, "getCart")
         r = requests.post(url, json=json)
         print(r.json()["message"])
