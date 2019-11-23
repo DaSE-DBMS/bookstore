@@ -36,7 +36,7 @@ class Cart:
         self.goodsNum = 0
         self.totalValue = 0
 
-    def addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue) -> bool:
+    def addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum,) -> bool:
         conn = store.get_db_conn()
         try:
             #添加一个判断，商品是否还有库存
@@ -51,7 +51,7 @@ class Cart:
             if row is None:
                 conn.execute(
                     "INSERT into cart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue) VALUES (?, ?, ?, ?, ?, ?, ?);",
-                    (buyerName,sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue),
+                    (buyerName,sellerName, goodsId, goodsName, goodsPrice, goodsNum, goodsPrice*goodsNum),
                 )
             else:
                 newgoodsNum = row[0] + goodsNum

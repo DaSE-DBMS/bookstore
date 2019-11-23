@@ -27,7 +27,7 @@ class Store:
             conn.execute(
                 "CREATE TABLE IF NOT EXISTS orders ("
                 "orderId TEXT, buyerName TEXT ,"
-                "sellerName TEXT, orderStatus INTEGER , goodsName TEXT, goodsPrice INTEGER, totalValue INTEGER, addr TEXT,"
+                "sellerName TEXT, orderStatus INTEGER , goodsId TEXT, goodsName TEXT, goodsPrice INTEGER, totalValue INTEGER,goodsNum INTEGER, addr TEXT,"
                 "PRIMARY KEY(orderId, goodsName));"
             )
             conn.execute(

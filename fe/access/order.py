@@ -6,7 +6,7 @@ class Order:
     def __init__(self, url_prefix):
         self.url_prefix = urljoin(url_prefix, "order/")
 
-    def createOrder(self,orderId : str, sellerName : str, buyerName : str ,orderStatus : str, cartlist : list, addr : str) -> bool:
+    def createOrder(self,orderId : str, buyerName : str , sellerName : str,orderStatus : str, cartlist : list, addr : str) -> bool:
         json = { "orderId" : orderId,"sellerName" : sellerName, "buyerName" : buyerName , "orderStatus" : orderStatus ,"cartlist" : cartlist, "addr" : addr}
         url = urljoin(self.url_prefix, "createOrder")
         r = requests.post(url, json=json)

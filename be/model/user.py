@@ -46,7 +46,7 @@ class User:
     def __init__(self):
         self.username = ""
         self.password = ""
-        self.balance = 200
+        self.balance = 100000
         self.token = ""
         self.terminal = ""
 

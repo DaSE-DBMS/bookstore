@@ -14,25 +14,13 @@ from fe.access import order, cart, goods,auth
 )
 
 def test_createOrder(orderId : str):
-    # a = auth.Auth(conf.URL)
-    # assert a.register("buyer", "buyer", True, True) == 200
-    #
-    # g = goods.Goods(conf.URL)
-    # g.addGoods("111111","the little prince", "heheda", 33, 5, "ertongwenxue", "haokanhaokanhaokan", "sshuang")
-    # g.addGoods("222222", "the beautiful prince", "xixiha", 33, 5, "ertongwenxue", "haokanhaokanhaokan", "sshuang")
 
     o = order.Order(conf.URL)
     sellerName = "sellerName" + orderId
     buyerName = "buyerName" + orderId
     orderStatus = 2
-    cartlist = []
-    a = ["the little prince",33,33]
-    cartlist.append(a)
-    b = ["the beautiful prince",33,33]
-    cartlist.append(b)
+    cartlist = ["111111","222222"]
     addr = "addr" + orderId
-
-    assert o.createOrder(orderId, buyerName, sellerName, orderStatus, cartlist, addr)
 
     # test cancelOrder
     # assert o.cancelOrder(orderId, buyerName)
@@ -50,8 +38,6 @@ def test_createOrder(orderId : str):
     # ok, orderlist = o.sellergetOrder(sellerName + "xxx")
     # assert not ok
 
-    # test paymentOrder 这个接口我还没有测，先改后端的逻辑再修改
-    # assert o.paymentOrder(orderId, "buyer")
 
 @pytest.mark.parametrize(
     "goodsId",
@@ -65,7 +51,7 @@ def test_addGoods(goodsId: str):
     g = goods.Goods(conf.URL)
     goodsName = "goodsName" + goodsId
     goodsAuth = "goodsAuth" + goodsId
-    goodsPrice = "goodsPrice" + goodsId
+    goodsPrice = 50
     goodsNum = 12
     goodsType = "goodsType" + goodsId
     goodsDsr = "goodsDsr" + goodsId
@@ -76,13 +62,26 @@ def test_addGoods(goodsId: str):
     assert g.addGoods(goodsId, goodsName, goodsAuth, goodsPrice, goodsNum,  goodsType, goodsDsr, sellerName)
     # test_addCart
     c = cart.Cart(conf.URL)
-    assert c.addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum, totalValue)
+    assert c.addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum)
 
     #test_getCart
-    #c = cart.Cart(conf.URL)
+    # c = cart.Cart(conf.URL)
     # ok, cartList,sum=c.getCart(buyerName)
     # assert ok
+    #
+    # #test_delCart
+    # assert c.delCart(buyerName, goodsId, goodsNum)
+    #
+    o = order.Order(conf.URL)
+    orderStatus = 2
+    cartlist = [goodsId]
+    addr = "addr"
+    orderId = "orderId" + goodsId
 
-    #test_delCart
-    assert c.delCart(buyerName, goodsId, goodsNum)
+    assert o.createOrder(orderId, buyerName, sellerName, orderStatus, cartlist, addr)
 
+    a = auth.Auth(conf.URL)
+    username = "buyerName" + goodsId
+    password = "password" + goodsId
+    assert a.register(username, password) == 200
+    assert o.paymentOrder(orderId, buyerName)
