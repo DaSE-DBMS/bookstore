@@ -11,10 +11,10 @@ def createOrder():
     sellerName: str = request.json.get("sellerName", "")
     buyerName : str = request.json.get("buyerName", "")
     orderStatus : str = request.json.get("orderStatus","")
-    cartlist : list = request.json.get("cartlist",[])
+    goodsidlist : list = request.json.get("goodsidlist",[])
     addr : str = request.json.get("addr","")
     o = order.Order
-    ok= o.createOrder(orderId = orderId, buyerName = buyerName, sellerName = sellerName, orderStatus = orderStatus, cartlist = cartlist, addr = addr)
+    ok= o.createOrder(orderId = orderId, buyerName = buyerName, sellerName = sellerName, orderStatus = orderStatus, goodsidlist = goodsidlist, addr = addr)
     if ok:
         return jsonify({"message": "ok"}), 200
     else:

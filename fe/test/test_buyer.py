@@ -80,8 +80,13 @@ def test_addGoods(goodsId: str):
 
     assert o.createOrder(orderId, buyerName, sellerName, orderStatus, cartlist, addr)
 
+    # test cancelOrder
+    # assert o.cancelOrder(orderId, buyerName)
+    # assert not o.cancelOrder(orderId + "xxx", buyerName)
+    # assert not o.cancelOrder(orderId, buyerName + "xxx")
+
     a = auth.Auth(conf.URL)
     username = "buyerName" + goodsId
     password = "password" + goodsId
     assert a.register(username, password) == 200
-    assert o.paymentOrder(orderId, buyerName)
+    #assert o.paymentOrder(orderId, buyerName)

@@ -32,11 +32,11 @@ class Order:
         self.totalValue = 0
         self.addr = ""
 
-    #注意这里传进来carlist是很多商品信息，是一个goodId的列表
-    def createOrder(orderId, buyerName, sellerName, orderStatus, cartlist, addr) -> (bool):
+    #注意这里传进来goodsidlist，是一个goodId的列表
+    def createOrder(orderId, buyerName, sellerName, orderStatus, goodsidlist, addr) -> (bool):
         conn = store.get_db_conn()
         try:
-            for i in cartlist:
+            for i in goodsidlist:
                 # 添加一个判断，商品是否还有库存,先到购物车表查看要买的商品的数量
                 cursor = conn.execute(
                     "SELECT goodsNum from cart where goodsId=?",
@@ -49,7 +49,7 @@ class Order:
                     #这里需要输出商品商品good[0]库存不够
             #进入到这个循环说明库存是够的，所以开始生成订单
             totalValue = 0
-            for i in cartlist:
+            for i in goodsidlist:
                 cursor = conn.execute(
                     "SELECT goodsName, goodsPrice, goodsNum, totalValue from cart where goodsId=?",
                     (i,),
