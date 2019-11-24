@@ -15,10 +15,12 @@ def addCart():
     goodsNum : str = request.json.get("goodsNum","")
     c = cart.Cart
     ok = c.addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum)
-    if ok:
+    if ok == 2:
         return jsonify({"message": "ok"}), 200
+    elif ok == 1:
+        return jsonify({"message": "Insert failed, insufficient stock of goods"}), 514
     else:
-        return jsonify({"message": "addition failed, insufficient stock of goods"}), 501
+        return jsonify({"message": "Insert failed, token error"}), 401
 
 @bp_cart.route("/delCart", methods=["POST"])
 def delCart():
@@ -27,8 +29,10 @@ def delCart():
     goodsNum : str = request.json.get("goodsNum","")
     c = cart.Cart
     ok = c.delCart(buyerName, goodsId, goodsNum)
-    if ok:
+    if ok == 2:
         return jsonify({"message": "ok"}), 200
+    elif ok == 1:
+        return jsonify({"message": "Delete failed, no goods"}), 513
     else:
         return jsonify({"message": "Delete failed, token error"}), 401
 

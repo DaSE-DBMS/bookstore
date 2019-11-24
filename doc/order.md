@@ -40,12 +40,12 @@ Status Code:
 --- | ---|--- 
 200 | 订单生成成功 | 
 401 | 订单生成失败，token错误 | 
-514 | 订单生成失败，商品暂无 | 
+514 | 订单生成失败，商品库存不足 | 
 
 Body:
 ```
 {
-    "message":"$order generation failed，token error/$order generation failed，no goods/$ok"
+    "message":"$order generation failed，token error/$order generation failed, insufficient stock of goods/$ok"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空| 
@@ -96,7 +96,7 @@ Body:
 
 ```
 {
-	"message":"$cancel failed, token error/$cancel failed, no order/$ok"
+	"message":"$cancel failed, token error/$cancel failed, no order or no buyer/$ok"
 }
 ```
 
@@ -287,7 +287,7 @@ Status Code:
 | 200  | 支付成功               |      |
 | 401  | 支付失败，token错误    |      |
 | 516  | 支付失败，账户余额不足 |      |
-| 517  | 支付失败，商品库存不足 |      |
+| 514  | 支付失败，商品库存不足 |      |
 
 Body:
 

@@ -37,7 +37,7 @@ class Goods:
             return False
         return True
 
-    def delGoods(goodsId: str, sellerName: str) -> bool:
+    def delGoods(goodsId: str, sellerName: str) -> int:
         conn = store.get_db_conn()
         try:
             cursor = conn.execute("DELETE from goods where goodsId=? and sellerName=?", (goodsId, sellerName))
@@ -45,11 +45,11 @@ class Goods:
                 conn.commit()
             else:
                 conn.rollback()
-                return False
+                return 1
         except sqlite.Error as e:
             logging.error(str(e))
             conn.rollback()
-        return  True
+        return 2
 
 
     def searchGoods(keywords, goodsType) -> (bool, list):

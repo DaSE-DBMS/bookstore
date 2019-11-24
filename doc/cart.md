@@ -110,7 +110,7 @@ Body:
 
 ```
 {
-	"message":"$Delete failed, token error/$ok"
+	"message":"$Delete failed, token error/$Delete failed, no goods/$ok"
 }
 ```
 

@@ -27,7 +27,7 @@ Status Code:
 码 | 描述
 --- | ---
 200 | 搜索成功 
-512 | 搜索失败，暂无相关商品 
+513 | 搜索失败，暂无相关商品 
 
 Body：
 
@@ -168,7 +168,7 @@ body：
 
 ```
 { 
-	"message":"$delete failed, error token/$ok"
+	"message":"$delete failed, error token/$delete failed, no goods/$ok"
 }
 ```
 

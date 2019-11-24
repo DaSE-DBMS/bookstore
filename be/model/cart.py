@@ -3,7 +3,7 @@ import sqlite3 as sqlite
 import logging
 
 #判断商品是否还有库存
-def check_num(goodsId, goodsNum):
+def check_num(goodsId, goodsNum) -> bool:
     try:
         conn = store.get_db_conn()
         cursor = conn.execute(
@@ -36,12 +36,12 @@ class Cart:
         self.goodsNum = 0
         self.totalValue = 0
 
-    def addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum,) -> bool:
+    def addCart(buyerName, sellerName, goodsId, goodsName, goodsPrice, goodsNum,) -> int:
         conn = store.get_db_conn()
         try:
             #添加一个判断，商品是否还有库存
             if not check_num(goodsId, goodsNum):
-                return False
+                return 1
             #判断买家购物车是否已有该商品，没有就加入这个商品，有就改变数量
             cursor = conn.execute(
                 "SELECT goodsNum from cart where buyerName=? and goodsId=?",
@@ -69,10 +69,10 @@ class Cart:
         except BaseException as e:
             print(e)
             conn.rollback()
-            return False
-        return True
+            return 0
+        return 2
 
-    def delCart(buyerName, goodsId, goodsNum) -> bool:
+    def delCart(buyerName, goodsId, goodsNum) -> int:
         conn = store.get_db_conn()
         try:
             cursor = conn.execute(
@@ -81,11 +81,11 @@ class Cart:
             )
             row = cursor.fetchone()
             if row is None:
-                return False
+                return 1
             newgoodsNum = row[0] - goodsNum
             newtotalValue = row[1] * newgoodsNum
             if newgoodsNum == 0:
-                cursor = conn.execute("DELETE from cart where buyerName=? and goodsId=?", (buyerName, goodsId))
+                conn.execute("DELETE from cart where buyerName=? and goodsId=?", (buyerName, goodsId))
             else:
                 conn.execute(
                     "UPDATE cart set goodsNum = ?, totalValue = ? where buyerName=? and goodsId=?",
@@ -95,8 +95,8 @@ class Cart:
         except BaseException as e:
             print(e)
             conn.rollback()
-            return False
-        return True
+            return 0
+        return 2
 
     def getCart(buyerName) -> (bool, list, int):
         conn = store.get_db_conn()

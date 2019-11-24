@@ -33,7 +33,7 @@ class Order:
         self.addr = ""
 
     #注意这里传进来goodsidlist，是一个goodId的列表
-    def createOrder(orderId, buyerName, sellerName, orderStatus, goodsidlist, addr) -> (bool):
+    def createOrder(orderId, buyerName, sellerName, orderStatus, goodsidlist, addr) -> (int):
         conn = store.get_db_conn()
         try:
             for i in goodsidlist:
@@ -45,7 +45,7 @@ class Order:
                 row = cursor.fetchone()
                 #再看商品表是否有库存
                 if not check_num(i, row[0]):
-                    return False
+                    return 1
                     #这里需要输出商品商品good[0]库存不够
             #进入到这个循环说明库存是够的，所以开始生成订单
             totalValue = 0
@@ -65,7 +65,7 @@ class Order:
                     conn.commit()
                 else:
                     conn.rollback()
-                    return False
+                    return 1
             conn.execute(
                 "UPDATE orders set totalValue = ? where orderId = ?",
                 (totalValue, orderId),
@@ -74,16 +74,16 @@ class Order:
         except sqlite.Error as e:
             print(e)
             conn.rollback()
-            return False
-        return True
+            return 0
+        return 2
 
-    def fetch_order(userName: str, Sql: str) -> (bool, list):
+    def fetch_order(userName: str, Sql: str) -> (int, list):
         conn = store.get_db_conn()
         try:
             cursor = conn.execute(Sql, (userName,))
             contents = cursor.fetchall()
             if not len(contents):
-                return False, []
+                return 1, []
             orderlist = []
             goodslist = []
             sameorderId = contents[0][0]
@@ -103,20 +103,20 @@ class Order:
                     goodslist.append(a)
         except sqlite.Error as e:
             logging.error(str(e))
-            return False
+            return 0, []
         b = [sameorderId, samesellerName, sameorderStatus, goodslist, sameaddr]
         orderlist.append(b)
-        return True, orderlist
+        return 2, orderlist
 
-    def sellergetOrder(self, sellerName: str) -> (bool, list):
+    def sellergetOrder(self, sellerName: str) -> (int, list):
         Sql = "SELECT orderId, buyerName, orderStatus, goodsName, goodsPrice, totalValue, addr from orders where sellerName=?"
         return self.fetch_order(sellerName, Sql)
 
-    def buyergetOrder(self, buyerName: str) -> (bool, list):
+    def buyergetOrder(self, buyerName: str) -> (int, list):
         Sql = "SELECT orderId, sellerName, orderStatus, goodsName, goodsPrice, totalValue, addr from orders where buyerName=?"
         return self.fetch_order(buyerName, Sql)
 
-    def cancelOrder(orderId: str, buyerName: str) -> bool:
+    def cancelOrder(orderId: str, buyerName: str) -> int:
         conn = store.get_db_conn()
         try:
             cursor = conn.execute("DELETE from orders where buyerName=? and orderId=?", (buyerName, orderId))
@@ -124,13 +124,14 @@ class Order:
                 conn.commit()
             else:
                 conn.rollback()
-                return False
+                return 1
         except sqlite.Error as e:
             logging.error(str(e))
             conn.rollback()
-        return True
+            return 0
+        return 2
 
-    def paymentOrder(orderId: str, buyerName: str) -> bool:
+    def paymentOrder(orderId: str, buyerName: str) -> int:
         conn = store.get_db_conn()
         try:
             # 得到账户余额
@@ -149,7 +150,7 @@ class Order:
             money = buyerbalance - row2[0]
             #表示买家钱不够
             if money < 0:
-                return False
+                return 1
 
             #进入一下表示买家的财力是可以购买订单上的商品的，因此开始：查看库存->修改库存->修改订单状态->减少买家账户余额->增加卖家账户余额
             #库存是否足够
@@ -168,7 +169,7 @@ class Order:
                 buygoodsnumlist.append(row[0])
                 #再看商品表是否有库存
                 if not check_num(i, row[0]):
-                    return False
+                    return 3
                     #这里需要输出商品库存不够
             #进入到这个循环说明库存是够的，所以开始修改库存
             for i, j in product(goodsIdlist, buygoodsnumlist):
@@ -182,7 +183,7 @@ class Order:
                     conn.commit()
                 else:
                     conn.rollback()
-                    return False
+                    return 3
             #修改订单状态，“3”表示支付成功
             conn.execute(
                 "UPDATE orders set orderStatus = ? where orderId = ?",
@@ -214,3 +215,5 @@ class Order:
         except sqlite.Error as e:
             logging.error(str(e))
             conn.rollback()
+            return 0
+        return 2

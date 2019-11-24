@@ -29,10 +29,12 @@ def delGoods():
     sellerName: str = request.json.get("sellerName","")
     g = goods.Goods
     ok = g.delGoods(goodsId, sellerName)
-    if ok:
+    if ok == 2:
         return jsonify({"message": "ok"}), 200
+    elif ok == 1:
+        return jsonify({"message": "delete failed, no goods"}),513
     else:
-        return jsonify({"message": "delete failed, token error"}), 501
+        return jsonify({"message": "delete failed, token error"}), 401
 
 @bp_goods.route("/searchGoods", methods=["GET"])
 def searchGoods():
@@ -41,9 +43,9 @@ def searchGoods():
     g = goods.Goods
     ok, goodslist = g.searchGoods(keywords, goodsType)
     if ok:
-        return jsonify({"message": "ok", "goodslist": goodslist}), 200
+        return jsonify({"message": "ok", "goodslist": goodslist}), 401
     else:
-        return jsonify({"message": "Search failed, no relevant products"}), 501
+        return jsonify({"message": "Search failed, no relevant products"}), 513
 
 
 
