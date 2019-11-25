@@ -1,69 +1,52 @@
 import requests
 from urllib.parse import urljoin
+from fe.access import book
+from fe.access.auth import Auth
 
-class seller:
-    def __init__(self, url_prefix):
-        self.url_prefix = urljoin(url_prefix, "goods/")
 
-    def addGoods(self, goodsId, goodsName, goodsauth, goodsPrice, goodsNum, goodsType, goodsDsr,sellerName) -> bool:
-        json = {"goodsId": goodsId,"goodsName" : goodsName,"goodsauth": goodsauth,"goodsPrice" : goodsPrice,"goodsNum" : goodsNum,"goodsType":goodsType,"goodsDsr": goodsDsr,"sellerName":sellerName}
-        #headers = {"token": token}
-        url = urljoin(self.url_prefix, "addGoods")
-        r = requests.post(url, json=json)
-        return r.status_code == 200
+class Seller:
+    def __init__(self, url_prefix, seller_id: str, password: str):
+        self.url_prefix = urljoin(url_prefix, "seller/")
+        self.seller_id = seller_id
+        self.password = password
+        self.terminal = "my terminal"
+        self.auth = Auth(url_prefix)
+        code, self.token = self.auth.login(self.seller_id, self.password, self.terminal)
+        assert code == 200
 
-    def getMemberInfo(self, username: str, token: str) -> (str, str, str):
-        json = {"username": username}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix, "getMemberInfo")
-        r = requests.get(url, headers=headers, json=json)
-        if r.status_code == 200:
-            return r.json()["name"], r.json()["sex"], r.json()["tele"]
-        else:
-            return "", "", ""
-
-    def editMemberInfo(self, username: str, token: str) -> bool:
-        json = {"username": username}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix, "editMemberInfo")
+    def create_store(self, store_id):
+        json = {
+            "user_id": self.seller_id,
+            "store_id": store_id,
+        }
+        #print(simplejson.dumps(json))
+        url = urljoin(self.url_prefix, "create_store")
+        headers = {"token": self.token}
         r = requests.post(url, headers=headers, json=json)
-        return r.status_code == 200
+        return r.status_code
 
-    # 1.editItem-编辑卖家商品接口
-    def editItem(self, username: str, token: str) -> bool:
-        json = {"username": username}
-        # headers = {"token": token}
-        url = urljoin(self.url_prefix, "editItem")
-        r = requests.post(url, json=json)
-        return r.status_code == 200
+    def add_book(self, store_id: str, stock_level: int, book_info: book.Book) -> int:
+        json = {
+            "user_id": self.seller_id,
+            "store_id": store_id,
+            "book_info": book_info.__dict__,
+            "stock_level": stock_level
+        }
+        #print(simplejson.dumps(json))
+        url = urljoin(self.url_prefix, "add_book")
+        headers = {"token": self.token}
+        r = requests.post(url, headers=headers, json=json)
+        return r.status_code
 
-    def getSoldItem(self, username: str, token: str) -> (str, str, str, str, str):
-        json = {"username": username}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix,"getSoldItem")
-        r = requests.get(url, headers=headers, json=json)
-        if r.status_code == 200:
-            return r.json()["orderId"], r.json()["orderDate"], r.json()["orderStatus"], r.json()["productName"], r.json()["productPrice"]
-        else:
-            return "", "", "", "", ""
-
-    def getRefundItemOrder(self, username: str, token: str) -> (str, str, str):
-        json = {"username": username}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix, "getRefundItemOrder")
-        r = requests.get(url, headers=headers, json=json)
-        if r.status_code == 200:
-            return r.json()["orderId"], r.json()["productName"], r.json()["productPrice"]
-        else:
-            return "", "", ""
-
-    # 2.sellerRefundGoods-查询卖家退货物流信息接口
-    def sellerRefundGoods(self, username: str, token: str, orderId: str) -> (str, str, str):
-        json = {"username": username, "orderId": orderId}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix, "sellerRefundGoods")
-        r = requests.get(url, headers=headers, json=json)
-        if r.status_code == 200:
-            return r.json()["orderId"], r.json()["productName"], r.json()["address"]
-        else:
-            return ""
+    def add_stock_level(self, seller_id: str, store_id: str, book_id: str, add_stock_num: int) -> int:
+        json = {
+            "user_id": seller_id,
+            "store_id": store_id,
+            "book_id": book_id,
+            "add_stock_level": add_stock_num
+        }
+        #print(simplejson.dumps(json))
+        url = urljoin(self.url_prefix, "add_stock_level")
+        headers = {"token": self.token}
+        r = requests.post(url, headers=headers, json=json)
+        return r.status_code

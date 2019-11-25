@@ -15,26 +15,32 @@ class Store:
             conn = self.get_db_conn()
             conn.execute(
                 "CREATE TABLE IF NOT EXISTS user ("
-                "username TEXT PRIMARY KEY, password TEXT NOT NULL, "
-                "is_buyer BOOLEAN NOT NULL, is_seller BOOLEAN NOT NULL, "
+                "user_id TEXT PRIMARY KEY, password TEXT NOT NULL, "
                 "balance INTEGER NOT NULL, token TEXT, terminal TEXT);"
             )
+
             conn.execute(
-                "CREATE TABLE IF NOT EXISTS goods ("
-                "goodsId TEXT PRIMARY KEY, goodsName TEXT NOT NULL,"
-                "goodsAuth TEXT, goodsPrice INTEGER NOT NULL, goodsNum INTEGER, goodsType TEXT, goodsDsr TEXT, sellerName TEXT);"
+                "CREATE TABLE IF NOT EXISTS user_store("
+                "user_id TEXT, store_id, PRIMARY KEY(user_id, store_id));"
             )
+
             conn.execute(
-                "CREATE TABLE IF NOT EXISTS orders ("
-                "orderId TEXT, buyerName TEXT ,"
-                "sellerName TEXT, orderStatus INTEGER , goodsId TEXT, goodsName TEXT, goodsPrice INTEGER, totalValue INTEGER,goodsNum INTEGER, addr TEXT,"
-                "PRIMARY KEY(orderId, goodsName));"
+                "CREATE TABLE IF NOT EXISTS store( "
+                "store_id TEXT, book_id TEXT, book_info TEXT, stock_level INTEGER,"
+                " PRIMARY KEY(store_id, book_id))"
             )
+
             conn.execute(
-                "CREATE TABLE IF NOT EXISTS cart ("
-                "buyerName TEXT,sellerName TEXT , goodsId TEXT, goodsName TEXT, goodsPrice INTEGER, goodsNum INTEGER, totalValue INTEGER,"
-                "PRIMARY KEY (buyerName, goodsId));"
+                "CREATE TABLE IF NOT EXISTS new_order( "
+                "order_id TEXT PRIMARY KEY, user_id TEXT, store_id TEXT)"
             )
+
+            conn.execute(
+                "CREATE TABLE IF NOT EXISTS new_order_detail( "
+                "order_id TEXT, book_id TEXT, count INTEGER, price INTEGER,  "
+                "PRIMARY KEY(order_id, book_id))"
+            )
+
             conn.commit()
         except sqlite.Error as e:
             logging.error(e)

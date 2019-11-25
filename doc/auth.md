@@ -1,4 +1,4 @@
-## Register-注册
+## 注册用户
 
 #### URL：
 POST http://$address$/auth/register
@@ -8,20 +8,16 @@ POST http://$address$/auth/register
 Body:
 ```
 {
-    "username":"$user name$",
+    "user_id":"$user name$",
     "password":"$user password$"
-    "isBuyer":True/False
-    "isSeller":True/False
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 password | string | 登陆密码 | N
-isBuyer | boolean | 注册为买家| N
-iseller | boolean | 注册为卖家 | N
-S
+
 #### Response
 
 Status Code:
@@ -30,8 +26,7 @@ Status Code:
 码 | 描述
 --- | ---
 200 | 注册成功
-511 | 注册失败，用户名重复
-512 | 注册失败，必须注册为买家或卖家
+5XX | 注册失败，用户名重复
 
 Body:
 ```
@@ -43,7 +38,7 @@ Body:
 ---|---|---|---
 message | string | 返回错误消息，成功时为"ok" | N
 
-## UnRegister-注销用户
+## 注销用户
 
 #### URL：
 POST http://$address$/auth/unregister
@@ -53,14 +48,14 @@ POST http://$address$/auth/unregister
 Body:
 ```
 {
-    "username":"$user name$",
+    "user_id":"$user name$",
     "password":"$user password$"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 password | string | 登陆密码 | N
 
 #### Response
@@ -84,7 +79,7 @@ Body:
 ---|---|---|---
 message | string | 返回错误消息，成功时为"ok" | N
 
-## Login-登录
+## 用户登录
 
 #### URL：
 POST http://$address$/auth/login
@@ -94,7 +89,7 @@ POST http://$address$/auth/login
 Body:
 ```
 {
-    "username":"$user name$",
+    "user_id":"$user name$",
     "password":"$user password$",
     "terminal":"$terminal code$"
 }
@@ -102,7 +97,7 @@ Body:
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 password | string | 登陆密码 | N
 terminal | string | 终端代码 | N
 
@@ -127,7 +122,7 @@ Body:
 message | string | 返回错误消息，成功时为"ok" | N
 token | string | 访问token，用户登录后每个需要授权的请求应在headers中传入这个token | 成功时不为空
 
-## Password-更改密码
+## 用户更改密码
 
 #### URL：
 POST http://$address$/auth/password
@@ -137,7 +132,7 @@ POST http://$address$/auth/password
 Body:
 ```
 {
-    "username":"$user name$",
+    "user_id":"$user name$",
     "oldPassword":"$old password$",
     "newPassword":"$new password$"
 }
@@ -145,7 +140,7 @@ Body:
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 oldPassword | string | 旧的登陆密码 | N
 newPassword | string | 新的登陆密码 | N
 
@@ -168,7 +163,7 @@ Body:
 ---|---|---|---
 message | string | 返回错误消息，成功时为"ok" | N
 
-## Logout-登出
+## 用户登出
 
 #### URL：
 POST http://$address$/auth/logout
@@ -184,13 +179,13 @@ token | string | 访问token
 Body:
 ```
 {
-    "username":"$user name$"
+    "user_id":"$user name$"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 
 #### Response
 
