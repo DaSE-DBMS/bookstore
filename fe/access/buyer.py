@@ -1,61 +1,28 @@
 import requests
 from urllib.parse import urljoin
 
+
 class Buyer:
-    def __init__(self, url_prefix):
+    def __init__(self, url_prefix, user_id, password):
         self.url_prefix = urljoin(url_prefix, "buyer/")
+        self.user_id = user_id
+        self.password = password
+        self.token = ""
 
-
-    def getMemberInfo(self,username : str,token: str)->(str,str,str):
-        json = {"username": username}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix, "getMemberInfo")
-        r = requests.get(url, headers=headers, json=json)
-        if r.status_code == 200:
-            return r.json()["name"],r.json()["sex"],r.json()["tele"]
-        else:
-            return "","",""
-
-    def editMemberInfo(self,username : str,token : str) ->(bool):
-        json = {"username": username}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix,"editMemberInfo")
-        r = requests.post(url, headers = headers, json=json)
-        return r.status_code == 200
-
-    def getMemberOrder(self,username : str,token : str) ->(str,str,str,str,str):
-        json = {"username": username}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix,"getMemberOrder")
-        r = requests.get(url, headers = headers,json=json)
-        if r.status_code == 200:
-            return r.json()["orderId"],r.json()["orderDate"],r.json()["orderStatus"],r.json()["productName"],r.json()["productPrice"]
-        else:
-            return "","","","",""
-
-    def getRefundOrder(self,username : str,token : str)->(str,str,str):
-        json = {"username": username}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix,"getRefundOrder")
-        r = requests.get(url, headers = headers,json=json)
-        if r.status_code == 200:
-            return r.json()["orderId"],r.json()["productName"],r.json()["productPrice"]
-        else:
-            return "","",""
-
-    def getMemberConsignee(self,username : str,token : str)->(str):
-        json = {"username": username}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix, "getMemberConsignee")
-        r = requests.get(url, headers=headers, json=json)
-        if r.status_code == 200:
-            return r.json()["address"]
-        else:
-            return ""
-
-    def editConsignee(self,username : str,token : str)->(bool):
-        json = {"username": username}
-        headers = {"token": token}
-        url = urljoin(self.url_prefix, "editConsignee")
+    def new_order(self, store_id: str, book_id_and_count: [(str, int)]) -> (int, str):
+        books = []
+        for id_count_pair in book_id_and_count:
+            books.append({"id": id_count_pair[0], "count": id_count_pair[1]})
+        json = {"user_id": self.user_id, "store_id": store_id, "books": books}
+        url = urljoin(self.url_prefix, "new_order")
+        headers = {"token": self.token}
         r = requests.post(url, headers=headers, json=json)
-        return r.status_code == 200
+        response_json = r.json()
+        return r.status_code, response_json.get("order_id")
+
+    def payment(self,  order_id: str):
+        json = {"user_id": self.user_id, "order_id": order_id}
+        url = urljoin(self.url_prefix, "payment")
+        headers = {"token": self.token}
+        r = requests.post(url, headers=headers, json=json)
+        return r.status_code

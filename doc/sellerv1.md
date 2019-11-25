@@ -16,12 +16,12 @@ token | string | 登录产生的会话标识 | N
 Body:
 ```
 {
-    "username":"$user name"
+    "user_id":"$user name"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 
 #### Response
 Status Code:
@@ -61,7 +61,7 @@ token | string | 登录产生的会话标识 | N
 Body:
 ```
 {
-    "username":"$user name",
+    "user_id":"$user name",
     "buylist":[{"goodsname":"$goods name",
 				"goodsnumber":"$goods number",
 				"goodsprice":"$goods price",},{...}]
@@ -70,7 +70,7 @@ Body:
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 **goodslist** |  | **商家店铺的所有商品信息，每件商品都应包含如下信息** | 
 goodsname | string | 商品名称 | N
 goodsprice | string | 价格 | N
@@ -109,12 +109,12 @@ token | string | 登录产生的会话标识 | N
 Body:
 ```
 {
-    "username":"$user name"
+    "user_id":"$user name"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 
 #### Response
 Status Code:
@@ -159,12 +159,12 @@ token | string | 登录产生的会话标识 | N
 Body:
 ```
 {
-    "username":"$user name"
+    "user_id":"$user name"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 
 #### Response
 Status Code:
@@ -206,12 +206,12 @@ token | string | 登录产生的会话标识 | N
 Body:
 ```
 {
-    "username":"$user name"
+    "user_id":"$user name"
 }
 ```
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | String | 用户名 | N
+user_id | String | 用户名 | N
 
 #### Response
 Status Code:

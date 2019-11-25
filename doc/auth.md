@@ -8,7 +8,7 @@ POST http://$address$/auth/register
 Body:
 ```
 {
-    "username":"$user name$",
+    "user_id":"$user name$",
     "password":"$user password$"
     "isBuyer":True/False
     "isSeller":True/False
@@ -17,7 +17,7 @@ Body:
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 password | string | 登陆密码 | N
 isBuyer | boolean | 注册为买家| N
 iseller | boolean | 注册为卖家 | N
@@ -53,14 +53,14 @@ POST http://$address$/auth/unregister
 Body:
 ```
 {
-    "username":"$user name$",
+    "user_id":"$user name$",
     "password":"$user password$"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 password | string | 登陆密码 | N
 
 #### Response
@@ -94,7 +94,7 @@ POST http://$address$/auth/login
 Body:
 ```
 {
-    "username":"$user name$",
+    "user_id":"$user name$",
     "password":"$user password$",
     "terminal":"$terminal code$"
 }
@@ -102,7 +102,7 @@ Body:
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 password | string | 登陆密码 | N
 terminal | string | 终端代码 | N
 
@@ -137,7 +137,7 @@ POST http://$address$/auth/password
 Body:
 ```
 {
-    "username":"$user name$",
+    "user_id":"$user name$",
     "oldPassword":"$old password$",
     "newPassword":"$new password$"
 }
@@ -145,7 +145,7 @@ Body:
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 oldPassword | string | 旧的登陆密码 | N
 newPassword | string | 新的登陆密码 | N
 
@@ -184,13 +184,13 @@ token | string | 访问token
 Body:
 ```
 {
-    "username":"$user name$"
+    "user_id":"$user name$"
 }
 ```
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 
 #### Response
 

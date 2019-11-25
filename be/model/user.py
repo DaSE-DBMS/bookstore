@@ -1,22 +1,22 @@
-from be.model import store
 import jwt
 import time
 import logging
 import sqlite3 as sqlite
-
+from be.model import error
+from be.model import store
 
 # encode a json string like:
 #   {
-#       "username": [user name],
+#       "user_id": [user name],
 #       "terminal": [terminal code],
 #       "timestamp": [ts]} to a JWT
 #   }
 
 
-def jwt_encode(username: str, terminal: str) -> str:
+def jwt_encode(user_id: str, terminal: str) -> str:
     encoded = jwt.encode(
-        {"username": username, "terminal": terminal, "timestamp": time.time()},
-        key=username,
+        {"user_id": user_id, "terminal": terminal, "timestamp": time.time()},
+        key=user_id,
         algorithm="HS256",
     )
     return encoded.decode("utf-8")
@@ -24,17 +24,17 @@ def jwt_encode(username: str, terminal: str) -> str:
 
 # decode a JWT to a json string like:
 #   {
-#       "username": [user name],
+#       "user_id": [user name],
 #       "terminal": [terminal code],
 #       "timestamp": [ts]} to a JWT
 #   }
-def jwt_decode(encoded_token, username: str) -> str:
-    decoded = jwt.decode(encoded_token, key=username, algorithms="HS256")
+def jwt_decode(encoded_token, user_id: str) -> str:
+    decoded = jwt.decode(encoded_token, key=user_id, algorithms="HS256")
     return decoded
 
 
 class User:
-    username: str
+    user_id: str
     password: str
     token: str
     terminal: str
@@ -44,7 +44,7 @@ class User:
     is_seller: bool = False
 
     def __init__(self):
-        self.username = ""
+        self.user_id = ""
         self.password = ""
         self.balance = 100000
         self.token = ""
@@ -54,7 +54,7 @@ class User:
         try:
             if self.token != token:
                 return False
-            jwt_text = jwt_decode(encoded_token=token, username=self.username)
+            jwt_text = jwt_decode(encoded_token=token, user_id=self.user_id)
             ts = jwt_text["timestamp"]
             if ts is not None:
                 now = time.time()
@@ -64,17 +64,17 @@ class User:
             logging.error(str(e))
             return False
 
-    def fetch_user(self, username) -> bool:
+    def fetch_user(self, user_id) -> bool:
         try:
             conn = store.get_db_conn()
             cursor = conn.execute(
-                "SELECT username, password, token, terminal from user where username=?",
-                (username,),
+                "SELECT user_id, password, token, terminal from user where user_id=?",
+                (user_id,),
             )
             row = cursor.fetchone()
             if row is None:
                 return False
-            self.username = username
+            self.user_id = user_id
             self.password = row[1]
             self.token = row[2]
             self.terminal = row[3]
@@ -87,8 +87,8 @@ class User:
         conn = store.get_db_conn()
         try:
             conn.execute(
-                "UPDATE user set token = ?, terminal = ? where username=?",
-                (self.token, self.terminal, self.username),
+                "UPDATE user set token = ?, terminal = ? where user_id=?",
+                (self.token, self.terminal, self.user_id),
             )
             conn.commit()
         except sqlite.Error as e:
@@ -99,8 +99,8 @@ class User:
         conn = store.get_db_conn()
         try:
             conn.execute(
-                "UPDATE user set password = ?, token= ? , terminal = ? where username = ?",
-                (self.password, self.token, self.terminal, self.username),
+                "UPDATE user set password = ?, token= ? , terminal = ? where user_id = ?",
+                (self.password, self.token, self.terminal, self.user_id),
             )
             conn.commit()
         except sqlite.Error as e:
@@ -110,7 +110,7 @@ class User:
     def delete_user(self):
         conn = store.get_db_conn()
         try:
-            cursor = conn.execute("DELETE from user where username=?", (self.username,))
+            cursor = conn.execute("DELETE from user where user_id=?", (self.user_id,))
             if cursor.rowcount == 1:
                 conn.commit()
             else:
@@ -119,12 +119,12 @@ class User:
             logging.error(str(e))
             conn.rollback()
 
-    def login(self, username: str, password: str, terminal: str) -> (bool, str):
-        if not self.fetch_user(username):
+    def login(self, user_id: str, password: str, terminal: str) -> (bool, str):
+        if not self.fetch_user(user_id):
             return False, ""
 
         if self.password == password:
-            self.token = jwt_encode(username, terminal)
+            self.token = jwt_encode(user_id, terminal)
             self.terminal = terminal
 
             self.update_token()
@@ -132,19 +132,19 @@ class User:
         else:
             return False, ""
 
-    def logout(self, username: str, token: str) -> bool:
-        if not self.fetch_user(username):
+    def logout(self, user_id: str, token: str) -> bool:
+        if not self.fetch_user(user_id):
             return False
         if not self.check_token(token):
             return False
-        self.token = jwt_encode(self.username, terminal="default")
+        self.token = jwt_encode(self.user_id, terminal="default")
         self.update_token()
         return True
 
     def register(
-        self, username: str, password: str, is_buyer: bool, is_seller: bool
+        self, user_id: str, password: str, is_buyer: bool, is_seller: bool
     ) -> bool:
-        self.username = username
+        self.user_id = user_id
         self.password = password
         self.is_buyer = is_buyer
         self.is_seller = is_seller
@@ -154,9 +154,9 @@ class User:
         conn = store.get_db_conn()
         try:
             conn.execute(
-                "INSERT into user(username, password, is_buyer, is_seller, balance, token, terminal) "
+                "INSERT into user(user_id, password, is_buyer, is_seller, balance, token, terminal) "
                 "VALUES (?, ?, ?, ?, ?, '', '');",
-                (self.username, self.password, self.is_buyer, self.is_seller, 0),
+                (self.user_id, self.password, self.is_buyer, self.is_seller, 0),
             )
             conn.commit()
         except sqlite.Error as e:
@@ -165,8 +165,8 @@ class User:
             return False
         return True
 
-    def unregister(self, username: str, password: str) -> bool:
-        if not self.fetch_user(username):
+    def unregister(self, user_id: str, password: str) -> bool:
+        if not self.fetch_user(user_id):
             return False
         if self.password == password:
             self.delete_user()
@@ -175,9 +175,9 @@ class User:
             return False
 
     def change_password(
-        self, username: str, old_password: str, new_password: str
+        self, user_id: str, old_password: str, new_password: str
     ) -> bool:
-        if not self.fetch_user(username):
+        if not self.fetch_user(user_id):
             return False
         if self.password != old_password:
             return False
@@ -187,3 +187,27 @@ class User:
         self.terminal = ""
         self.update_password()
         return True
+
+    def add_funds(self, user_id, password, add_value) -> (int, str):
+        conn = store.get_db_conn()
+        try:
+            cursor = conn.execute("SELECT password  from user where user_id=?", (user_id,))
+            row = cursor.fetchone()
+            if row is None:
+                return error.error_authorization_fail()
+
+            if row[0] != password:
+                return error.error_authorization_fail()
+
+            cursor = conn.execute("UPDATE user SET balance = balance + ? WHERE user_id = ?",
+                                  (add_value, user_id))
+            if cursor.rowcount == 0:
+                return error.error_non_exist_user_id(user_id)
+
+            conn.commit()
+        except sqlite.Error as e:
+            return 528, "{}".format(str(e))
+        except BaseException as e:
+            return 530, "{}".format(str(e))
+
+        return 200, "ok"

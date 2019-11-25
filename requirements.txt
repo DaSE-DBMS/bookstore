@@ -1,3 +1,4 @@
+simplejson
 lxml
 codecov
 coverage

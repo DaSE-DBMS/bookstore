@@ -9,7 +9,7 @@ GET http://[address]/buyer/getMemberInfo
 #### Request
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 token | string | 登录产生的会话标识 | N
 
 #### Response
@@ -38,7 +38,7 @@ POST http://[address]/buyer/editMemberInfo
 #### Request
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 token | string | 登录产生的会话标识 | N
 name | string | 昵称 | N
 sex | string | 性别 | N
@@ -63,7 +63,7 @@ GET http://[address]/buyer/getMemberOrder
 #### Request
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 token | string | 登录产生的会话标识 | N
 
 #### Response
@@ -90,7 +90,7 @@ POST http://[address]/buyer/getRefundOrder
 #### Request
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | string | 用户名 | N
+user_id | string | 用户名 | N
 token | string | 登录产生的会话标识 | N
 
 #### Response
@@ -114,7 +114,7 @@ GET http://[address]/buyer/getMemberConsignee
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | String | 用户名 | N
+user_id | String | 用户名 | N
 token | string | 登录产生的会话标识 | N
 
 #### Response
@@ -136,7 +136,7 @@ token | string | 登录产生的会话标识 | N
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-username | String | 用户名 | N
+user_id | String | 用户名 | N
 
 #### Response
 Status Code:
