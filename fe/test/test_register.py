@@ -5,39 +5,56 @@ from fe.access import auth
 from fe import conf
 
 
-@pytest.mark.parametrize(
-    "user_id",
-    [
-        "test_register1_{}".format(time.time()),
-        "test_register2_{}".format(time.time()),
-        "test_register3_{}".format(time.time()),
-    ],
-)
-def test_register(user_id: str):
-    a = auth.Auth(conf.URL)
+class TestRegister:
+    def __init__(self):
+        self.user_id = "test_register_user_{}".format(time.time())
+        self.password = "test_register_password_{}".format(time.time())
+        self.auth = auth.Auth(conf.URL)
 
-    password = "password_" + user_id
+    def test_register_ok(self):
+        code = self.auth.register(self.user_id, self.password)
+        assert code == 200
 
-    logging.info("test register as neither seller or buyer")
-    assert a.register(user_id, password, False, False) == 512
+    def test_unregister_ok(self):
+        code = self.auth.register(self.user_id, self.password)
+        assert code == 200
 
-    logging.info("test register properly")
-    assert a.register(user_id, password) == 200
+        code = self.auth.unregister(self.user_id, self.password)
+        assert code == 200
 
-    logging.info("test register with a exists user_id")
-    assert a.register(user_id, password) == 511
+    def test_unregister_error_authorization(self):
+        code = self.auth.register(self.user_id, self.password)
+        assert code == 200
 
-    logging.info("test unregister with a non-exists user_id")
-    assert not a.unregister(user_id + "_x", password)
+        code = self.auth.unregister(self.user_id + "_x", self.password)
+        assert code != 200
 
-    logging.info("test unregister with wrong password")
-    assert not a.unregister(user_id, password + "_x")
+        code = self.auth.unregister(self.user_id, self.password + "_x")
+        assert code != 200
 
-    logging.info("test unregister properly")
-    assert a.unregister(user_id, password)
+    def test_register_error_exist_user_id(self):
+        code = self.auth.register(self.user_id, self.password)
+        assert code == 200
 
-    logging.info("test register with previous user_id")
-    assert a.register(user_id, password) == 200
+        code = self.auth.register(self.user_id, self.password)
+        assert code != 200
 
-    logging.info("test unregister")
-    assert a.unregister(user_id, password)
+
+def test_register_ok():
+    t = TestRegister()
+    t.test_register_ok()
+
+
+def test_unregister_ok():
+    t = TestRegister()
+    t.test_unregister_ok()
+
+
+def test_unregister_error_authorization():
+    t = TestRegister()
+    t.test_unregister_error_authorization()
+
+
+def test_register_error_exist_user_id():
+    t = TestRegister()
+    t.test_register_error_exist_user_id()

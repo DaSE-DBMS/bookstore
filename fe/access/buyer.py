@@ -1,4 +1,5 @@
 import requests
+import simplejson
 from urllib.parse import urljoin
 
 
@@ -14,6 +15,7 @@ class Buyer:
         for id_count_pair in book_id_and_count:
             books.append({"id": id_count_pair[0], "count": id_count_pair[1]})
         json = {"user_id": self.user_id, "store_id": store_id, "books": books}
+        print(simplejson.dumps(json))
         url = urljoin(self.url_prefix, "new_order")
         headers = {"token": self.token}
         r = requests.post(url, headers=headers, json=json)
@@ -21,7 +23,7 @@ class Buyer:
         return r.status_code, response_json.get("order_id")
 
     def payment(self,  order_id: str):
-        json = {"user_id": self.user_id, "order_id": order_id}
+        json = {"user_id": self.user_id, "password": self.password, "order_id": order_id}
         url = urljoin(self.url_prefix, "payment")
         headers = {"token": self.token}
         r = requests.post(url, headers=headers, json=json)

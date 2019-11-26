@@ -26,8 +26,9 @@ def new_order():
 def payment():
     user_id: str = request.json.get("user_id")
     order_id: str = request.json.get("order_id")
+    password: str = request.json.get("password")
     b = Buyer()
-    code, message = b.payment(user_id, order_id)
+    code, message = b.payment(user_id, password, order_id)
     return jsonify({"message": message}), code
 
 

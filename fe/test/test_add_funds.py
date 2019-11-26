@@ -1,16 +1,14 @@
 import pytest
-import time
-import logging
-from fe.access import auth
-from fe import conf
+import uuid
 from fe.test.new_buyer import register_new_buyer
+
 
 @pytest.mark.parametrize(
     "user_id",
     [
-        "test_add_funds1_{}".format(time.time()),
-        "test_add_funds2_{}".format(time.time()),
-        "test_add_funds3_{}".format(time.time()),
+        "test_add_funds1_{}".format(str(uuid.uuid1())),
+        "test_add_funds2_{}".format(str(uuid.uuid1())),
+        "test_add_funds3_{}".format(str(uuid.uuid1())),
     ],
 )
 def test_add_funds(user_id: str):
@@ -24,8 +22,8 @@ def test_add_funds(user_id: str):
 
     buyer.user_id = buyer.user_id + "_x"
     code = buyer.add_funds(10)
-    assert code == 401
+    assert code != 200
 
     buyer.password = buyer.password + "_x"
     code = buyer.add_funds(10)
-    assert code == 401
+    assert code != 200

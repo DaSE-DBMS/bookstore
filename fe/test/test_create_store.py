@@ -1,22 +1,31 @@
 from fe.test.new_seller import register_new_seller
-import pytest
-import time
+import uuid
 
 
-@pytest.mark.parametrize(
-    "user_id",
-    [
-        "test_create_store1_user_{}".format(time.time()),
-        "test_create_store2_user_{}".format(time.time()),
-    ]
-)
-def test_create_store(user_id):
-    s = register_new_seller(user_id)
+class TestCreateStore:
+    def __init__(self):
+        self.user_id = "test_create_store_user_{}".format(str(uuid.uuid1()))
+        self.store_id = "test_create_store_store_{}".format(str(uuid.uuid1()))
 
-    store_id = "new_store_{}".format(time.time())
-    code = s.create_store(store_id)
-    assert code == 200
+    def test_ok(self):
+        self.seller = register_new_seller(self.user_id)
+        code = self.seller.create_store(self.store_id)
+        assert code == 200
 
-    code = s.create_store(store_id)
-    # exist store name
-    assert code == 514
+    def test_error_exist_store_id(self):
+        self.seller = register_new_seller(self.user_id)
+        code = self.seller.create_store(self.store_id)
+        assert code == 200
+
+        code = self.seller.create_store(self.store_id)
+        assert code != 200
+
+
+def test_create_store_ok():
+    t = TestCreateStore()
+    t.test_ok()
+
+
+def test_create_store_error_exist_store_id():
+    t = TestCreateStore()
+    t.test_error_exist_store_id()

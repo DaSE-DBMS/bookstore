@@ -12,7 +12,7 @@ class Seller:
 
     def create_store(self, store_id):
         json = {
-            "seller_id": self.seller_id,
+            "user_id": self.seller_id,
             "store_id": store_id,
         }
         #print(simplejson.dumps(json))
@@ -22,7 +22,7 @@ class Seller:
 
     def add_book(self, seller_id: str, store_id: str, stock_level: int, book_info: book.Book) -> int:
         json = {
-            "seller_id": seller_id,
+            "user_id": seller_id,
             "store_id": store_id,
             "book_info": book_info.__dict__,
             "stock_level": stock_level
@@ -34,12 +34,12 @@ class Seller:
 
     def add_stock_level(self, seller_id: str, store_id: str, book_id: str, add_stock_num: int) -> int:
         json = {
-            "seller_id": seller_id,
+            "user_id": seller_id,
             "store_id": store_id,
             "book_id": book_id,
             "add_stock_level": add_stock_num
         }
-        print(simplejson.dumps(json))
+        #print(simplejson.dumps(json))
         url = urljoin(self.url_prefix, "add_stock_level")
         r = requests.post(url, json=json)
         return r.status_code

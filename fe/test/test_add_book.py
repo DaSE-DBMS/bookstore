@@ -1,35 +1,62 @@
 from fe.test.new_seller import register_new_seller
 from fe.access import book
-import pytest
-import time
+import uuid
 
 
-def test_add_books():
-    seller_id = "test_add_books_seller_id_{}".format(time.time())
-    store_id = "test_add_books_store_id_{}".format(time.time())
+class TestAddBook:
+    def __init__(self):
+        self.seller_id = "test_add_books_seller_id_{}".format(str(uuid.uuid1()))
+        self.store_id = "test_add_books_store_id_{}".format(str(uuid.uuid1()))
 
-    s = register_new_seller(seller_id)
+        self.seller = register_new_seller(self.seller_id)
 
-    code = s.create_store(store_id)
-    assert code == 200
-
-    books = book.get_book_info(0, 2)
-    for b in books:
-        code = s.add_book(seller_id, store_id, 0, b)
+        code = self.seller.create_store(self.store_id)
         assert code == 200
 
-    for b in books:
-        # non exist user id
-        code = s.add_book(seller_id + "x", store_id, 0, b)
-        assert code == 511
+        self.books = book.get_book_info(0, 2)
 
-    for b in books:
-        # non exist store id
-        code = s.add_book(seller_id, store_id + "x", 0, b)
-        assert code == 513
+    def test_ok(self):
+        for b in self.books:
+            code = self.seller.add_book(self.seller_id, self.store_id, 0, b)
+            assert code == 200
 
-    for b in books:
-        # exist book id
-        code = s.add_book(seller_id, store_id, 0, b)
-        assert code == 516
+    def test_error_non_exist_store_id(self):
+        for b in self.books:
+            # non exist store id
+            code = self.seller.add_book(self.seller_id, self.store_id + "x", 0, b)
+            assert code != 200
 
+    def test_error_exist_book_id(self):
+        for b in self.books:
+            code = self.seller.add_book(self.seller_id, self.store_id, 0, b)
+            assert code == 200
+        for b in self.books:
+            # exist book id
+            code = self.seller.add_book(self.seller_id, self.store_id, 0, b)
+            assert code != 200
+
+    def test_error_non_exist_user_id(self):
+        for b in self.books:
+            # non exist user id
+            code = self.seller.add_book(self.seller_id + "x", self.store_id, 0, b)
+            assert code != 200
+
+
+def test_add_books_ok():
+    t = TestAddBook()
+    t.test_ok()
+
+
+def test_add_book_non_exist_store_id():
+    t = TestAddBook()
+    t.test_error_non_exist_store_id()
+
+
+def test_add_book_exist_book_id():
+    t = TestAddBook()
+    t.test_error_exist_book_id()
+
+
+def test_add_book_error_non_exist_user_id():
+    t = TestAddBook()
+    t.test_error_non_exist_user_id()

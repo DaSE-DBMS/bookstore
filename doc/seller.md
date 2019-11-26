@@ -17,7 +17,7 @@ Body:
 
 ```json
 {
-  "seller_id": "$seller id$",
+  "user_id": "$seller id$",
   "store_id": "$store id$"
 }
 ```
@@ -53,7 +53,7 @@ Body:
 
 ```json
 {
-  "seller_id": "$seller user id$",
+  "user_id": "$seller user id$",
   "store_id": "$store id$",
   "book_info": {
     "tags": [
@@ -154,7 +154,7 @@ Body:
 
 ```json
 {
-  "seller_id": "$seller id$",
+  "user_id": "$seller id$",
   "store_id": "$store id$",
   "book_id": "$book id$",
   "add_stock_level": 10

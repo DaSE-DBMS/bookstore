@@ -16,7 +16,6 @@ class Store:
             conn.execute(
                 "CREATE TABLE IF NOT EXISTS user ("
                 "user_id TEXT PRIMARY KEY, password TEXT NOT NULL, "
-                "is_buyer BOOLEAN NOT NULL, is_seller BOOLEAN NOT NULL, "
                 "balance INTEGER NOT NULL, token TEXT, terminal TEXT);"
             )
 
@@ -26,18 +25,21 @@ class Store:
             )
 
             conn.execute(
-                "CREATE TABLE IF NOT EXISTS store("
+                "CREATE TABLE IF NOT EXISTS store( "
                 "store_id TEXT, book_id TEXT, book_info TEXT, stock_level INTEGER,"
-                " PRIMARY KEY(store_id, book_id))")
+                " PRIMARY KEY(store_id, book_id))"
+            )
 
             conn.execute(
                 "CREATE TABLE IF NOT EXISTS new_order( "
-                "order_id TEXT PRIMARY KEY, buyer_id TEXT, store_id TEXT)")
+                "order_id TEXT PRIMARY KEY, user_id TEXT, store_id TEXT)"
+            )
 
             conn.execute(
-                "CREATE TABLE IF NOT EXISTS order_detail("
-                "order_id TEXT, book_id TEXT, count INTEGER ,  "
-                "PRIMARY KEY(order_id, book_id))")
+                "CREATE TABLE IF NOT EXISTS new_order_detail( "
+                "order_id TEXT, book_id TEXT, count INTEGER, price INTEGER,  "
+                "PRIMARY KEY(order_id, book_id))"
+            )
 
             conn.commit()
         except sqlite.Error as e:

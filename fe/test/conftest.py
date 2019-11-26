@@ -4,7 +4,6 @@ from urllib.parse import urljoin
 from be import serve
 from fe import conf
 
-
 thread: threading.Thread = None
 
 

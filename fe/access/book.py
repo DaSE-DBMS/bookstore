@@ -33,9 +33,6 @@ class Book:
         self.tags = []
         self.pictures = []
 
-    def to_json(self):
-        return json.dumps(self.__dict__)
-
 
 def get_book_count() -> int:
     book_db = get_bookdb_path()
@@ -43,10 +40,7 @@ def get_book_count() -> int:
     cursor = conn.execute(
         "SELECT count(id) FROM book")
     row = cursor.fetchone()
-    if row is None:
-        return 0
-    else:
-        return row[0]
+    return row[0]
 
 
 def get_book_info(start, size) -> [Book]:

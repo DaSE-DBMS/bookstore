@@ -10,8 +10,6 @@ Body:
 {
     "user_id":"$user name$",
     "password":"$user password$"
-    "isBuyer":True/False
-    "isSeller":True/False
 }
 ```
 
@@ -19,9 +17,7 @@ Body:
 ---|---|---|---
 user_id | string | 用户名 | N
 password | string | 登陆密码 | N
-isBuyer | boolean | 注册为买家| N
-iseller | boolean | 注册为卖家 | N
-S
+
 #### Response
 
 Status Code:

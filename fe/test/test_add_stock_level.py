@@ -1,48 +1,62 @@
 from fe.test.new_seller import register_new_seller
 from fe.access import book
-import pytest
-import time
+import uuid
 
 
-@pytest.mark.parametrize(
-    "user_id, store_id",
-    [
-        ("test_add_book_stock_level1_user_{}".format(time.time()),
-         "test_add_book_stock_level1_store_{}".format(time.time())),
-        ("test_add_book_stock_level2_user_{}".format(time.time()),
-         "test_add_book_stock_level2_store_{}".format(time.time())),
-    ]
-)
-def test_add_stock_level(user_id, store_id):
-    s = register_new_seller(user_id)
+class TestAddStockLevel:
+    def __init__(self):
+        self.user_id = "test_add_book_stock_level1_user_{}".format(str(uuid.uuid1()))
+        self.store_id = "test_add_book_stock_level1_store_{}".format(str(uuid.uuid1()))
+        self.seller = register_new_seller(self.user_id)
 
-    code = s.create_store(store_id)
-    assert code == 200
-
-    books = book.get_book_info(0, 5)
-    for b in books:
-        code = s.add_book(user_id, store_id, 0, b)
+        code = self.seller.create_store(self.store_id)
         assert code == 200
 
-    for b in books:
-        book_id = b.id
-        code = s.add_stock_level(user_id, store_id, book_id, 10)
-        assert code == 200
+        self.books = book.get_book_info(0, 5)
+        for bk in self.books:
+            code = self.seller.add_book(self.user_id, self.store_id, 0, bk)
+            assert code == 200
 
-    for b in books:
-        book_id = b.id
-        # non exist user id
-        code = s.add_stock_level(user_id + "x", store_id, book_id, 10)
-        assert code == 511
+    def test_error_user_id(self):
+        for b in self.books:
+            book_id = b.id
+            code = self.seller.add_stock_level(self.user_id + "_x", self.store_id, book_id, 10)
+            assert code != 200
 
-    for b in books:
-        book_id = b.id
-        # non exist store id
-        code = s.add_stock_level(user_id, store_id + "x", book_id, 10)
-        assert code == 513
+    def test_error_store_id(self):
+        for b in self.books:
+            book_id = b.id
+            code = self.seller.add_stock_level(self.user_id, self.store_id + "_x", book_id, 10)
+            assert code != 200
 
-    for b in books:
-        book_id = b.id
-        # non exist book id
-        code = s.add_stock_level(user_id, store_id, book_id + "x", 10)
-        assert code == 515
+    def test_error_book_id(self):
+        for b in self.books:
+            book_id = b.id
+            code = self.seller.add_stock_level(self.user_id, self.store_id, book_id + "_x", 10)
+            assert code != 200
+
+    def test_ok(self):
+        for b in self.books:
+            book_id = b.id
+            code = self.seller.add_stock_level(self.user_id, self.store_id, book_id, 10)
+            assert code == 200
+
+
+def test_add_stock_level_ok():
+    t = TestAddStockLevel()
+    t.test_ok()
+
+
+def test_add_stock_error_user_id():
+    t = TestAddStockLevel()
+    t.test_error_user_id()
+
+
+def test_add_stock_error_store_id():
+    t = TestAddStockLevel()
+    t.test_error_store_id()
+
+
+def test_add_stock_error_book_id():
+    t = TestAddStockLevel()
+    t.test_error_book_id()
