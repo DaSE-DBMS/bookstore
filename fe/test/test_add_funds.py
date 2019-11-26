@@ -3,7 +3,7 @@ import time
 import logging
 from fe.access import auth
 from fe import conf
-
+from fe.test.new_buyer import register_new_buyer
 
 @pytest.mark.parametrize(
     "user_id",
@@ -14,21 +14,18 @@ from fe import conf
     ],
 )
 def test_add_funds(user_id: str):
-    a = auth.Auth(conf.URL)
-    # register a user
+    buyer = register_new_buyer(user_id)
 
-    password = "password_" + user_id
-    logging.info("test register a user properly")
-    assert a.register(user_id, password, True, True) == 200
-
-    code = a.add_funds(user_id, password, 1000)
+    code = buyer.add_funds(1000)
     assert code == 200
 
-    a.add_funds(user_id, password, -1000)
+    buyer.add_funds(-1000)
     assert code == 200
 
-    code = a.add_funds(user_id, password + "x", 10)
+    buyer.user_id = buyer.user_id + "_x"
+    code = buyer.add_funds(10)
     assert code == 401
 
-    code = a.add_funds(user_id + "x", password, 10)
+    buyer.password = buyer.password + "_x"
+    code = buyer.add_funds(10)
     assert code == 401

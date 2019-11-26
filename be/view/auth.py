@@ -70,13 +70,3 @@ def change_password():
         return jsonify({"message": "ok"}), 200
     else:
         return jsonify({"message": "Invalid user_id or password"}), 401
-
-
-@bp_auth.route("/add_funds", methods=["POST"])
-def user_add_funds():
-    user_id = request.json.get("user_id")
-    password = request.json.get("password")
-    add_value = request.json.get("add_value")
-    u = user.User()
-    code, message = u.add_funds(user_id, password, add_value)
-    return jsonify({"message": message}), code

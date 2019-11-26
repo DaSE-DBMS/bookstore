@@ -26,3 +26,9 @@ class Buyer:
         headers = {"token": self.token}
         r = requests.post(url, headers=headers, json=json)
         return r.status_code
+
+    def add_funds(self, add_value: str) -> int:
+        json = {"user_id": self.user_id, "password": self.password, "add_value": add_value}
+        url = urljoin(self.url_prefix, "add_funds")
+        r = requests.post(url, json=json)
+        return r.status_code

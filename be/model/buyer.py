@@ -56,7 +56,7 @@ class Buyer(db_conn.DBConn):
         return 200, "ok", order_id
 
     def payment(self, user_id: str, order_id: str) -> (int, str):
-        conn = store.get_db_conn()
+        conn = self.conn
         try:
             cursor = conn.execute("SELECT order_id, buyer_id, store_id FROM new_order WHERE order_id = ?", (order_id,))
             row = cursor.fetchone()
@@ -121,6 +121,29 @@ class Buyer(db_conn.DBConn):
         except sqlite.Error as e:
             return 528, "{}".format(str(e))
 
+        except BaseException as e:
+            return 530, "{}".format(str(e))
+
+        return 200, "ok"
+
+    def add_funds(self, user_id, password, add_value) -> (int, str):
+        try:
+            cursor = self.conn.execute("SELECT password  from user where user_id=?", (user_id,))
+            row = cursor.fetchone()
+            if row is None:
+                return error.error_authorization_fail()
+
+            if row[0] != password:
+                return error.error_authorization_fail()
+
+            cursor = self.conn.execute("UPDATE user SET balance = balance + ? WHERE user_id = ?",
+                                  (add_value, user_id))
+            if cursor.rowcount == 0:
+                return error.error_non_exist_user_id(user_id)
+
+            self.conn.commit()
+        except sqlite.Error as e:
+            return 528, "{}".format(str(e))
         except BaseException as e:
             return 530, "{}".format(str(e))
 

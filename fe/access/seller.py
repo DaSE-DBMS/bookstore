@@ -1,6 +1,7 @@
 import requests
 from urllib.parse import urljoin
 from fe.access import book
+import simplejson
 
 
 class Seller:
@@ -14,7 +15,7 @@ class Seller:
             "seller_id": self.seller_id,
             "store_id": store_id,
         }
-
+        #print(simplejson.dumps(json))
         url = urljoin(self.url_prefix, "create_store")
         r = requests.post(url, json=json)
         return r.status_code
@@ -26,7 +27,7 @@ class Seller:
             "book_info": book_info.__dict__,
             "stock_level": stock_level
         }
-
+        #print(simplejson.dumps(json))
         url = urljoin(self.url_prefix, "add_book")
         r = requests.post(url, json=json)
         return r.status_code
@@ -38,7 +39,7 @@ class Seller:
             "book_id": book_id,
             "add_stock_level": add_stock_num
         }
-
+        print(simplejson.dumps(json))
         url = urljoin(self.url_prefix, "add_stock_level")
         r = requests.post(url, json=json)
         return r.status_code

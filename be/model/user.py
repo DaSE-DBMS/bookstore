@@ -187,27 +187,3 @@ class User:
         self.terminal = ""
         self.update_password()
         return True
-
-    def add_funds(self, user_id, password, add_value) -> (int, str):
-        conn = store.get_db_conn()
-        try:
-            cursor = conn.execute("SELECT password  from user where user_id=?", (user_id,))
-            row = cursor.fetchone()
-            if row is None:
-                return error.error_authorization_fail()
-
-            if row[0] != password:
-                return error.error_authorization_fail()
-
-            cursor = conn.execute("UPDATE user SET balance = balance + ? WHERE user_id = ?",
-                                  (add_value, user_id))
-            if cursor.rowcount == 0:
-                return error.error_non_exist_user_id(user_id)
-
-            conn.commit()
-        except sqlite.Error as e:
-            return 528, "{}".format(str(e))
-        except BaseException as e:
-            return 530, "{}".format(str(e))
-
-        return 200, "ok"

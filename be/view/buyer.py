@@ -29,3 +29,13 @@ def payment():
     b = Buyer()
     code, message = b.payment(user_id, order_id)
     return jsonify({"message": message}), code
+
+
+@bp_buyer.route("/add_funds", methods=["POST"])
+def add_funds():
+    user_id = request.json.get("user_id")
+    password = request.json.get("password")
+    add_value = request.json.get("add_value")
+    b = Buyer()
+    code, message = b.add_funds(user_id, password, add_value)
+    return jsonify({"message": message}), code

@@ -28,11 +28,6 @@ def test_payment(not_suff_funds: bool):
     code, order_id = b.new_order(store_id, buy_book_id_list)
     assert code == 200
 
-    a = auth.Auth(conf.URL)
-    buyer_id = "buyer_id_{}".format(time.time())
-    password = buyer_id
-    a.register(buyer_id, password)
-
     total_price = 0
     for item in buy_book_info_list:
         book: Book = item[0]
@@ -40,13 +35,13 @@ def test_payment(not_suff_funds: bool):
         total_price = total_price + book.price * num
 
     if not_suff_funds:
-        code = a.add_funds(b.user_id, b.password, total_price - 1)
+        code = b.add_funds(total_price - 1)
         assert code == 200
 
         code = b.payment(order_id)
         assert code == 519
     else:
-        code = a.add_funds(b.user_id, b.password, total_price)
+        code = b.add_funds(total_price)
         assert code == 200
         code = b.payment(order_id)
         assert code == 200
