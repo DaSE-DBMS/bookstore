@@ -1,6 +1,4 @@
-import pytest
 import time
-import logging
 from fe.access import auth
 from fe import conf
 

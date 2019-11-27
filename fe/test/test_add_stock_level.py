@@ -1,4 +1,4 @@
-from fe.test.new_seller import register_new_seller
+from fe.access.new_seller import register_new_seller
 from fe.access import book
 import uuid
 
@@ -7,14 +7,15 @@ class TestAddStockLevel:
     def __init__(self):
         self.user_id = "test_add_book_stock_level1_user_{}".format(str(uuid.uuid1()))
         self.store_id = "test_add_book_stock_level1_store_{}".format(str(uuid.uuid1()))
-        self.seller = register_new_seller(self.user_id)
+        self.password = self.user_id
+        self.seller = register_new_seller(self.user_id, self.password)
 
         code = self.seller.create_store(self.store_id)
         assert code == 200
-
-        self.books = book.get_book_info(0, 5)
+        book_db = book.BookDB()
+        self.books = book_db.get_book_info(0, 5)
         for bk in self.books:
-            code = self.seller.add_book(self.user_id, self.store_id, 0, bk)
+            code = self.seller.add_book(self.store_id, 0, bk)
             assert code == 200
 
     def test_error_user_id(self):

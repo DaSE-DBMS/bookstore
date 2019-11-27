@@ -1,13 +1,14 @@
 import random
 from fe.access import book
-from fe.test.new_seller import register_new_seller
+from fe.access.new_seller import register_new_seller
 
 
 class GenBook:
     def __init__(self, user_id, store_id):
         self.user_id = user_id
         self.store_id = store_id
-        self.seller = register_new_seller(self.user_id)
+        self.password = self.user_id
+        self.seller = register_new_seller(self.user_id, self.password)
         code = self.seller.create_store(store_id)
         assert code == 200
         self.__init_book_list__()
@@ -19,12 +20,13 @@ class GenBook:
     def gen(self, non_exist_book_id: bool, low_stock_level, max_book_count: int = 100) -> (bool, []):
         self.__init_book_list__()
         ok = True
-        rows = book.get_book_count()
+        book_db = book.BookDB()
+        rows = book_db.get_book_count()
         start = 0
         if rows > max_book_count:
             start = random.randint(0, rows - max_book_count)
         size = random.randint(1, max_book_count)
-        books = book.get_book_info(start, size)
+        books = book_db.get_book_info(start, size)
         book_id_exist = []
         book_id_stock_level = {}
         for bk in books:
@@ -32,7 +34,7 @@ class GenBook:
                 stock_level = random.randint(0, 100)
             else:
                 stock_level = random.randint(2, 100)
-            code = self.seller.add_book(self.user_id, self.store_id, stock_level, bk)
+            code = self.seller.add_book(self.store_id, stock_level, bk)
             assert code == 200
             book_id_stock_level[bk.id] = stock_level
             book_id_exist.append(bk)

@@ -1,4 +1,4 @@
-## Register-注册
+## 注册用户
 
 #### URL：
 POST http://$address$/auth/register
@@ -26,8 +26,7 @@ Status Code:
 码 | 描述
 --- | ---
 200 | 注册成功
-511 | 注册失败，用户名重复
-512 | 注册失败，必须注册为买家或卖家
+5XX | 注册失败，用户名重复
 
 Body:
 ```
@@ -39,7 +38,7 @@ Body:
 ---|---|---|---
 message | string | 返回错误消息，成功时为"ok" | N
 
-## UnRegister-注销用户
+## 注销用户
 
 #### URL：
 POST http://$address$/auth/unregister
@@ -80,7 +79,7 @@ Body:
 ---|---|---|---
 message | string | 返回错误消息，成功时为"ok" | N
 
-## Login-登录
+## 用户登录
 
 #### URL：
 POST http://$address$/auth/login
@@ -123,7 +122,7 @@ Body:
 message | string | 返回错误消息，成功时为"ok" | N
 token | string | 访问token，用户登录后每个需要授权的请求应在headers中传入这个token | 成功时不为空
 
-## Password-更改密码
+## 用户更改密码
 
 #### URL：
 POST http://$address$/auth/password
@@ -164,7 +163,7 @@ Body:
 ---|---|---|---
 message | string | 返回错误消息，成功时为"ok" | N
 
-## Logout-登出
+## 用户登出
 
 #### URL：
 POST http://$address$/auth/logout
