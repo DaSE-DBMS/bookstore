@@ -1,3 +1,5 @@
+import pytest
+
 from fe.access.buyer import Buyer
 from fe.test.gen_book_data import GenBook
 from fe.access.new_buyer import register_new_buyer
@@ -15,7 +17,8 @@ class TestPayment:
     order_id: str
     buyer: Buyer
 
-    def __init__(self):
+    @pytest.fixture(autouse=True)
+    def pre_run_initialization(self):
         self.seller_id = "test_payment_seller_id_{}".format(str(uuid.uuid1()))
         self.store_id = "test_payment_store_id_{}".format(str(uuid.uuid1()))
         self.buyer_id = "test_payment_buyer_id_{}".format(str(uuid.uuid1()))
@@ -34,6 +37,7 @@ class TestPayment:
             book: Book = item[0]
             num = item[1]
             self.total_price = self.total_price + book.price * num
+        yield
 
     def test_ok(self):
         code = self.buyer.add_funds(self.total_price)
@@ -49,14 +53,12 @@ class TestPayment:
         assert code != 200
 
     def test_not_suff_funds(self):
-        self = TestPayment()
         code = self.buyer.add_funds(self.total_price - 1)
         assert code == 200
         code = self.buyer.payment(self.order_id)
         assert code != 200
 
     def test_repeat_pay(self):
-        self = TestPayment()
         code = self.buyer.add_funds(self.total_price)
         assert code == 200
         code = self.buyer.payment(self.order_id)
@@ -64,23 +66,3 @@ class TestPayment:
 
         code = self.buyer.payment(self.order_id)
         assert code != 200
-
-
-def test_payment_ok():
-    t = TestPayment()
-    t.test_ok()
-
-
-def test_payment_not_suff_funds():
-    t = TestPayment()
-    t.test_not_suff_funds()
-
-
-def test_payment_authorization_error():
-    t = TestPayment()
-    t.test_authorization_error()
-
-
-def test_payment_repeat_pay():
-    t = TestPayment()
-    t.test_repeat_pay()

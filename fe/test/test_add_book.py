@@ -1,10 +1,14 @@
+import pytest
+
 from fe.access.new_seller import register_new_seller
 from fe.access import book
 import uuid
 
 
 class TestAddBook:
-    def __init__(self):
+    @pytest.fixture(autouse=True)
+    def pre_run_initialization(self):
+        # do before test
         self.seller_id = "test_add_books_seller_id_{}".format(str(uuid.uuid1()))
         self.store_id = "test_add_books_store_id_{}".format(str(uuid.uuid1()))
         self.password = self.seller_id
@@ -14,6 +18,9 @@ class TestAddBook:
         assert code == 200
         book_db = book.BookDB()
         self.books = book_db.get_book_info(0, 2)
+
+        yield
+        # do after test
 
     def test_ok(self):
         for b in self.books:
@@ -42,22 +49,3 @@ class TestAddBook:
             code = self.seller.add_book(self.store_id, 0, b)
             assert code != 200
 
-
-def test_add_books_ok():
-    t = TestAddBook()
-    t.test_ok()
-
-
-def test_add_book_non_exist_store_id():
-    t = TestAddBook()
-    t.test_error_non_exist_store_id()
-
-
-def test_add_book_exist_book_id():
-    t = TestAddBook()
-    t.test_error_exist_book_id()
-
-
-def test_add_book_error_non_exist_user_id():
-    t = TestAddBook()
-    t.test_error_non_exist_user_id()

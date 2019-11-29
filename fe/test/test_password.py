@@ -1,10 +1,14 @@
 import uuid
+
+import pytest
+
 from fe.access import auth
 from fe import conf
 
 
 class TestPassword:
-    def __init__(self):
+    @pytest.fixture(autouse=True)
+    def pre_run_initialization(self):
         self.auth = auth.Auth(conf.URL)
         # register a user
         self.user_id = "test_password_{}".format(str(uuid.uuid1()))
@@ -13,6 +17,7 @@ class TestPassword:
         self.terminal = "terminal_" + self.user_id
 
         assert self.auth.register(self.user_id, self.old_password) == 200
+        yield
 
     def test_ok(self):
         code = self.auth.password(self.user_id, self.old_password, self.new_password)
@@ -40,18 +45,3 @@ class TestPassword:
 
         code, new_token = self.auth.login(self.user_id, self.new_password, self.terminal)
         assert code != 200
-
-
-def test_password_ok():
-    t = TestPassword()
-    t.test_ok()
-
-
-def test_password_error_user_id():
-    t = TestPassword()
-    t.test_error_user_id()
-
-
-def test_password_error_password():
-    t = TestPassword()
-    t.test_error_password()
