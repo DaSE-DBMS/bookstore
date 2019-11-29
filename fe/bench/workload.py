@@ -124,8 +124,10 @@ class Workload:
         self.n_payment_ok = self.n_payment_ok + n_payment_ok
         self.time_new_order = self.time_new_order + time_new_order
         self.time_payment = self.time_payment + time_payment
-        logging.info("tpsC={}, no={} {}, p={} {}".format(
-                     int(self.n_new_order_ok / (self.time_payment + self.time_new_order)),
-                     self.n_new_order_ok, self.n_new_order,
-                     self.n_payment_ok, self.n_payment))
+        if self.n_payment != 0 and self. n_new_order != 0 \
+                and (self.time_payment + self.time_new_order):
+            logging.info("TPS_C={}, NO=OK:{} TOTAL:{} LATENCY:{}, P=OK:{} TOTAL:{} LATENCY:{}".format(
+                         int(self.n_new_order_ok / (self.time_payment + self.time_new_order)),
+                         self.n_new_order_ok, self.n_new_order, self.time_new_order / self.n_new_order,
+                         self.n_payment_ok, self.n_payment, self.time_payment / self.n_payment))
         self.lock.release()
