@@ -98,6 +98,7 @@ token | string | 登录产生的会话标识 | N
 ---|---|---|---
 user_id | string | 买家用户ID | N
 order_id | string | 订单ID | N
+password | string | 买家用户密码 | N 
 
 
 #### Response
@@ -109,6 +110,7 @@ Status Code:
 200 | 付款成功
 5XX | 账户余额不足
 5XX | 无效参数
+401 | 授权失败 
 
 
 ## 买家充值
