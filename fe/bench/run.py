@@ -14,7 +14,7 @@ def run_bench():
         sessions.append(ss)
 
     for ss in sessions:
-        ss.run()
+        ss.start()
 
     for ss in sessions:
         ss.join()

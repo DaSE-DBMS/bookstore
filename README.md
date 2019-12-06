@@ -64,16 +64,21 @@ blob数据（如图片和大段的文字描述）可以分离出来存其它NoSQ
 ## 项目目录结构
 ```
 bookstore
-  |-- be                            mock backend
+  |-- be                            mock的后端
         |-- model
         |-- view
         |-- ....
-  |-- doc                           API specification
-  |-- fe                            frontend
+  |-- doc                           JSON API规范说明
+  |-- fe                            前端代码
         |-- access
-        |-- bench                   performance test
-        |-- data                    sqlite database(book.db)
-        |-- test                    functionality test
+        |-- bench                   效率测试
+        |-- data                    
+            |-- book.db             sqlite 数据库(book.db，较少量的测试数据)
+            |-- book_lx.db          sqlite 数据库(book_lx.db， 较大量的测试数据，要从网盘下载)
+            |-- scraper.py          从豆瓣爬取的图书信息数据
+        |-- test                    功能性测试（不要修改这里的文件，可以提pull request或bug）
+        |-- conf.py                 测试参数，修改这个文件以适应自己的需要
+        |-- conftest.py             pytest初始化配置，修改这个文件以适应自己的需要
         |-- ....
   |-- ....
 ```
