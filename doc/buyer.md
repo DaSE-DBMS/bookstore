@@ -41,7 +41,7 @@ books数组：
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-id | string | 初始库存，大于等于0 | N
+id | string | 书籍的ID | N
 count | string | 购买数量 | N
 
 
