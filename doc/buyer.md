@@ -78,17 +78,12 @@ POST http://[address]/buyer/payment
 
 #### Request
 
-##### Header:
-
-key | 类型 | 描述 | 是否可为空
----|---|---|---
-token | string | 登录产生的会话标识 | N
-
 ##### Body:
 ```json
 {
   "user_id": "buyer_id",
-  "order_id": "order_id"
+  "order_id": "order_id",
+  "password": "password"
 }
 ```
 
