@@ -24,7 +24,7 @@ Body:
 
 key | 类型 | 描述 | 是否可为空
 ---|---|---|---
-seller_id | string | 卖家用户ID | N
+user_id | string | 卖家用户ID | N
 store_id | string | 商铺ID | N
 
 #### Response
@@ -92,7 +92,7 @@ Body:
 
 变量名 | 类型 | 描述 | 是否可为空
 ---|---|---|---
-seller_id | string | 卖家用户ID | N
+user_id | string | 卖家用户ID | N
 store_id | string | 商铺ID | N
 book_info | class | 书籍信息 | N
 stock_level | int | 初始库存，大于等于0 | N
@@ -162,7 +162,7 @@ Body:
 ```
 key | 类型 | 描述 | 是否可为空
 ---|---|---|---
-seller_id | string | 卖家用户ID | N
+user_id | string | 卖家用户ID | N
 store_id | string | 商铺ID | N
 book_id | string | 书籍ID | N
 add_stock_level | int | 增加的库存量 | N
