@@ -105,11 +105,16 @@ class Workload:
         store_id = self.store_ids[store_no]
         books = random.randint(1, 10)
         book_id_and_count = []
+        book_temp = []
         for i in range(0, books):
             book_no = int(random.uniform(0, len(self.book_ids) - 1))
             book_id = self.book_ids[book_no]
-            count = random.randint(1, 10)
-            book_id_and_count.append((book_id, count))
+            if book_id in book_temp:
+                continue
+            else:
+                book_temp.append(book_id)
+                count = random.randint(1, 10)
+                book_id_and_count.append((book_id, count))
         b = Buyer(url_prefix=conf.URL, user_id=buyer_id, password=buyer_password)
         new_ord = NewOrder(b, store_id, book_id_and_count)
         return new_ord
